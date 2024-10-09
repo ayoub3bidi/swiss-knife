@@ -236,3 +236,16 @@ The script works by:
 - Memory usage scales with audio length
 - Temporary files are created during processing and automatically cleaned up
 - Format conversion may take additional time for non-WAV files
+
+## Podcast visualiser 
+To use with temperature safety features:
+bashCopy# Basic usage with default safety settings
+python podcast_visualizer.py podcast.mp3
+
+### Customize temperature threshold and threads
+```shell
+python podcast_visualizer.py podcast.mp3 \
+    --max-temp 70 \
+    --threads 2 \
+    --quality low
+```

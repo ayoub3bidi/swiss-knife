@@ -1,6 +1,8 @@
-pydub==0.25.1
+pydub>=0.25.1
 numpy>=1.21.0
 matplotlib>=3.4.3
 scipy>=1.7.0
 moviepy>=1.0.3
 tqdm>=4.62.0
+Pillow>=8.0.0
+psutil>=5.8.0
