@@ -3,25 +3,22 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-import matplotlib
-matplotlib.use('Agg')  # Required for saving animation
 from scipy.io import wavfile
 import moviepy.editor as mpe
 from pydub import AudioSegment
 import tempfile
-from tqdm import tqdm
+import matplotlib
+matplotlib.use('Agg')  #! Required for saving animation
+# from tqdm import tqdm
 
 def convert_to_wav(audio_path):
-    """Convert any audio file to wav format using pydub"""
     try:
         print(f"Converting {audio_path} to WAV format...")
         audio = AudioSegment.from_file(audio_path)
-        
-        # Create a temporary file with .wav extension
+
         temp_dir = tempfile.gettempdir()
         temp_wav = os.path.join(temp_dir, "temp_audio_conversion.wav")
-        
-        # Export as wav
+
         audio.export(temp_wav, format="wav")
         return temp_wav
     except Exception as e:
@@ -30,17 +27,14 @@ def convert_to_wav(audio_path):
 
 def create_audio_visualization(audio_path):
     try:
-        # Check if file exists
         if not os.path.exists(audio_path):
             print(f"Error: File '{audio_path}' does not exist.")
             return False
-        
-        # Get the directory and filename without extension
+
         directory = os.path.dirname(audio_path) if os.path.dirname(audio_path) else '.'
         filename = os.path.splitext(os.path.basename(audio_path))[0]
         output_path = os.path.join(directory, f"{filename}_visualization.mp4")
 
-        # Convert to wav if it's not already a wav file
         temp_wav = None
         if not audio_path.lower().endswith('.wav'):
             temp_wav = convert_to_wav(audio_path)
@@ -50,36 +44,29 @@ def create_audio_visualization(audio_path):
         else:
             wav_path = audio_path
 
-        # Read the WAV file
         print("Reading audio file...")
         sample_rate, audio_data = wavfile.read(wav_path)
-        
-        # Convert stereo to mono if necessary
+
         if len(audio_data.shape) > 1:
             audio_data = audio_data.mean(axis=1)
 
-        # Calculate duration
         duration = len(audio_data) / sample_rate
 
-        # Create segments for visualization
         segment_duration = 0.05  # 50ms segments
         segment_samples = int(sample_rate * segment_duration)
         num_segments = len(audio_data) // segment_samples
 
-        # Set up the figure
         fig, ax = plt.subplots(figsize=(10, 6))
         ax.set_facecolor('black')
         fig.patch.set_facecolor('black')
         line, = ax.plot([], [], lw=2, color='cyan')
-        
-        # Set up the animation
+
         max_amplitude = np.max(np.abs(audio_data))
         ax.set_xlim(0, segment_samples)
         ax.set_ylim(-max_amplitude, max_amplitude)
         ax.set_xticks([])
         ax.set_yticks([])
 
-        # Animation function
         def animate(frame):
             start_idx = frame * segment_samples
             end_idx = start_idx + segment_samples
@@ -90,14 +77,12 @@ def create_audio_visualization(audio_path):
         print("Creating animation...")
         anim = FuncAnimation(fig, animate, frames=num_segments,
                            interval=segment_duration*1000, blit=True)
-        
-        # Save the animation
+
         temp_path = "temp_animation.mp4"
         anim.save(temp_path, fps=int(1/segment_duration), 
                  progress_callback=lambda i, n: print(f'Saving frame {i} of {n}'))
         plt.close()
 
-        # Add the original audio to the video
         print("Adding audio to video...")
         video = mpe.VideoFileClip(temp_path)
         audio = mpe.AudioFileClip(audio_path)
@@ -105,7 +90,6 @@ def create_audio_visualization(audio_path):
         final_video.write_videofile(output_path, codec='libx264', 
                                   audio_codec='aac', fps=int(1/segment_duration))
 
-        # Clean up temporary files
         os.remove(temp_path)
         if temp_wav:
             os.remove(temp_wav)
@@ -115,7 +99,6 @@ def create_audio_visualization(audio_path):
 
     except Exception as e:
         print(f"An error occurred: {str(e)}")
-        # Clean up temporary files in case of error
         if os.path.exists("temp_animation.mp4"):
             os.remove("temp_animation.mp4")
         if temp_wav and os.path.exists(temp_wav):
