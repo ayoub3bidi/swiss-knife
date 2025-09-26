@@ -37,6 +37,10 @@ make install
 # Convert audio files
 python convert/wav_to_mp3.py audio.wav
 python convert/sound_to_video.py audio.mp3
+
+# Batch convert multiple formats
+python convert/batch_audio_converter.py --format mp3 *.wav
+python convert/batch_audio_converter.py --format flac --quality high ~/Music/
 ```
 
 ## Project Structure
@@ -53,32 +57,32 @@ sacred-scripts/
 ## Features
 
 ### Audio/Video Processing
-- WAV to MP3 conversion with quality control
-- Audio visualization video generator
-- Batch audio format converter
-- Video thumbnail generator
-- GIF creator from video clips
+- **Batch Audio Converter**: Multi-format conversion (MP3, WAV, OGG, FLAC) with quality presets and parallel processing
+- **WAV to MP3 conversion**: Simple single-file conversion with quality control
+- **Audio visualization generator**: Create animated waveform videos from any audio format
+- Video thumbnail generator (coming soon)
+- GIF creator from video clips (coming soon)
 
 ### File Management
-- Bulk file organizer by type/date
-- Duplicate file finder and cleaner
-- Directory synchronizer
-- Batch file renamer with regex patterns
-- Broken symlink detector
+- Bulk file organizer by type/date (coming soon)
+- Duplicate file finder and cleaner (coming soon)
+- Directory synchronizer (coming soon)
+- Batch file renamer with regex patterns (coming soon)
+- Broken symlink detector (coming soon)
 
 ### System Utilities
-- Resource monitor with alerts
-- Log file rotator and cleaner
-- Disk space analyzer with visualization
-- Startup time optimizer
-- Process manager by memory usage
+- Resource monitor with alerts (coming soon)
+- Log file rotator and cleaner (coming soon)
+- Disk space analyzer with visualization (coming soon)
+- Startup time optimizer (coming soon)
+- Process manager by memory usage (coming soon)
 
 ### Development Tools
-- Code formatter for multiple languages
-- License header injector
-- Git commit message generator
-- Dead code detector
-- Dependency vulnerability scanner
+- Code formatter for multiple languages (coming soon)
+- License header injector (coming soon)
+- Git commit message generator (coming soon)
+- Dead code detector (coming soon)
+- Dependency vulnerability scanner (coming soon)
 
 ## Installation
 
@@ -106,15 +110,27 @@ python convert/wav_to_mp3.py input.wav
 
 # Create audio visualization
 python convert/sound_to_video.py music.mp3
+
+# Batch convert with quality control
+python convert/batch_audio_converter.py --format mp3 --quality high *.wav
+
+# Convert entire directory with parallel processing
+python convert/batch_audio_converter.py --format flac --workers 8 ~/Music/
+
+# Convert with custom output directory
+python convert/batch_audio_converter.py --format ogg --output ./converted audio/*.mp3
 ```
 
-### Batch Operations
+### Advanced Batch Operations
 ```bash
-# Convert all WAV files in directory
-python utilities/batch_converter.py --format mp3 *.wav
+# High-quality lossless conversion
+python convert/batch_audio_converter.py --format flac --quality lossless ~/audio/
 
-# Organize downloads folder
-python automation/file_organizer.py ~/Downloads
+# Fast low-quality conversion for demos
+python convert/batch_audio_converter.py --format mp3 --quality low --overwrite *.wav
+
+# Mixed format processing with verbose output
+python convert/batch_audio_converter.py --format wav --verbose file1.mp3 dir1/ "*.ogg"
 ```
 
 ## Development
@@ -149,11 +165,7 @@ fm.organize_directory('~/Downloads', by='type')
 ### Audio/Video Processing
 - [x] WAV to MP3 converter
 - [x] Audio visualization generator
-- [ ] Batch audio format converter (MP3, WAV, OGG, FLAC)
-- [ ] Video thumbnail generator
-- [ ] GIF creator from video clips
-- [ ] Batch watermark applicator
-- [ ] Metadata extractor/editor for media files
+- [x] Batch audio format converter (MP3, WAV, OGG, FLAC)
 - [ ] Image batch resizer/converter
 
 ### File Management
