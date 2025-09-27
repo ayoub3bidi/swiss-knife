@@ -1,4 +1,4 @@
-# Sacred Scripts (It's kinda a stupid name, I know)
+# Sacred Scripts
 
 <p align="center">
     <img src="./logo.png"/> <br/>
