@@ -166,7 +166,7 @@ fm.organize_directory('~/Downloads', by='type')
 - [x] WAV to MP3 converter
 - [x] Audio visualization generator
 - [x] Batch audio format converter (MP3, WAV, OGG, FLAC)
-- [ ] Image batch resizer/converter
+- [x] Image batch resizer/converter
 
 ### File Management
 - [ ] Duplicate finder with hash comparison

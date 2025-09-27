@@ -4,6 +4,51 @@ Collection of Python scripts for audio and video conversion tasks. These tools p
 
 ## Scripts Overview
 
+### batch_image_converter.py
+Resize and convert images between multiple formats (JPEG, PNG, WebP, BMP, TIFF, GIF) with batch processing and advanced resizing modes.
+
+**Features:**
+- Multi-format conversion: JPEG, PNG, WebP, BMP, TIFF, GIF
+- Flexible resizing: fit, fill, stretch, pad modes
+- Quality presets for lossy formats
+- Batch processing with glob patterns and directories
+- Parallel processing for faster conversions
+- EXIF metadata preservation
+- Auto-orientation based on EXIF data
+- Background color options for padding
+- Comprehensive error handling and recovery
+
+**Usage:**
+```bash
+python batch_image_converter.py --width 800 --height 600 *.jpg
+python batch_image_converter.py --format webp --quality high ~/Pictures
+python batch_image_converter.py --width 1920 --mode fit --output ./resized *.png
+```
+
+**Resize Modes:**
+- `fit`: Resize to fit within dimensions, preserve aspect ratio (default)
+- `fill`: Fill exact dimensions, crop if necessary
+- `stretch`: Stretch to exact dimensions, ignore aspect ratio
+- `pad`: Pad with background color to fit exact dimensions
+
+**Quality Settings:**
+- `low`: 60% quality for JPEG/WebP
+- `medium`: 80% quality (default)
+- `high`: 95% quality
+- `maximum`: 100% quality, no optimization
+
+**Advanced Options:**
+```bash
+# Parallel processing with custom background
+python batch_image_converter.py --width 500 --mode pad --background "#ff0000" --workers 8 photos/
+
+# Format conversion with EXIF preservation
+python batch_image_converter.py --format jpeg --quality high --no-auto-orient images/
+
+# Batch resize with overwrite
+python batch_image_converter.py --height 1080 --overwrite --verbose ~/Pictures/
+```
+
 ### batch_audio_converter.py
 Converts audio files between multiple formats (MP3, WAV, OGG, FLAC) with batch processing and quality control.
 
@@ -104,6 +149,27 @@ pip install -r requirements.txt
 - `tqdm` - Progress bar display
 
 ## Technical Details
+
+### batch_image_converter.py Implementation
+- **Multi-threading**: Parallel image processing using ThreadPoolExecutor
+- **Format Detection**: Automatic image file discovery with extension filtering
+- **EXIF Handling**: Preserve metadata and auto-rotate based on orientation tags
+- **Memory Optimization**: Individual file processing to handle large batches
+- **Quality Control**: Format-specific optimization and compression settings
+- **Color Mode Conversion**: Automatic mode conversion (RGBA→RGB, etc.)
+
+#### Image Processing Pipeline
+- **Load**: Open image with PIL, detect format and color mode
+- **Orient**: Auto-rotate based on EXIF orientation data
+- **Resize**: Apply selected resize mode with high-quality resampling
+- **Convert**: Change color mode if required by target format
+- **Save**: Export with format-specific quality settings and metadata
+
+#### Resize Algorithms
+- **Fit**: Thumbnail resize preserving aspect ratio within bounds
+- **Fill**: Crop to fill exact dimensions using ImageOps.fit
+- **Stretch**: Direct resize ignoring aspect ratio
+- **Pad**: Center image on colored background to exact dimensions
 
 ### batch_audio_converter.py Implementation
 - **Multi-threading**: Parallel conversion using ThreadPoolExecutor
