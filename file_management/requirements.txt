@@ -1,0 +1,13 @@
+tqdm>=4.64.0
+send2trash>=1.8.0      # Safe file deletion (sends to recycle bin/trash)
+xxhash>=3.0.0          # Fast non-cryptographic hash for large files
+ujson>=5.0.0           # Ultra-fast JSON encoder/decoder
+wcmatch>=8.4.0         # Enhanced glob patterns and file matching
+python-dateutil>=2.8.0
+# sqlalchemy>=1.4.0
+# pyyaml>=6.0
+# pytest>=7.0.0
+# pytest-cov>=4.0.0
+# black>=22.0.0
+# flake8>=5.0.0
+# xattr>=0.10.0; sys_platform != "win32"

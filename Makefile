@@ -3,7 +3,7 @@ PYTHON := python3
 VENV := venv
 SCRIPTS_DIR := .
 
-.PHONY: help setup install test clean lint format demo validate-audio
+.PHONY: help setup install test clean lint format demo validate-audio validate-files
 
 help:  ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
@@ -14,6 +14,7 @@ setup: ## Create virtual environment
 
 install: ## Install all dependencies
 	./$(VENV)/bin/pip install -r convert/requirements.txt
+	./$(VENV)/bin/pip install -r file_management/requirements.txt
 	./$(VENV)/bin/pip install -r automation/requirements.txt || true
 	./$(VENV)/bin/pip install -r utilities/requirements.txt || true
 
@@ -22,6 +23,8 @@ test: ## Run all tests and validation
 	find . -name "*.py" -exec $(PYTHON) -m py_compile {} \;
 	@echo "Testing audio converter imports..."
 	$(VENV)/bin/python -c "from pydub import AudioSegment; print('✓ Audio dependencies OK')"
+	@echo "Testing file management imports..."
+	$(VENV)/bin/python -c "import tqdm, hashlib; print('✓ File management dependencies OK')"
 
 validate-audio: ## Validate audio conversion dependencies
 	@echo "Checking audio format support..."
@@ -30,15 +33,28 @@ validate-audio: ## Validate audio conversion dependencies
 	@$(VENV)/bin/python -c "import tqdm; print('✓ tqdm installed')" 2>/dev/null || echo "✗ tqdm missing"
 	@which ffmpeg > /dev/null && echo "✓ FFmpeg found" || echo "✗ FFmpeg not found (recommended for best format support)"
 
-demo: ## Run demonstration of audio conversion tools
-	@echo "Sacred Scripts Audio Conversion Demo"
+validate-files: ## Validate file management dependencies
+	@echo "Checking file management dependencies..."
+	@$(VENV)/bin/python -c "import tqdm; print('✓ tqdm installed')" 2>/dev/null || echo "✗ tqdm missing"
+	@$(VENV)/bin/python -c "import send2trash; print('✓ send2trash installed')" 2>/dev/null || echo "✗ send2trash missing"
+	@$(VENV)/bin/python -c "import xxhash; print('✓ xxhash installed')" 2>/dev/null || echo "✗ xxhash missing (optional)"
+	@$(VENV)/bin/python -c "import hashlib; print('✓ hashlib available')"
+
+demo: ## Run demonstration of available tools
+	@echo "Sacred Scripts Automation Tools Demo"
 	@echo "===================================="
-	@echo "Available converters:"
+	@echo ""
+	@echo "Audio/Video Processing:"
 	@echo "  • WAV to MP3: python convert/wav_to_mp3.py <file.wav>"
 	@echo "  • Audio visualization: python convert/sound_to_video.py <audio_file>"
 	@echo "  • Batch converter: python convert/batch_audio_converter.py --format mp3 *.wav"
 	@echo ""
-	@echo "Run 'make validate-audio' to check audio dependencies"
+	@echo "File Management:"
+	@echo "  • Duplicate finder: python file_management/duplicate_finder.py /path/to/search"
+	@echo "  • Find large duplicates: python file_management/duplicate_finder.py --min-size 10MB ~/Documents"
+	@echo "  • Safe duplicate removal: python file_management/duplicate_finder.py --delete-duplicates --dry-run ~/temp"
+	@echo ""
+	@echo "Run 'make validate-audio' or 'make validate-files' to check dependencies"
 
 lint: ## Lint all Python files
 	./$(VENV)/bin/python -m flake8 --max-line-length=100 --exclude=$(VENV) . || echo "flake8 not installed, skipping lint"
@@ -79,6 +95,35 @@ convert-demo: ## Show batch converter usage examples
 	@echo "Quality options: low, medium, high, lossless"
 	@echo "Formats: mp3, wav, ogg, flac"
 
+# File management specific targets  
+files-demo: ## Show file management usage examples
+	@echo "File Management Examples:"
+	@echo "  Find duplicates:        python file_management/duplicate_finder.py ~/Documents"
+	@echo "  Large files only:       python file_management/duplicate_finder.py --min-size 10MB ~/Videos"
+	@echo "  Image duplicates:       python file_management/duplicate_finder.py --extensions jpg,png,gif ~/Pictures"
+	@echo "  Export to JSON:         python file_management/duplicate_finder.py --output json --file report.json ~/Data"
+	@echo "  Safe removal (dry-run): python file_management/duplicate_finder.py --delete-duplicates --dry-run ~/temp"
+	@echo "  Delete duplicates:      python file_management/duplicate_finder.py --delete-duplicates --keep-strategy shortest_name ~/temp"
+	@echo ""
+	@echo "Hash algorithms: md5, sha1, sha256, sha512"
+	@echo "Keep strategies: first, last, shortest_name, longest_name"
+
 install-ffmpeg: ## Install FFmpeg (Ubuntu/Debian)
 	@echo "Installing FFmpeg for enhanced audio format support..."
 	@which apt-get > /dev/null && sudo apt-get update && sudo apt-get install -y ffmpeg || echo "Please install FFmpeg manually for your system"
+
+# System utilities
+install-system-deps: ## Install system dependencies (Ubuntu/Debian)
+	@echo "Installing system dependencies..."
+	@which apt-get > /dev/null && sudo apt-get update && sudo apt-get install -y ffmpeg python3-dev || echo "Please install system dependencies manually"
+
+# Testing targets
+test-audio: ## Test audio conversion functionality
+	@echo "Testing audio conversion tools..."
+	@$(VENV)/bin/python -c "from convert.batch_audio_converter import AudioConverter; print('✓ Audio converter imports OK')" || echo "✗ Audio converter test failed"
+
+test-files: ## Test file management functionality  
+	@echo "Testing file management tools..."
+	@$(VENV)/bin/python -c "from file_management.duplicate_finder import DuplicateFinder; print('✓ Duplicate finder imports OK')" || echo "✗ File management test failed"
+
+test-all: test-audio test-files ## Run all functionality tests
