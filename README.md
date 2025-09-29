@@ -225,7 +225,7 @@ fm.organize_directory('~/Downloads', by='type')
 
 ### File Management
 - [x] Duplicate finder with hash comparison
-- [ ] Bulk file renamer with regex patterns
+- [x] Bulk file renamer with regex patterns
 - [ ] Directory synchronizer
 - [ ] File organizer by date/type/size
 - [ ] Broken symlink detector
