@@ -37,7 +37,8 @@ python convert/batch_audio_converter.py --format mp3 *.wav
 
 # File Management
 python file_management/duplicate_finder.py ~/Documents
-python file_management/duplicate_finder.py --min-size 10MB --extensions jpg,png ~/Pictures
+python file_management/bulk_renamer.py "\s+" "_" ~/Documents
+python file_management/broken_symlinks.py ~/Projects
 ```
 
 ## Project Structure
@@ -66,10 +67,16 @@ sacred-scripts/
   - Safe deletion with multiple keep strategies
   - JSON/text export for reporting
   - Dry-run mode for safe testing
-- Bulk file organizer by type/date (coming soon)
+- **Bulk File Renamer**: Regex-based pattern matching with advanced features
+  - Sequential numbering and custom placeholders
+  - Collision detection and prevention
+  - Interactive mode and dry-run support
+- **Broken Symlink Detector**: Find and manage broken symbolic links
+  - Circular reference detection
+  - Safe deletion with trash support
+  - Detailed reporting with export options
 - Directory synchronizer (coming soon)
-- Batch file renamer with regex patterns (coming soon)
-- Broken symlink detector (coming soon)
+- File organizer by type/date (coming soon)
 
 ### ⚙️ System Utilities
 - Resource monitor with alerts (coming soon)
@@ -142,21 +149,45 @@ python file_management/duplicate_finder.py ~/temp --delete-duplicates --dry-run
 
 # Delete duplicates keeping shortest filenames
 python file_management/duplicate_finder.py ~/temp --delete-duplicates --keep-strategy shortest_name
-
-# Secure duplicate detection with SHA256
-python file_management/duplicate_finder.py ~/Important --hash sha256
 ```
 
-### Advanced Batch Operations
+### Bulk File Renaming
 ```bash
-# High-quality lossless audio conversion
-python convert/batch_audio_converter.py --format flac --quality lossless ~/audio/
+# Replace spaces with underscores
+python file_management/bulk_renamer.py "\s+" "_" ~/Documents
 
-# Fast low-quality conversion for demos
-python convert/batch_audio_converter.py --format mp3 --quality low --overwrite *.wav
+# Add sequence numbers to photos
+python file_management/bulk_renamer.py "^" "photo_{seq}_" ~/Pictures --seq-padding 3
 
-# Find and clean large duplicate videos
-python file_management/duplicate_finder.py ~/Movies --min-size 500MB --delete-duplicates --dry-run
+# Remove dates from filenames
+python file_management/bulk_renamer.py "\d{4}-\d{2}-\d{2}_" "" .
+
+# Preview changes before applying
+python file_management/bulk_renamer.py "old" "new" . --preview
+
+# Swap filename parts using regex groups
+python file_management/bulk_renamer.py "(\d+)_(.+)" "\2_\1" .
+```
+
+### Broken Symlink Detection
+```bash
+# Find broken symlinks in home directory
+python file_management/broken_symlinks.py ~
+
+# Check with circular reference detection
+python file_management/broken_symlinks.py /path/to/check --check-circular
+
+# Export results to JSON
+python file_management/broken_symlinks.py /path/to/check --output json --file report.json
+
+# Preview what would be deleted
+python file_management/broken_symlinks.py /path/to/check --delete --dry-run
+
+# Delete broken symlinks (move to trash)
+python file_management/broken_symlinks.py /path/to/check --delete --use-trash
+
+# Limit scan depth
+python file_management/broken_symlinks.py /path/to/check --max-depth 3
 ```
 
 ## Development
@@ -181,7 +212,7 @@ make files-demo     # File management examples
 
 ## Library Usage (Coming Soon)
 ```python
-from sacred_scripts import AudioConverter, DuplicateFinder, FileManager
+from sacred_scripts import AudioConverter, DuplicateFinder, FileManager, SymlinkDetector
 
 # Audio processing
 converter = AudioConverter()
@@ -190,6 +221,11 @@ converter.batch_convert('*.wav', format='mp3', quality='high')
 # Duplicate detection
 finder = DuplicateFinder(hash_algorithm='sha256', min_size='10MB')
 duplicates = finder.find_duplicates(['/path/to/search'])
+
+# Symlink management
+symlinks = SymlinkDetector(check_circular=True)
+broken = symlinks.scan(['/path/to/check'])
+symlinks.delete_broken(use_trash=True)
 
 # File operations
 fm = FileManager()
@@ -214,6 +250,8 @@ fm.organize_directory('~/Downloads', by='type')
 - Safe deletion using system trash/recycle bin
 - Comprehensive error handling
 - Detailed operation logging
+- Collision detection for renames
+- Circular symlink detection
 
 ## TODO List
 
@@ -226,9 +264,7 @@ fm.organize_directory('~/Downloads', by='type')
 ### File Management
 - [x] Duplicate finder with hash comparison
 - [x] Bulk file renamer with regex patterns
-- [ ] Directory synchronizer
-- [ ] File organizer by date/type/size
-- [ ] Broken symlink detector
+- [x] Broken symlink detector
 
 ### System Utilities
 - [ ] System resource monitor with alerts
