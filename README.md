@@ -267,7 +267,7 @@ fm.organize_directory('~/Downloads', by='type')
 - [x] Broken symlink detector
 
 ### System Utilities
-- [ ] System resource monitor with alerts
+- [x] System resource monitor with alerts
 - [ ] Process killer by memory usage
 - [ ] Startup time optimizer
 - [ ] Disk space analyzer with visualization

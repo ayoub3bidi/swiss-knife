@@ -1,0 +1,5 @@
+psutil>=5.9.0          # Cross-platform system and process utilities
+tqdm>=4.64.0           # Progress bars for monitoring
+ujson>=5.0.0           # Fast JSON encoding for logs
+python-dateutil>=2.8.0 # Date/time utilities
+colorama>=0.4.6        # Cross-platform colored terminal output
