@@ -117,6 +117,11 @@ install-system-deps: ## Install system dependencies (Ubuntu/Debian)
 	@echo "Installing system dependencies..."
 	@which apt-get > /dev/null && sudo apt-get update && sudo apt-get install -y ffmpeg python3-dev || echo "Please install system dependencies manually"
 
+kill-demo: ## Show process killer usage
+	@echo "Process Killer Examples:"
+	@echo "  Kill memory hogs:  python system_utilities/process_killer.py --min-memory 1024 --dry-run"
+	@echo "  Kill CPU hogs:     python system_utilities/process_killer.py --cpu-threshold 90"
+
 # Testing targets
 test-audio: ## Test audio conversion functionality
 	@echo "Testing audio conversion tools..."

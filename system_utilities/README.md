@@ -100,3 +100,17 @@ python system_utilities/system_monitor.py --once --show-processes
 # Get JSON report for automation
 python system_utilities/system_monitor.py --once --export-report health.json
 ```
+
+```bash
+# Safe preview
+python system_utilities/process_killer.py --min-memory 2048 --dry-run
+
+# Kill Chrome tabs using >500MB
+python system_utilities/process_killer.py --name chrome --min-memory 500
+
+# Kill high memory processes, protect database
+python system_utilities/process_killer.py --memory-threshold 85 --exclude-user postgres
+
+# Emergency: Kill top memory consumers immediately
+python system_utilities/process_killer.py --min-memory 1024 --force
+```
