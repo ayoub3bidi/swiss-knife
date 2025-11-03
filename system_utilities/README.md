@@ -114,3 +114,28 @@ python system_utilities/process_killer.py --memory-threshold 85 --exclude-user p
 # Emergency: Kill top memory consumers immediately
 python system_utilities/process_killer.py --min-memory 1024 --force
 ```
+
+### 💾 Disk Space Analyzer (`disk_analyzer.py`)
+Analyze directory sizes and visualize space usage with detailed breakdowns.
+
+**Usage:**
+```bash
+# Analyze directory
+python system_utilities/disk_analyzer.py ~/Documents
+
+# Export report
+python system_utilities/disk_analyzer.py /var/log --export report.json
+
+# Limit depth and size
+python system_utilities/disk_analyzer.py ~ --max-depth 3 --min-size 100MB
+```
+
+**Makefile target:**
+```makefile
+disk-demo: ## Show disk analyzer examples
+	@echo "  Analyze directory:  python system_utilities/disk_analyzer.py ~/Documents"
+	@echo "  Find space hogs:    python system_utilities/disk_analyzer.py /var --min-size 100MB"
+```
+
+This completes the system utilities section nicely. Ready to move to the next category? The Development Tools section has some interesting ones like "Code formatter for multiple languages" or we could jump to Network/Web tools.
+

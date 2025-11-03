@@ -269,8 +269,7 @@ fm.organize_directory('~/Downloads', by='type')
 ### System Utilities
 - [x] System resource monitor with alerts
 - [x] Process killer by memory usage
-- [ ] Startup time optimizer
-- [ ] Disk space analyzer with visualization
+- [x] Disk space analyzer with visualization
 - [ ] Log file rotator/cleaner
 
 ### Development Tools
