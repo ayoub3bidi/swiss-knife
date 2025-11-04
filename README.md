@@ -40,7 +40,8 @@ python file_management/bulk_renamer.py "\s+" "_" ~/Documents
 
 # Text Processing
 python text_processing/csv_converter.py data.csv -f json
-python text_processing/csv_converter.py data.csv -f xml
+python text_processing/markdown_converter.py README.md
+python text_processing/text_merger.py *.txt -o merged.txt
 ```
 
 ## Project Structure
@@ -83,6 +84,17 @@ sacred-scripts/
   - Custom delimiters (comma, tab, pipe, etc.)
   - Header normalization and empty field handling
   - Multiple encoding support
+- **Markdown to HTML Converter**: Convert Markdown to styled HTML
+  - Multiple themes (GitHub, Monokai, Dracula, Solarized)
+  - Syntax highlighting with Pygments
+  - Table of contents generation
+  - Batch directory conversion
+- **Text File Merger**: Merge multiple text files with delimiters
+  - Multiple delimiter presets and custom delimiters
+  - File headers with timestamps and statistics
+  - Flexible sorting (by name, size, date, extension)
+  - Content processing (line numbers, whitespace handling)
+  - Preview mode for testing
 
 ### ⚙️ System Utilities
 - **System Resource Monitor**: Real-time monitoring with configurable alerts
@@ -156,11 +168,17 @@ python text_processing/csv_converter.py data.csv -f json
 # Convert CSV to XML with custom tags
 python text_processing/csv_converter.py data.csv -f xml --root-tag data --row-tag record
 
-# Handle TSV files
-python text_processing/csv_converter.py data.tsv -f json -d $'\t'
+# Convert Markdown to HTML
+python text_processing/markdown_converter.py README.md --theme github
 
-# Compact JSON for APIs
-python text_processing/csv_converter.py data.csv -f json --no-pretty --sort-keys
+# Merge text files
+python text_processing/text_merger.py *.txt -o merged.txt
+
+# Merge logs with timestamps
+python text_processing/text_merger.py logs/*.log -o combined.log --timestamp --stats
+
+# Merge code files with line numbers
+python text_processing/text_merger.py src/*.py -o all_code.py --line-numbers --sort date
 ```
 
 ### System Utilities
@@ -243,7 +261,7 @@ make system-demo    # System utilities examples
 ### Text Processing
 - [x] CSV to JSON/XML converter
 - [x] Markdown to HTML converter
-- [ ] Text file merger with delimiters
+- [x] Text file merger with delimiters
 - [ ] Word frequency analyzer
 - [ ] Email extractor from text files
 
@@ -277,7 +295,7 @@ make system-demo    # System utilities examples
 
 ## Library Usage (Coming Soon)
 ```python
-from sacred_scripts import AudioConverter, DuplicateFinder, CSVConverter
+from sacred_scripts import AudioConverter, DuplicateFinder, CSVConverter, TextMerger
 
 # Audio processing
 converter = AudioConverter()
@@ -291,6 +309,10 @@ duplicates = finder.find_duplicates(['/path/to/search'])
 csv_conv = CSVConverter()
 data = csv_conv.read_csv('data.csv')
 json_output = csv_conv.to_json(data, pretty=True)
+
+# Text merging
+merger = TextMerger(delimiter='line', add_timestamp=True)
+merger.merge_files(['file1.txt', 'file2.txt'], 'output.txt')
 ```
 
 ## Contributing

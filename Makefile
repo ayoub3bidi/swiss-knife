@@ -50,6 +50,7 @@ validate-text: ## Validate text processing dependencies
 	@$(VENV)/bin/python -c "import json; print('✓ json available')"
 	@$(VENV)/bin/python -c "import xml.etree.ElementTree; print('✓ xml available')"
 	@$(VENV)/bin/python -c "import tqdm; print('✓ tqdm installed')" 2>/dev/null || echo "✗ tqdm missing"
+	@$(VENV)/bin/python -c "import markdown; print('✓ markdown installed')" 2>/dev/null || echo "✗ markdown missing"
 
 demo: ## Run demonstration of available tools
 	@echo "Sacred Scripts Automation Tools Demo"
@@ -69,6 +70,8 @@ demo: ## Run demonstration of available tools
 	@echo "Text Processing:"
 	@echo "  • CSV to JSON: python text_processing/csv_converter.py data.csv -f json"
 	@echo "  • CSV to XML: python text_processing/csv_converter.py data.csv -f xml"
+	@echo "  • Markdown to HTML: python text_processing/markdown_converter.py README.md"
+	@echo "  • Text merger: python text_processing/text_merger.py *.txt -o merged.txt"
 	@echo ""
 	@echo "System Utilities:"
 	@echo "  • System monitor: python system_utilities/system_monitor.py"
@@ -135,6 +138,9 @@ text-demo: ## Show text processing usage examples
 	@echo "  CSV to JSON:            python text_processing/csv_converter.py data.csv -f json"
 	@echo "  CSV to XML:             python text_processing/csv_converter.py data.csv -f xml"
 	@echo "  Markdown to HTML:       python text_processing/markdown_converter.py README.md"
+	@echo "  Merge text files:       python text_processing/text_merger.py *.txt -o merged.txt"
+	@echo "  Merge with timestamps:  python text_processing/text_merger.py logs/*.log -o combined.log --timestamp"
+	@echo "  Merge with line nums:   python text_processing/text_merger.py *.py -o all_code.py --line-numbers"
 	@echo "  Custom delimiter:       python text_processing/csv_converter.py data.tsv -f json -d $'\\t'"
 	@echo "  Compact JSON:           python text_processing/csv_converter.py data.csv -f json --no-pretty"
 	@echo "  MD with theme:          python text_processing/markdown_converter.py doc.md --theme monokai"
@@ -142,6 +148,7 @@ text-demo: ## Show text processing usage examples
 	@echo ""
 	@echo "CSV formats: json, xml"
 	@echo "MD themes: default, github, monokai, dracula, solarized-dark, solarized-light"
+	@echo "Merger delimiters: line, double, hash, star, dash, blank, minimal, section"
 
 # System utilities specific targets
 system-demo: ## Show system utilities usage examples
