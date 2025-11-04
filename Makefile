@@ -134,13 +134,14 @@ text-demo: ## Show text processing usage examples
 	@echo "Text Processing Examples:"
 	@echo "  CSV to JSON:            python text_processing/csv_converter.py data.csv -f json"
 	@echo "  CSV to XML:             python text_processing/csv_converter.py data.csv -f xml"
-	@echo "  Custom delimiter:       python text_processing/csv_converter.py data.tsv -f json -d $$'\\t'"
+	@echo "  Markdown to HTML:       python text_processing/markdown_converter.py README.md"
+	@echo "  Custom delimiter:       python text_processing/csv_converter.py data.tsv -f json -d $'\\t'"
 	@echo "  Compact JSON:           python text_processing/csv_converter.py data.csv -f json --no-pretty"
-	@echo "  Custom XML tags:        python text_processing/csv_converter.py data.csv -f xml --root-tag data --row-tag record"
-	@echo "  Sort keys:              python text_processing/csv_converter.py data.csv -f json --sort-keys"
+	@echo "  MD with theme:          python text_processing/markdown_converter.py doc.md --theme monokai"
+	@echo "  Batch MD conversion:    python text_processing/markdown_converter.py docs/ -o html/ --recursive"
 	@echo ""
-	@echo "Output formats: json, xml"
-	@echo "Options: --no-infer-types, --skip-empty-fields, --encoding"
+	@echo "CSV formats: json, xml"
+	@echo "MD themes: default, github, monokai, dracula, solarized-dark, solarized-light"
 
 # System utilities specific targets
 system-demo: ## Show system utilities usage examples

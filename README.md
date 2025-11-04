@@ -235,17 +235,17 @@ make system-demo    # System utilities examples
 - [x] Bulk file renamer with regex patterns
 - [x] Broken symlink detector
 
-### Text Processing
-- [x] CSV to JSON/XML converter
-- [ ] Text file merger with delimiters
-- [ ] Word frequency analyzer
-- [ ] Markdown to HTML converter
-- [ ] Email extractor from text files
-
 ### System Utilities
 - [x] System resource monitor with alerts
 - [x] Process killer by memory usage
 - [x] Disk space analyzer with visualization
+
+### Text Processing
+- [x] CSV to JSON/XML converter
+- [x] Markdown to HTML converter
+- [ ] Text file merger with delimiters
+- [ ] Word frequency analyzer
+- [ ] Email extractor from text files
 
 ### Development Tools
 - [ ] Code formatter for multiple languages

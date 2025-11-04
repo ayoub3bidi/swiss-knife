@@ -1,2 +1,4 @@
 tqdm>=4.64.0          # Progress bars
 python-dateutil>=2.8.0
+markdown>=3.4.0       # Markdown parsing and conversion
+Pygments>=2.15.0      # Syntax highlighting for code blocks

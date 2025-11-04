@@ -18,6 +18,20 @@ Convert CSV files to JSON or XML format with intelligent type inference and flex
 - Progress tracking
 - Compression statistics
 
+### 📝 Markdown to HTML Converter (`markdown_converter.py`)
+Convert Markdown files to styled HTML with syntax highlighting, themes, and table of contents.
+
+**Features:**
+- Multiple HTML templates (minimal, styled)
+- Syntax highlighting with multiple themes (GitHub, Monokai, Dracula, Solarized)
+- Automatic table of contents generation
+- Table support
+- YAML frontmatter metadata parsing
+- Code block line numbers
+- Custom page titles
+- Batch directory conversion
+- Responsive design
+
 ## Installation
 
 ```bash
@@ -46,6 +60,21 @@ python text_processing/csv_converter.py data.csv -f xml
 
 # Custom XML tags
 python text_processing/csv_converter.py data.csv -f xml --root-tag data --row-tag record
+```
+
+### Markdown to HTML
+```bash
+# Basic conversion with styled template
+python text_processing/markdown_converter.py README.md
+
+# Minimal template (no styling)
+python text_processing/markdown_converter.py doc.md --template minimal -o doc.html
+
+# Different syntax highlighting theme
+python text_processing/markdown_converter.py code.md --theme monokai
+
+# Convert entire directory
+python text_processing/markdown_converter.py docs/ -o html/ --recursive
 ```
 
 ## Usage Examples
@@ -103,7 +132,120 @@ python csv_converter.py data.csv -f json
 python csv_converter.py data.csv -f json --skip-empty-fields
 
 # Handle different encodings
-python csv_converter.py latin1_data.csv -f json --encoding latin-1
+  python csv_converter.py latin1_data.csv -f json --encoding latin-1
+```
+
+### Markdown Converter
+
+#### Basic Conversions
+```bash
+# Convert with default styled template
+python markdown_converter.py README.md
+
+# Custom output path
+python markdown_converter.py docs.md -o documentation.html
+
+# Minimal template (no CSS styling)
+python markdown_converter.py notes.md --template minimal
+```
+
+#### Syntax Highlighting Themes
+```bash
+# GitHub theme (default)
+python markdown_converter.py code.md --theme github
+
+# Dark themes
+python markdown_converter.py tutorial.md --theme monokai
+python markdown_converter.py guide.md --theme dracula
+python markdown_converter.py docs.md --theme solarized-dark
+
+# Light themes
+python markdown_converter.py article.md --theme default
+python markdown_converter.py blog.md --theme solarized-light
+```
+
+#### Table of Contents & Features
+```bash
+# Disable table of contents
+python markdown_converter.py doc.md --no-toc
+
+# Add line numbers to code blocks
+python markdown_converter.py tutorial.md --line-numbers
+
+# Custom page title
+python markdown_converter.py post.md --title "My Blog Post"
+
+# Add generation timestamp footer
+python markdown_converter.py article.md --footer
+
+# Combine options
+python markdown_converter.py guide.md --theme monokai --line-numbers --footer
+```
+
+#### Batch Conversion
+```bash
+# Convert all markdown in directory
+python markdown_converter.py docs/ -o html/
+
+# Recursive conversion (subdirectories)
+python markdown_converter.py project/ -o output/ --recursive
+
+# Blog/documentation site generation
+python markdown_converter.py blog/posts/ -o blog/html/ --recursive --theme github --footer
+```
+
+#### Advanced Usage
+```bash
+# Disable specific features
+python markdown_converter.py simple.md --no-tables --no-highlight
+
+# Technical documentation
+python markdown_converter.py api_docs.md --line-numbers --theme monokai -o docs/api.html
+
+# Blog post with metadata
+python markdown_converter.py post.md --theme github --footer --title "Blog Post Title"
+```
+
+### Real-World Scenarios
+
+#### Documentation Generation
+```bash
+# Convert project README
+python markdown_converter.py README.md -o docs/index.html --theme github
+
+# Generate API documentation
+python markdown_converter.py api/ -o docs/api/ --recursive --line-numbers
+
+# Technical guides with TOC
+python markdown_converter.py guides/ -o website/guides/ --recursive --theme monokai
+```
+
+#### Blog/Static Site
+```bash
+# Convert blog posts
+python markdown_converter.py posts/ -o public/ --recursive --footer
+
+# With custom theme
+python markdown_converter.py articles/ -o site/articles/ --recursive --theme dracula --footer
+```
+
+#### Code Tutorials
+```bash
+# Python tutorial with line numbers
+python markdown_converter.py python_tutorial.md --line-numbers --theme monokai
+
+# Multi-language docs
+python markdown_converter.py tutorials/ -o docs/ --recursive --line-numbers --theme github
+```
+
+### CSV to Markdown Workflow
+```bash
+# First convert data
+python csv_converter.py data.csv -f json
+
+# Then create markdown report and convert to HTML
+echo "# Data Report\n\nData processed successfully." > report.md
+python markdown_converter.py report.md --theme github --footer
 ```
 
 ### Real-World Scenarios
@@ -128,7 +270,7 @@ python csv_converter.py large_dataset.csv -f json --skip-empty-rows --skip-empty
 
 ## Technical Details
 
-### Type Inference Algorithm
+### CSV Converter Implementation
 - **Booleans**: `true/false`, `yes/no`, `y/n`, `1/0` (case-insensitive)
 - **Integers**: Numeric strings without decimal points
 - **Floats**: Numeric strings with decimals or scientific notation
@@ -196,3 +338,7 @@ python csv_converter.py data.csv -f json --encoding utf-16
 - CSV validation and cleanup
 - Column filtering and transformation
 - Multiple file batch processing
+- JSON/YAML to Markdown converter
+- Text file merger with delimiters
+- Word frequency analyzer
+- Email extractor from text files
