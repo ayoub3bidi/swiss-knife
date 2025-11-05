@@ -141,7 +141,44 @@ text-demo: ## Show text processing usage examples
 	@echo "  Merge text files:       python text_processing/text_merger.py *.txt -o merged.txt"
 	@echo "  Merge with timestamps:  python text_processing/text_merger.py logs/*.log -o combined.log --timestamp"
 	@echo "  Merge with line nums:   python text_processing/text_merger.py *.py -o all_code.py --line-numbers"
-	@echo "  Custom delimiter:       python text_processing/csv_converter.py data.tsv -f json -d $'\\t'"
+	@echo "  Word frequency:         python text_processing/word_frequency.py document.txt"
+	@echo "  Frequency with stops:   python text_processing/word_frequency.py article.txt --remove-stop-words --top 30"
+	@echo "  Analyze directory:      python text_processing/word_frequency.py docs/ -r --ext txt,md --contexts"
+	@echo "  Custom delimiter:       python text_processing/csv_converter.py data.tsv -f json -d 
+
+# System utilities specific targets
+system-demo: ## Show system utilities usage examples
+	@echo "System Utilities Examples:"
+	@echo "  Monitor system:         python system_utilities/system_monitor.py"
+	@echo "  Quick status:           python system_utilities/system_monitor.py --once"
+	@echo "  Kill memory hogs:       python system_utilities/process_killer.py --min-memory 1024 --dry-run"
+	@echo "  Analyze disk:           python system_utilities/disk_analyzer.py ~/Documents"
+	@echo "  Export report:          python system_utilities/system_monitor.py --export-report report.json"
+
+install-ffmpeg: ## Install FFmpeg (Ubuntu/Debian)
+	@echo "Installing FFmpeg for enhanced audio format support..."
+	@which apt-get > /dev/null && sudo apt-get update && sudo apt-get install -y ffmpeg || echo "Please install FFmpeg manually for your system"
+
+# System utilities
+install-system-deps: ## Install system dependencies (Ubuntu/Debian)
+	@echo "Installing system dependencies..."
+	@which apt-get > /dev/null && sudo apt-get update && sudo apt-get install -y ffmpeg python3-dev || echo "Please install system dependencies manually"
+
+# Testing targets
+test-audio: ## Test audio conversion functionality
+	@echo "Testing audio conversion tools..."
+	@$(VENV)/bin/python -c "from convert.batch_audio_converter import AudioConverter; print('✓ Audio converter imports OK')" || echo "✗ Audio converter test failed"
+
+test-files: ## Test file management functionality  
+	@echo "Testing file management tools..."
+	@$(VENV)/bin/python -c "from file_management.duplicate_finder import DuplicateFinder; print('✓ Duplicate finder imports OK')" || echo "✗ File management test failed"
+
+test-text: ## Test text processing functionality
+	@echo "Testing text processing tools..."
+	@$(VENV)/bin/python -c "from text_processing.csv_converter import CSVConverter; print('✓ CSV converter imports OK')" || echo "✗ Text processing test failed"
+
+test-all: test-audio test-files test-text ## Run all functionality tests
+\\t'"
 	@echo "  Compact JSON:           python text_processing/csv_converter.py data.csv -f json --no-pretty"
 	@echo "  MD with theme:          python text_processing/markdown_converter.py doc.md --theme monokai"
 	@echo "  Batch MD conversion:    python text_processing/markdown_converter.py docs/ -o html/ --recursive"

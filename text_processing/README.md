@@ -45,6 +45,21 @@ Merge multiple text files with customizable delimiters and advanced formatting o
 - Error handling strategies (skip, stop, replace)
 - Preview mode for testing
 
+### 📈 Word Frequency Analyzer (`word_frequency.py`)
+Analyze word frequency in text files with advanced filtering and pattern matching.
+
+**Features:**
+- Smart tokenization with regex patterns
+- Built-in stop words removal (English) + custom stop words
+- Flexible filtering (min/max length, case sensitivity, alphabetic-only)
+- Context extraction (see words in actual usage)
+- Search capabilities (starts-with, ends-with, contains)
+- Per-file breakdown for multi-file analysis
+- Word length distribution analysis
+- Multiple export formats (JSON, CSV)
+- ASCII bar chart visualization
+- Comprehensive statistics
+
 ## Installation
 
 ```bash
@@ -54,40 +69,22 @@ pip install -r text_processing/requirements.txt
 
 ## Quick Start
 
-### CSV to JSON
+### CSV to JSON/XML
 ```bash
-# Basic conversion
+# Convert to JSON
 python text_processing/csv_converter.py data.csv -f json
 
-# Custom output path
-python text_processing/csv_converter.py data.csv -f json -o output.json
-
-# Compact JSON (no pretty-printing)
-python text_processing/csv_converter.py data.csv -f json --no-pretty
-```
-
-### CSV to XML
-```bash
-# Basic XML conversion
-python text_processing/csv_converter.py data.csv -f xml
-
-# Custom XML tags
+# Convert to XML with custom tags
 python text_processing/csv_converter.py data.csv -f xml --root-tag data --row-tag record
 ```
 
 ### Markdown to HTML
 ```bash
-# Basic conversion with styled template
+# Basic conversion
 python text_processing/markdown_converter.py README.md
 
-# Minimal template (no styling)
-python text_processing/markdown_converter.py doc.md --template minimal -o doc.html
-
-# Different syntax highlighting theme
-python text_processing/markdown_converter.py code.md --theme monokai
-
-# Convert entire directory
-python text_processing/markdown_converter.py docs/ -o html/ --recursive
+# With theme and line numbers
+python text_processing/markdown_converter.py code.md --theme monokai --line-numbers
 ```
 
 ### Text File Merger
@@ -95,90 +92,182 @@ python text_processing/markdown_converter.py docs/ -o html/ --recursive
 # Basic merge
 python text_processing/text_merger.py *.txt -o merged.txt
 
-# Merge with timestamps and stats
-python text_processing/text_merger.py logs/*.log -o combined.log --timestamp --stats
+# Merge with timestamps and line numbers
+python text_processing/text_merger.py logs/*.log -o combined.log --timestamp --line-numbers
+```
 
-# Clean merge (no headers, remove empty lines)
-python text_processing/text_merger.py *.txt -o clean.txt --no-filename --remove-empty
+### Word Frequency Analyzer
+```bash
+# Basic analysis
+python text_processing/word_frequency.py document.txt
 
-# Merge sorted by date with line numbers
-python text_processing/text_merger.py *.py -o all_code.py --sort date --line-numbers
+# Remove stop words, show top 30
+python text_processing/word_frequency.py article.txt --remove-stop-words --top 30
 
-# Recursive directory merge
-python text_processing/text_merger.py src/ tests/ -o all_files.txt -r --ext py,js
+# Analyze directory with contexts
+python text_processing/word_frequency.py docs/ -r --ext txt,md --contexts
+
+# Export results
+python text_processing/word_frequency.py data.txt --export-json report.json --export-csv words.csv
 ```
 
 ## Usage Examples
 
-### CSV Converter
+### Word Frequency Analyzer
+
+#### Basic Analysis
+```bash
+# Analyze single file
+python word_frequency.py document.txt
+
+# Analyze with top 50 words
+python word_frequency.py article.txt --top 50
+
+# Show word contexts (example sentences)
+python word_frequency.py story.txt --contexts --top 10
+```
+
+#### Stop Words and Filtering
+```bash
+# Remove common stop words
+python word_frequency.py article.txt --remove-stop-words
+
+# Custom stop words file
+python word_frequency.py text.txt --remove-stop-words --stop-words-file custom_stops.txt
+
+# Only alphabetic words, minimum length 3
+python word_frequency.py doc.txt --only-alpha --min-length 3
+
+# Words between 5-15 characters
+python word_frequency.py text.txt --min-length 5 --max-length 15
+
+# Case-sensitive analysis (distinguish Hello vs hello)
+python word_frequency.py code.py --case-sensitive
+```
+
+#### Directory Analysis
+```bash
+# Analyze all text files in directory
+python word_frequency.py docs/ --ext txt
+
+# Recursive analysis with multiple extensions
+python word_frequency.py project/ -r --ext py,js,ts,md
+
+# Analyze source code (case-sensitive, min length 3)
+python word_frequency.py src/ -r --case-sensitive --min-length 3 --ext py
+```
+
+#### Pattern Searching
+```bash
+# Find words starting with "pre"
+python word_frequency.py text.txt --starts-with pre
+
+# Find words ending with "tion"
+python word_frequency.py article.txt --ends-with tion --top 30
+
+# Find words containing "script"
+python word_frequency.py docs/ -r --contains script
+
+# Combine filters and search
+python word_frequency.py text.txt --remove-stop-words --starts-with un --min-length 5
+```
+
+#### Export and Reporting
+```bash
+# Export to JSON with contexts
+python word_frequency.py article.txt --export-json report.json --contexts
+
+# Export to CSV for spreadsheet analysis
+python word_frequency.py data.txt --export-csv words.csv
+
+# Both exports
+python word_frequency.py doc.txt --export-json analysis.json --export-csv frequencies.csv
+```
+
+#### Advanced Filtering
+```bash
+# Words appearing at least 10 times
+python word_frequency.py large_doc.txt --min-frequency 10
+
+# Exclude numbers, only letters
+python word_frequency.py text.txt --no-numbers --only-alpha
+
+# Different encoding
+python word_frequency.py latin1_file.txt --encoding latin-1
+```
+
+### Real-World Scenarios
+
+#### SEO Keyword Analysis
+```bash
+# Find most common keywords in blog posts
+python word_frequency.py blog_posts/ -r --remove-stop-words --min-length 4 --top 50
+
+# Export for keyword research
+python word_frequency.py articles/ -r --remove-stop-words --export-csv keywords.csv
+```
+
+#### Code Analysis
+```bash
+# Analyze variable/function names in codebase
+python word_frequency.py src/ -r --case-sensitive --min-length 3 --ext py,js,ts
+
+# Find common patterns in code
+python word_frequency.py project/ -r --starts-with get --ext py
+python word_frequency.py project/ -r --contains handler --ext js
+```
+
+#### Content Writing Analysis
+```bash
+# Check word variety in writing
+python word_frequency.py manuscript.txt --contexts --top 20
+
+# Find overused words
+python word_frequency.py essay.txt --remove-stop-words --min-frequency 10
+
+# Analyze writing style (word length distribution)
+python word_frequency.py article.txt --export-json style_analysis.json
+```
+
+#### Log File Analysis
+```bash
+# Find common error patterns
+python word_frequency.py logs/*.log --contains error --min-frequency 5
+
+# Analyze log keywords
+python word_frequency.py server.log --remove-stop-words --export-csv log_keywords.csv
+```
+
+#### Academic/Research Analysis
+```bash
+# Analyze technical terminology
+python word_frequency.py papers/ -r --min-length 6 --only-alpha --top 100
+
+# Find domain-specific terms
+python word_frequency.py research/ -r --remove-stop-words --min-frequency 3 --export-json terms.json
+```
+
+#### Social Media/Reviews Analysis
+```bash
+# Analyze customer feedback
+python word_frequency.py reviews.txt --remove-stop-words --contexts --top 30
+
+# Find sentiment indicators
+python word_frequency.py feedback/ -r --starts-with good,bad,great,poor
+```
+
+### CSV Converter (Previous Examples)
 
 #### Basic Conversions
 ```bash
 # Convert to JSON with default settings
 python csv_converter.py sales_data.csv -f json
 
-# Convert to XML
-python csv_converter.py contacts.csv -f xml -o contacts.xml
-
 # Tab-separated values (TSV)
 python csv_converter.py data.tsv -f json -d $'\t'
-
-# Pipe-delimited
-python csv_converter.py data.txt -f json -d '|'
 ```
 
-#### JSON Formatting
-```bash
-# Compact JSON (single line)
-python csv_converter.py data.csv -f json --no-pretty
-
-# Custom indentation
-python csv_converter.py data.csv -f json --indent 4
-
-# Sort keys alphabetically
-python csv_converter.py data.csv -f json --sort-keys
-```
-
-#### XML Formatting
-```bash
-# Default XML tags (root, row)
-python csv_converter.py data.csv -f xml
-
-# Custom root and row tags
-python csv_converter.py users.csv -f xml --root-tag users --row-tag user
-
-# Business data with meaningful tags
-python csv_converter.py products.csv -f xml --root-tag catalog --row-tag product
-```
-
-#### Advanced Options
-```bash
-# Keep all values as strings (no type conversion)
-python csv_converter.py data.csv -f json --no-infer-types
-
-# Skip empty rows (default)
-python csv_converter.py data.csv -f json
-
-# Remove empty fields from output
-python csv_converter.py data.csv -f json --skip-empty-fields
-
-# Handle different encodings
-python csv_converter.py latin1_data.csv -f json --encoding latin-1
-```
-
-### Markdown Converter
-
-#### Basic Conversions
-```bash
-# Convert with default styled template
-python markdown_converter.py README.md
-
-# Custom output path
-python markdown_converter.py docs.md -o documentation.html
-
-# Minimal template (no CSS styling)
-python markdown_converter.py notes.md --template minimal
-```
+### Markdown Converter (Previous Examples)
 
 #### Syntax Highlighting Themes
 ```bash
@@ -187,344 +276,140 @@ python markdown_converter.py code.md --theme github
 
 # Dark themes
 python markdown_converter.py tutorial.md --theme monokai
-python markdown_converter.py guide.md --theme dracula
-python markdown_converter.py docs.md --theme solarized-dark
-
-# Light themes
-python markdown_converter.py article.md --theme default
-python markdown_converter.py blog.md --theme solarized-light
 ```
 
-#### Table of Contents & Features
-```bash
-# Disable table of contents
-python markdown_converter.py doc.md --no-toc
-
-# Add line numbers to code blocks
-python markdown_converter.py tutorial.md --line-numbers
-
-# Custom page title
-python markdown_converter.py post.md --title "My Blog Post"
-
-# Add generation timestamp footer
-python markdown_converter.py article.md --footer
-
-# Combine options
-python markdown_converter.py guide.md --theme monokai --line-numbers --footer
-```
-
-#### Batch Conversion
-```bash
-# Convert all markdown in directory
-python markdown_converter.py docs/ -o html/
-
-# Recursive conversion (subdirectories)
-python markdown_converter.py project/ -o output/ --recursive
-
-# Blog/documentation site generation
-python markdown_converter.py blog/posts/ -o blog/html/ --recursive --theme github --footer
-```
-
-### Text File Merger
+### Text File Merger (Previous Examples)
 
 #### Basic Merging
 ```bash
-# Merge all text files in directory
+# Merge all text files
 python text_merger.py *.txt -o merged.txt
 
-# Merge specific files
-python text_merger.py file1.txt file2.txt file3.txt -o output.txt
-
-# Merge with custom delimiter
-python text_merger.py *.log -o combined.log -d "### NEXT FILE ###"
-```
-
-#### Delimiter Presets
-```bash
-# Line delimiter (default)
-python text_merger.py *.txt -o output.txt -d line
-
-# Double line delimiter
-python text_merger.py *.txt -o output.txt -d double
-
-# Hash delimiter
-python text_merger.py *.txt -o output.txt -d hash
-
-# Section delimiter (with extra spacing)
-python text_merger.py *.txt -o output.txt -d section
-
-# No delimiter (blank)
-python text_merger.py *.txt -o output.txt -d blank
-```
-
-#### Headers and Metadata
-```bash
-# Add file headers with timestamps
-python text_merger.py logs/*.log -o combined.log --timestamp
-
-# Add file statistics (lines, size)
-python text_merger.py *.txt -o output.txt --stats
-
-# Both timestamp and stats
-python text_merger.py *.log -o full_info.log --timestamp --stats
-
-# No file headers (clean merge)
-python text_merger.py *.txt -o clean.txt --no-filename
-```
-
-#### Sorting Files
-```bash
-# Sort by name (default)
-python text_merger.py *.txt -o output.txt --sort name
-
-# Sort by file size (largest first)
-python text_merger.py *.log -o output.log --sort size --reverse
-
-# Sort by modification date (newest first)
-python text_merger.py *.txt -o output.txt --sort date --reverse
-
-# Sort by extension
-python text_merger.py * -o output.txt --sort extension --ext txt,log,md
-```
-
-#### Content Processing
-```bash
-# Add line numbers to output
-python text_merger.py *.py -o all_code.py --line-numbers
-
-# Remove empty lines
-python text_merger.py *.txt -o clean.txt --remove-empty
-
-# Strip whitespace from lines
-python text_merger.py *.log -o trimmed.log --strip
-
-# Combine all processing
-python text_merger.py *.txt -o processed.txt --line-numbers --remove-empty --strip
-```
-
-#### Directory and Pattern Merging
-```bash
-# Merge all files from directory
-python text_merger.py logs/ -o combined.log
-
-# Recursive merge from multiple directories
-python text_merger.py src/ tests/ -o all_files.txt -r
-
-# Filter by extension
-python text_merger.py project/ -o code.txt -r --ext py,js,ts
-
-# Glob patterns
-python text_merger.py "**/*.log" -o all_logs.txt
-
-# Multiple patterns
-python text_merger.py src/**/*.py tests/**/*.py -o python_files.txt
-```
-
-#### Preview Mode
-```bash
-# Preview merge without writing file
-python text_merger.py *.txt -o test.txt --preview
-
-# Preview more lines
-python text_merger.py *.log -o test.log --preview --preview-lines 100
-```
-
-#### Error Handling
-```bash
-# Skip files with read errors (default)
-python text_merger.py *.txt -o output.txt --on-error skip
-
-# Stop on first error
-python text_merger.py *.txt -o output.txt --on-error stop
-
-# Replace unreadable characters
-python text_merger.py *.txt -o output.txt --on-error replace
-
-# Different encoding
-python text_merger.py *.txt -o output.txt --encoding latin-1
-```
-
-### Real-World Scenarios
-
-#### Log File Analysis
-```bash
-# Merge all logs with timestamps sorted by date
-python text_merger.py logs/*.log -o analysis.log --sort date --timestamp --stats
-
-# Combine error logs from multiple servers
-python text_merger.py server1/error.log server2/error.log server3/error.log \
-  -o all_errors.log --sort date --reverse
-```
-
-#### Code Consolidation
-```bash
-# Merge all Python files for review
-python text_merger.py src/**/*.py -o review.py --line-numbers --sort name
-
-# Combine source and tests
-python text_merger.py src/ tests/ -o codebase.txt -r --ext py --line-numbers
-```
-
-#### Documentation Generation
-```bash
-# Merge markdown docs in order
-python text_merger.py docs/*.md -o full_docs.md --sort name
-
-# Combine READMEs from subprojects
-python text_merger.py */README.md -o project_overview.md --timestamp
-```
-
-#### Report Consolidation
-```bash
-# Merge weekly reports
-python text_merger.py reports/week*.txt -o monthly_report.txt --sort date
-
-# Combine CSV files (headers removed)
-python text_merger.py data/*.csv -o combined.csv --no-filename --remove-empty
-```
-
-#### E-commerce Data Export
-```bash
-# Convert product catalog to JSON for API
-python csv_converter.py products.csv -f json -o api/products.json --sort-keys
-
-# Generate XML feed for partners
-python csv_converter.py inventory.csv -f xml --root-tag inventory --row-tag item
-```
-
-#### Data Analysis Workflow
-```bash
-# Convert Excel export (CSV) to JSON for analysis
-python csv_converter.py sales_report.csv -f json --indent 4
-
-# Handle large datasets efficiently
-python csv_converter.py large_dataset.csv -f json --skip-empty-rows --skip-empty-fields
-```
-
-#### Documentation Generation
-```bash
-# Convert project README
-python markdown_converter.py README.md -o docs/index.html --theme github
-
-# Generate API documentation
-python markdown_converter.py api/ -o docs/api/ --recursive --line-numbers
-
-# Technical guides with TOC
-python markdown_converter.py guides/ -o website/guides/ --recursive --theme monokai
-```
-
-#### Blog/Static Site
-```bash
-# Convert blog posts
-python markdown_converter.py posts/ -o public/ --recursive --footer
-
-# With custom theme
-python markdown_converter.py articles/ -o site/articles/ --recursive --theme dracula --footer
+# Merge with timestamps
+python text_merger.py logs/*.log -o combined.log --timestamp --stats
 ```
 
 ## Technical Details
 
-### CSV Converter Implementation
-- **Booleans**: `true/false`, `yes/no`, `y/n`, `1/0` (case-insensitive)
-- **Integers**: Numeric strings without decimal points
-- **Floats**: Numeric strings with decimals or scientific notation
-- **Strings**: Everything else
+### Word Frequency Implementation
 
-### Header Normalization
-1. Strip leading/trailing whitespace
-2. Remove special characters (keep alphanumeric, dash, underscore)
-3. Replace spaces/hyphens with underscores
-4. Convert to lowercase
-5. Prefix with `field_` if starts with digit
+**Tokenization:**
+- Uses regex patterns for intelligent word extraction
+- Preserves apostrophes in contractions (don't, it's)
+- Handles alphanumeric tokens configurable
 
-### Text Merger Delimiter Presets
-- `line`: 80 dashes (default)
-- `double`: 80 equal signs
-- `hash`: 80 hash symbols
-- `star`: 80 asterisks
-- `dash`: 40 dash pairs
-- `blank`: No delimiter
-- `minimal`: Three dashes
-- `section`: Equal signs with extra spacing
+**Stop Words:**
+- Built-in list of 100+ common English stop words
+- Support for custom stop word files
+- Case-insensitive matching
+
+**Statistics Calculated:**
+- Total/unique word counts
+- Average word length and frequency
+- Word length distribution
+- Words appearing once (hapax legomena)
+- Min/max/median frequencies
+
+**Context Extraction:**
+- Captures 5 words before and after target word
+- Stores up to 3 example contexts per word
+- Truncates long contexts to 100 characters
 
 ### Output Formats
 
 **JSON Structure:**
 ```json
-[
-  {
-    "id": 1,
-    "name": "Product A",
-    "price": 29.99,
-    "active": true
+{
+  "statistics": {
+    "total_words": 5432,
+    "unique_words": 1234,
+    "avg_word_length": 5.67,
+    "words_appearing_once": 456
+  },
+  "word_frequencies": {
+    "python": 87,
+    "code": 65,
+    "function": 54
+  },
+  "top_50": [
+    {"word": "python", "count": 87},
+    {"word": "code", "count": 65}
+  ],
+  "words_by_length": {
+    "3": 234,
+    "4": 567,
+    "5": 789
   }
-]
+}
 ```
 
-**XML Structure:**
-```xml
-<?xml version="1.0" ?>
-<root>
-  <row>
-    <id type="integer">1</id>
-    <name>Product A</name>
-    <price type="float">29.99</price>
-    <active type="boolean">true</active>
-  </row>
-</root>
+**CSV Structure:**
+```csv
+Word,Frequency,Percentage,Length
+python,87,1.6012,6
+code,65,1.1971,4
+function,54,0.9945,8
 ```
 
 ## Performance
 
+### Word Frequency Analyzer
+- Small files (< 1MB): < 1 second
+- Medium files (1-100MB): 1-10 seconds
+- Large files (100MB-1GB): 10-60 seconds
+- Memory efficient: streaming tokenization
+
 ### CSV Converter
 - Small files (< 1MB): < 1 second
 - Medium files (1-100MB): 1-30 seconds
-- Large files (100MB-1GB): 30 seconds - 5 minutes
 
 ### Text Merger
 - Small merges (< 100 files): < 1 second
-- Medium merges (100-1000 files): 1-10 seconds
 - Large merges (1000+ files): 10-60 seconds
-- Memory efficient: processes files individually
 
 ## Troubleshooting
 
-### Encoding Issues
+### Word Frequency Issues
 ```bash
-# If you see garbled characters, try different encoding
-python csv_converter.py data.csv -f json --encoding latin-1
-python csv_converter.py data.csv -f json --encoding utf-16
+# If analysis seems wrong, try case-sensitive
+python word_frequency.py text.txt --case-sensitive
 
-# Text merger with different encoding
-python text_merger.py *.txt -o output.txt --encoding latin-1
+# If too many short words, set minimum length
+python word_frequency.py text.txt --min-length 4
+
+# If too many common words, use stop words
+python word_frequency.py text.txt --remove-stop-words
+
+# For code analysis, keep case and numbers
+python word_frequency.py code.py --case-sensitive --include-numbers
 ```
 
-### Type Conversion Problems
-- Numbers treated as strings: Ensure no leading zeros or spaces
-- Booleans not recognized: Use standard values (true/false, yes/no, 1/0)
-
-### Large Files
-- Use `--no-pretty` for faster processing
-- Use `--skip-empty-rows --skip-empty-fields` to reduce size
-- Text merger processes files individually for memory efficiency
-
-### Merge Errors
+### Encoding Issues
 ```bash
-# Skip problematic files
-python text_merger.py *.txt -o output.txt --on-error skip
+# Try different encodings for international text
+python word_frequency.py text.txt --encoding latin-1
+python word_frequency.py text.txt --encoding utf-16
+```
 
-# Replace unreadable characters
-python text_merger.py *.txt -o output.txt --on-error replace
+### Memory Issues
+```bash
+# For very large files, increase minimum frequency
+python word_frequency.py huge_file.txt --min-frequency 5
+
+# Disable context storage for large corpora
+python word_frequency.py big_data/ -r  # Don't use --contexts
 ```
 
 ## Coming Soon
+- ✅ CSV to JSON/XML converter (COMPLETED)
+- ✅ Markdown to HTML converter (COMPLETED)
 - ✅ Text file merger with delimiters (COMPLETED)
-- [ ] Word frequency analyzer
+- ✅ Word frequency analyzer (COMPLETED)
 - [ ] Email extractor from text files
-- [ ] JSON/YAML to Markdown converter
-- [ ] CSV validation and cleanup
-- [ ] Column filtering and transformation
-- [ ] Multiple file batch processing
+- [ ] N-gram analyzer (bigrams, trigrams)
+- [ ] Sentiment analysis tool
+- [ ] Text summarization
+- [ ] Readability score calculator
 
 ## Dependencies
 - `tqdm`: Progress bars

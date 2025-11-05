@@ -262,8 +262,7 @@ make system-demo    # System utilities examples
 - [x] CSV to JSON/XML converter
 - [x] Markdown to HTML converter
 - [x] Text file merger with delimiters
-- [ ] Word frequency analyzer
-- [ ] Email extractor from text files
+- [x] Word frequency analyzer
 
 ### Development Tools
 - [ ] Code formatter for multiple languages
