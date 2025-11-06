@@ -46,6 +46,8 @@ python text_processing/text_merger.py *.txt -o merged.txt
 # Network/Web
 python network_web/website_checker.py https://example.com
 python network_web/website_checker.py --file urls.txt --export-json report.json
+python network_web/qr_generator.py --url https://example.com -o qr.png
+python network_web/qr_generator.py --wifi --ssid MyNet --password pass123 -o wifi.png
 ```
 
 ## Project Structure
@@ -303,8 +305,8 @@ make network-demo   # Network/web examples
 
 ### Network/Web
 - [x] Website availability checker
+- [x] QR code generator for URLs/text
 - [ ] Bulk URL shortener
-- [ ] QR code generator for URLs/text
 - [ ] Local network scanner
 - [ ] WiFi password manager
 

@@ -18,6 +18,18 @@ Monitor website availability, response times, SSL certificate expiration, and HT
 - JSON/CSV export for reporting
 - Success rate statistics
 
+### 📱 QR Code Generator (`qr_generator.py`)
+Generate QR codes for URLs, WiFi credentials, contact cards, and various data types.
+
+**Features:**
+- Multiple QR code types (URL, WiFi, vCard, Email, SMS, Phone, Geo)
+- 6 visual styles (square, circle, rounded, vertical bars, horizontal bars, gapped)
+- Custom colors and error correction levels
+- Text labels below QR codes
+- Batch generation from text files or JSON
+- High-resolution output
+- Configurable size and border
+
 ## Installation
 
 ```bash
@@ -30,25 +42,25 @@ python -c "import requests; print('✓ requests installed')"
 
 ## Quick Start
 
-### Website Checker
+### QR Code Generator
 
 ```bash
-# Check single URL
-python network_web/website_checker.py https://example.com
+# URL QR code
+python network_web/qr_generator.py --url https://example.com -o qr.png
 
-# Check multiple URLs
-python network_web/website_checker.py https://google.com https://github.com
+# WiFi credentials
+python network_web/qr_generator.py --wifi --ssid MyNetwork --password pass123 -o wifi.png
 
-# Check from file
-python network_web/website_checker.py --file urls.txt
+# Contact card
+python network_web/qr_generator.py --vcard --name "John Doe" --vcard-phone "+1234567890" -o contact.png
 
-# Export results
-python network_web/website_checker.py --file urls.txt --export-json results.json
+# Batch generation
+python network_web/qr_generator.py --batch urls.txt --output-dir qr_codes/
 ```
 
 ## Usage Examples
 
-### Basic Availability Checks
+### Website Availability Checks
 
 ```bash
 # Single site check
@@ -200,6 +212,207 @@ https://analytics.example.com
 
 Comments (lines starting with `#`) are ignored.
 
+### QR Code Generator
+
+#### Basic QR Codes
+
+```bash
+# URL
+python qr_generator.py --url https://example.com -o url_qr.png
+
+# Plain text
+python qr_generator.py --text "Hello World" -o text_qr.png
+
+# URL with label
+python qr_generator.py --url https://example.com -o qr.png --label "Visit our website"
+```
+
+#### WiFi QR Codes
+
+```bash
+# WPA/WPA2 network
+python qr_generator.py --wifi --ssid MyNetwork --password mypass123 -o wifi.png
+
+# WEP network
+python qr_generator.py --wifi --ssid OldNetwork --password pass --security WEP -o wifi_wep.png
+
+# Hidden network
+python qr_generator.py --wifi --ssid HiddenNet --password secret --hidden -o hidden_wifi.png
+
+# Open network (no password)
+python qr_generator.py --wifi --ssid FreeWiFi --password "" --security nopass -o open_wifi.png
+```
+
+#### Contact Cards (vCard)
+
+```bash
+# Basic contact
+python qr_generator.py --vcard --name "John Doe" --vcard-phone "+1234567890" -o contact.png
+
+# Full contact with all fields
+python qr_generator.py --vcard \
+  --name "Jane Smith" \
+  --vcard-phone "+1234567890" \
+  --vcard-email jane@example.com \
+  --organization "Acme Corp" \
+  --vcard-url https://example.com \
+  -o full_contact.png
+```
+
+#### Communication QR Codes
+
+```bash
+# Email (opens email client)
+python qr_generator.py --email contact@example.com -o email.png
+
+# Email with subject and body
+python qr_generator.py --email support@example.com \
+  --subject "Support Request" \
+  --body "I need help with..." \
+  -o email_prefilled.png
+
+# Phone call
+python qr_generator.py --phone "+1234567890" -o phone.png
+
+# SMS
+python qr_generator.py --sms "+1234567890" -o sms.png
+
+# SMS with message
+python qr_generator.py --sms "+1234567890" --message "Hello from QR" -o sms_msg.png
+```
+
+#### Geolocation QR Codes
+
+```bash
+# Specific coordinates
+python qr_generator.py --geo 40.7128 -74.0060 -o nyc_location.png
+
+# With label
+python qr_generator.py --geo 51.5074 -0.1278 --label "London" -o london.png
+```
+
+#### Custom Styling
+
+```bash
+# Different styles
+python qr_generator.py --url https://example.com -o square.png --style square
+python qr_generator.py --url https://example.com -o circle.png --style circle
+python qr_generator.py --url https://example.com -o rounded.png --style rounded
+python qr_generator.py --url https://example.com -o vertical.png --style vertical
+python qr_generator.py --url https://example.com -o horizontal.png --style horizontal
+python qr_generator.py --url https://example.com -o gapped.png --style gapped
+
+# Custom colors
+python qr_generator.py --url https://example.com -o blue_qr.png \
+  --fill-color blue --back-color white
+
+# Hex colors
+python qr_generator.py --url https://example.com -o custom_qr.png \
+  --fill-color "#FF5733" --back-color "#FFFFFF"
+
+# Larger QR code
+python qr_generator.py --url https://example.com -o large_qr.png --box-size 15 --border 2
+
+# High error correction (for damaged/partially obscured codes)
+python qr_generator.py --url https://example.com -o robust_qr.png --error-correction H
+```
+
+#### Batch Generation
+
+**From text file** (urls.txt):
+```text
+https://example.com
+https://github.com
+https://stackoverflow.com
+```
+
+```bash
+python qr_generator.py --batch urls.txt --output-dir qr_codes/
+```
+
+**From JSON file** (config.json):
+```json
+[
+  {
+    "type": "url",
+    "data": "https://example.com",
+    "output": "website.png",
+    "label": "Visit Us"
+  },
+  {
+    "type": "wifi",
+    "ssid": "MyNetwork",
+    "password": "password123",
+    "security": "WPA",
+    "output": "wifi_guest.png",
+    "label": "Guest WiFi"
+  },
+  {
+    "type": "vcard",
+    "name": "John Doe",
+    "phone": "+1234567890",
+    "email": "john@example.com",
+    "output": "john_contact.png"
+  },
+  {
+    "type": "email",
+    "email": "support@example.com",
+    "subject": "Feedback",
+    "output": "feedback.png",
+    "label": "Send Feedback"
+  }
+]
+```
+
+```bash
+python qr_generator.py --batch-json config.json --output-dir qr_codes/
+```
+
+#### Real-World Scenarios
+
+**Restaurant Menu:**
+```bash
+python qr_generator.py --url https://restaurant.com/menu -o menu_qr.png \
+  --style rounded --label "View Menu" --box-size 12
+```
+
+**Event WiFi:**
+```bash
+python qr_generator.py --wifi --ssid "EventWiFi" --password "welcome2024" \
+  -o event_wifi.png --label "Free WiFi" --style circle
+```
+
+**Business Card:**
+```bash
+python qr_generator.py --vcard \
+  --name "Alice Johnson" \
+  --vcard-phone "+1234567890" \
+  --vcard-email alice@company.com \
+  --organization "Tech Corp" \
+  --vcard-url https://company.com \
+  -o business_card.png --style rounded --fill-color "#2C3E50"
+```
+
+**Product Links (batch):**
+```bash
+# products.txt
+https://shop.com/product/123
+https://shop.com/product/456
+https://shop.com/product/789
+
+python qr_generator.py --batch products.txt --output-dir product_qr/ \
+  --style rounded --fill-color blue
+```
+
+**App Download Links:**
+```bash
+python qr_generator.py --url https://play.google.com/store/apps/details?id=com.app \
+  -o android_qr.png --label "Download on Google Play"
+
+python qr_generator.py --url https://apps.apple.com/app/id123456 \
+  -o ios_qr.png --label "Download on App Store"
+```
+
 ## Output Format
 
 ### Console Output
@@ -310,8 +523,8 @@ python website_checker.py --file urls.txt --user-agent "MyMonitor/1.0"
 
 ## Coming Soon
 - ✅ Website availability checker (COMPLETED)
+- ✅ QR code generator for URLs/text (COMPLETED)
 - [ ] Bulk URL shortener with custom domains
-- [ ] QR code generator for URLs/text
 - [ ] Local network scanner and port checker
 - [ ] DNS lookup and propagation checker
 - [ ] HTTP header analyzer
@@ -319,5 +532,8 @@ python website_checker.py --file urls.txt --user-agent "MyMonitor/1.0"
 
 ## Dependencies
 - `requests`: HTTP library for making web requests
-- `tqdm`: Progress bars for bulk operations
 - `urllib3`: HTTP client (included with requests)
+- `tqdm`: Progress bars for bulk operations
+- `certifi`: SSL certificate bundle
+- `qrcode[pil]`: QR code generation with styling support
+- `Pillow`: Image processing and manipulation

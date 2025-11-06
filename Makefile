@@ -13,6 +13,8 @@ validate-network: ## Validate network/web dependencies
 	@$(VENV)/bin/python -c "import urllib3; print('✓ urllib3 installed')" 2>/dev/null || echo "✗ urllib3 missing"
 	@$(VENV)/bin/python -c "import tqdm; print('✓ tqdm installed')" 2>/dev/null || echo "✗ tqdm missing"
 	@$(VENV)/bin/python -c "import certifi; print('✓ certifi installed')" 2>/dev/null || echo "✗ certifi missing"
+	@$(VENV)/bin/python -c "import qrcode; print('✓ qrcode installed')" 2>/dev/null || echo "✗ qrcode missing"
+	@$(VENV)/bin/python -c "from PIL import Image; print('✓ Pillow installed')" 2>/dev/null || echo "✗ Pillow missing"
 	@$(VENV)/bin/python -c "import ssl; print('✓ ssl available')"
 
 demo: ## Run demonstration of available tools
