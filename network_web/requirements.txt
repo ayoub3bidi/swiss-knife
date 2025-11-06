@@ -1,0 +1,5 @@
+requests>=2.31.0       # HTTP library for web requests
+urllib3>=2.0.0         # HTTP client (dependency of requests)
+tqdm>=4.64.0           # Progress bars for bulk operations
+certifi>=2023.0.0      # SSL certificate bundle
+python-dateutil>=2.8.0 # Date/time utilities

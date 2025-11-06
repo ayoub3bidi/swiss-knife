@@ -18,7 +18,7 @@
   </a>
 </p>
 
-A comprehensive collection of Python automation scripts for audio processing, file management, text processing, and everyday development tasks. From batch audio conversion to intelligent duplicate detection, these scripts solve common problems with simple, well-documented solutions.
+A comprehensive collection of Python automation scripts for audio processing, file management, text processing, system utilities, and network monitoring. From batch audio conversion to intelligent duplicate detection, these scripts solve common problems with simple, well-documented solutions.
 
 ## Quick Start
 ```bash
@@ -42,6 +42,10 @@ python file_management/bulk_renamer.py "\s+" "_" ~/Documents
 python text_processing/csv_converter.py data.csv -f json
 python text_processing/markdown_converter.py README.md
 python text_processing/text_merger.py *.txt -o merged.txt
+
+# Network/Web
+python network_web/website_checker.py https://example.com
+python network_web/website_checker.py --file urls.txt --export-json report.json
 ```
 
 ## Project Structure
@@ -51,6 +55,7 @@ sacred-scripts/
 ├── file_management/      # File organization and cleanup utilities
 ├── text_processing/      # Text file conversion and manipulation
 ├── system_utilities/     # System monitoring and management
+├── network_web/          # Network and web monitoring tools
 ├── automation/           # System automation scripts  
 ├── utilities/            # General-purpose helper scripts
 ├── docs/                 # Documentation and examples
@@ -95,6 +100,11 @@ sacred-scripts/
   - Flexible sorting (by name, size, date, extension)
   - Content processing (line numbers, whitespace handling)
   - Preview mode for testing
+- **Word Frequency Analyzer**: Analyze word frequency with advanced filtering
+  - Smart tokenization and stop words removal
+  - Context extraction and pattern matching
+  - Per-file breakdown for multi-file analysis
+  - JSON/CSV export with statistics
 
 ### ⚙️ System Utilities
 - **System Resource Monitor**: Real-time monitoring with configurable alerts
@@ -109,6 +119,14 @@ sacred-scripts/
   - Extension breakdown and largest files
   - Subdirectory analysis
   - JSON export for reporting
+
+### 🌐 Network/Web Tools
+- **Website Availability Checker**: Monitor website health and SSL certificates
+  - HTTP/HTTPS availability checking
+  - Response time measurement
+  - SSL certificate expiration monitoring
+  - Redirect tracking and custom headers
+  - JSON/CSV export for reporting
 
 ## Installation
 
@@ -126,6 +144,7 @@ pip install -r convert/requirements.txt
 pip install -r file_management/requirements.txt
 pip install -r text_processing/requirements.txt
 pip install -r system_utilities/requirements.txt
+pip install -r network_web/requirements.txt
 ```
 
 ## Usage Examples
@@ -177,8 +196,8 @@ python text_processing/text_merger.py *.txt -o merged.txt
 # Merge logs with timestamps
 python text_processing/text_merger.py logs/*.log -o combined.log --timestamp --stats
 
-# Merge code files with line numbers
-python text_processing/text_merger.py src/*.py -o all_code.py --line-numbers --sort date
+# Word frequency analysis
+python text_processing/word_frequency.py document.txt --remove-stop-words --top 30
 ```
 
 ### System Utilities
@@ -196,6 +215,21 @@ python system_utilities/process_killer.py --min-memory 1024 --dry-run
 python system_utilities/disk_analyzer.py ~/Documents
 ```
 
+### Network/Web Tools
+```bash
+# Check single website
+python network_web/website_checker.py https://example.com
+
+# Check multiple websites
+python network_web/website_checker.py https://google.com https://github.com --verbose
+
+# Monitor sites from file
+python network_web/website_checker.py --file urls.txt --export-json report.json
+
+# SSL certificate monitoring
+python network_web/website_checker.py https://example.com --ssl-warning-days 30
+```
+
 ## Development
 
 ### Available Make Commands
@@ -207,6 +241,7 @@ make test           # Run tests and validation
 make validate-audio # Check audio processing dependencies
 make validate-files # Check file management dependencies
 make validate-text  # Check text processing dependencies
+make validate-network # Check network/web dependencies
 make lint           # Code quality checks
 make clean          # Remove temporary files
 make package        # Create distribution
@@ -217,6 +252,7 @@ make convert-demo   # Audio conversion examples
 make files-demo     # File management examples
 make text-demo      # Text processing examples
 make system-demo    # System utilities examples
+make network-demo   # Network/web examples
 ```
 
 ## Performance & Security
@@ -239,6 +275,7 @@ make system-demo    # System utilities examples
 - Detailed operation logging
 - Collision detection for renames
 - Protected system processes
+- SSL certificate verification
 
 ## TODO List
 
@@ -264,19 +301,19 @@ make system-demo    # System utilities examples
 - [x] Text file merger with delimiters
 - [x] Word frequency analyzer
 
+### Network/Web
+- [x] Website availability checker
+- [ ] Bulk URL shortener
+- [ ] QR code generator for URLs/text
+- [ ] Local network scanner
+- [ ] WiFi password manager
+
 ### Development Tools
 - [ ] Code formatter for multiple languages
 - [ ] License header injector
 - [ ] Git commit message generator
 - [ ] Dependency vulnerability scanner
 - [ ] Dead code detector
-
-### Network/Web
-- [ ] Website availability checker
-- [ ] Bulk URL shortener
-- [ ] QR code generator for URLs/text
-- [ ] Local network scanner
-- [ ] WiFi password manager
 
 ### Automation
 - [ ] Desktop screenshot scheduler
@@ -294,7 +331,7 @@ make system-demo    # System utilities examples
 
 ## Library Usage (Coming Soon)
 ```python
-from sacred_scripts import AudioConverter, DuplicateFinder, CSVConverter, TextMerger
+from sacred_scripts import AudioConverter, DuplicateFinder, CSVConverter, WebsiteChecker
 
 # Audio processing
 converter = AudioConverter()
@@ -309,9 +346,9 @@ csv_conv = CSVConverter()
 data = csv_conv.read_csv('data.csv')
 json_output = csv_conv.to_json(data, pretty=True)
 
-# Text merging
-merger = TextMerger(delimiter='line', add_timestamp=True)
-merger.merge_files(['file1.txt', 'file2.txt'], 'output.txt')
+# Website monitoring
+checker = WebsiteChecker(timeout=10, check_ssl_expiry=True)
+results = checker.check_urls(['https://example.com'])
 ```
 
 ## Contributing
