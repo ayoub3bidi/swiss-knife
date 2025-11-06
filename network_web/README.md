@@ -30,6 +30,19 @@ Generate QR codes for URLs, WiFi credentials, contact cards, and various data ty
 - High-resolution output
 - Configurable size and border
 
+### 🔍 Local Network Scanner (`network_scanner.py`)
+Discover devices, open ports, and services on local networks with concurrent scanning.
+
+**Features:**
+- Network range scanning (CIDR notation)
+- Single host comprehensive scanning
+- Port scanning with service detection
+- Hostname and MAC address resolution
+- Service banner grabbing
+- Quick, full, and custom scan modes
+- Concurrent multi-threaded scanning
+- JSON/CSV export
+
 ## Installation
 
 ```bash
@@ -56,6 +69,10 @@ python network_web/qr_generator.py --vcard --name "John Doe" --vcard-phone "+123
 
 # Batch generation
 python network_web/qr_generator.py --batch urls.txt --output-dir qr_codes/
+
+# Network scanning
+python network_web/network_scanner.py --network 192.168.1.0/24 --quick
+python network_web/network_scanner.py --host 192.168.1.1 --port-range 1 1024
 ```
 
 ## Usage Examples
@@ -411,6 +428,148 @@ python qr_generator.py --url https://play.google.com/store/apps/details?id=com.a
 
 python qr_generator.py --url https://apps.apple.com/app/id123456 \
   -o ios_qr.png --label "Download on App Store"
+```
+
+### Local Network Scanner
+
+#### Quick Network Discovery
+
+```bash
+# Quick scan (common ports only)
+python network_scanner.py --network 192.168.1.0/24 --quick
+
+# Quick scan with JSON export
+python network_scanner.py --network 192.168.1.0/24 --quick --export-json scan.json
+
+# Only show hosts with open ports
+python network_scanner.py --network 192.168.1.0/24 --quick --only-alive
+```
+
+#### Comprehensive Scanning
+
+```bash
+# Full scan with all common ports
+python network_scanner.py --network 192.168.1.0/24 --full
+
+# Full scan with service banners
+python network_scanner.py --network 192.168.1.0/24 --full --banners --verbose
+
+# Scan specific ports
+python network_scanner.py --network 192.168.1.0/24 --ports 22,80,443,3306,5432
+
+# Scan port range
+python network_scanner.py --network 192.168.1.0/24 --ports 8000-9000
+```
+
+#### Single Host Scanning
+
+```bash
+# Scan all ports 1-1024 on single host
+python network_scanner.py --host 192.168.1.1
+
+# Scan all ports (1-65535)
+python network_scanner.py --host 192.168.1.1 --port-range 1 65535
+
+# Scan with banners
+python network_scanner.py --host 192.168.1.1 --banners --verbose
+
+# Quick check specific host
+python network_scanner.py --host 192.168.1.100 --port-range 80 80
+```
+
+#### Performance Tuning
+
+```bash
+# Fast scan (more threads, shorter timeout)
+python network_scanner.py --network 192.168.1.0/24 --quick --workers 200 --timeout 0.5
+
+# Slow but thorough
+python network_scanner.py --network 192.168.1.0/24 --full --workers 50 --timeout 3.0
+
+# Custom timeouts
+python network_scanner.py --network 192.168.1.0/24 --quick --timeout 2.0 --ping-timeout 2.0
+```
+
+#### Output Options
+
+```bash
+# Export to JSON
+python network_scanner.py --network 192.168.1.0/24 --quick --export-json results.json
+
+# Export to CSV
+python network_scanner.py --network 192.168.1.0/24 --full --export-csv scan.csv
+
+# Both formats
+python network_scanner.py --network 192.168.1.0/24 --full --export-json scan.json --export-csv scan.csv
+
+# Minimal output (skip hostname/MAC lookup)
+python network_scanner.py --network 192.168.1.0/24 --quick --no-hostname --no-mac
+```
+
+#### Real-World Scenarios
+
+**Home Network Audit:**
+```bash
+python network_scanner.py --network 192.168.1.0/24 --full --export-json home_scan.json
+```
+
+**Find All Web Servers:**
+```bash
+python network_scanner.py --network 192.168.1.0/24 --ports 80,443,8080,8443 --only-alive
+```
+
+**Database Server Discovery:**
+```bash
+python network_scanner.py --network 10.0.0.0/24 --ports 3306,5432,27017,6379 --banners
+```
+
+**Security Audit (common vulnerable ports):**
+```bash
+python network_scanner.py --network 192.168.1.0/24 --ports 21,23,445,3389 --banners
+```
+
+**IoT Device Discovery:**
+```bash
+python network_scanner.py --network 192.168.1.0/24 --ports 80,443,554,8080 --banners --verbose
+```
+
+**Check if specific service is running:**
+```bash
+python network_scanner.py --network 192.168.1.0/24 --ports 22 --only-alive
+```
+
+### Output Examples
+
+**Network Scanner Console Output:**
+```
+Scanning 254 host(s) on 192.168.1.0/24
+Checking 8 port(s) per host
+Workers: 100, Timeout: 1.0s
+Scanning: 100%|████████████████| 254/254 [00:12<00:00, 20.33host/s]
+
+================================================================================
+NETWORK SCAN RESULTS
+================================================================================
+
+📍 192.168.1.1 (router.local)
+   MAC: aa:bb:cc:dd:ee:ff
+   Open Ports: 2
+         80/tcp  HTTP
+        443/tcp  HTTPS
+
+📍 192.168.1.100 (desktop.local)
+   MAC: 11:22:33:44:55:66
+   Open Ports: 1
+         22/tcp  SSH
+
+================================================================================
+SUMMARY
+================================================================================
+Hosts Scanned:    254
+Hosts Alive:      5
+Ports Scanned:    2,032
+Ports Open:       8
+Duration:         12.45s
 ```
 
 ## Output Format

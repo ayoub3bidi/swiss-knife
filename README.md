@@ -48,6 +48,7 @@ python network_web/website_checker.py https://example.com
 python network_web/website_checker.py --file urls.txt --export-json report.json
 python network_web/qr_generator.py --url https://example.com -o qr.png
 python network_web/qr_generator.py --wifi --ssid MyNet --password pass123 -o wifi.png
+python network_web/network_scanner.py --network 192.168.1.0/24 --quick
 ```
 
 ## Project Structure
@@ -129,6 +130,11 @@ sacred-scripts/
   - SSL certificate expiration monitoring
   - Redirect tracking and custom headers
   - JSON/CSV export for reporting
+- **QR Code Generator**: Create QR codes for multiple data types
+  - URL, WiFi, vCard, Email, SMS, Phone, Geolocation
+  - 6 visual styles with custom colors
+  - Text labels and batch generation
+  - High-resolution output
 
 ## Installation
 
@@ -230,6 +236,18 @@ python network_web/website_checker.py --file urls.txt --export-json report.json
 
 # SSL certificate monitoring
 python network_web/website_checker.py https://example.com --ssl-warning-days 30
+
+# QR code for URL
+python network_web/qr_generator.py --url https://example.com -o qr.png
+
+# WiFi QR code
+python network_web/qr_generator.py --wifi --ssid MyNetwork --password pass123 -o wifi.png
+
+# Contact card
+python network_web/qr_generator.py --vcard --name "John Doe" --vcard-phone "+1234567890" -o contact.png
+
+# Batch QR generation
+python network_web/qr_generator.py --batch urls.txt --output-dir qr_codes/
 ```
 
 ## Development
