@@ -4,6 +4,7 @@ install: ## Install all dependencies
 	./$(VENV)/bin/pip install -r text_processing/requirements.txt
 	./$(VENV)/bin/pip install -r system_utilities/requirements.txt
 	./$(VENV)/bin/pip install -r network_web/requirements.txt
+	./$(VENV)/bin/pip install -r development_tools/requirements.txt
 	./$(VENV)/bin/pip install -r automation/requirements.txt || true
 	./$(VENV)/bin/pip install -r utilities/requirements.txt || true
 
@@ -85,6 +86,7 @@ test-network: ## Test network/web functionality
 	@echo "Testing network/web tools..."
 	@$(VENV)/bin/python -c "from network_web.website_checker import WebsiteChecker; print('✓ Website checker imports OK')" || echo "✗ Website checker test failed"
 	@$(VENV)/bin/python -c "from network_web.qr_generator import QRGenerator; print('✓ QR generator imports OK')" || echo "✗ QR generator test failed"
+	@$(VENV)/bin/python -c "from network_web.network_scanner import NetworkScanner; print('✓ Network scanner imports OK')" || echo "✗ Network scanner test failed"
 
 test-all: test-audio test-files test-text test-network test-system ## Run all functionality tests
 

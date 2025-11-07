@@ -135,6 +135,12 @@ sacred-scripts/
   - 6 visual styles with custom colors
   - Text labels and batch generation
   - High-resolution output
+- **Local Network Scanner**: Discover devices and open ports
+  - Network range and single host scanning
+  - Service detection and banner grabbing
+  - Hostname and MAC address resolution
+  - Concurrent multi-threaded scanning
+  - JSON/CSV export
 
 ## Installation
 
@@ -248,6 +254,10 @@ python network_web/qr_generator.py --vcard --name "John Doe" --vcard-phone "+123
 
 # Batch QR generation
 python network_web/qr_generator.py --batch urls.txt --output-dir qr_codes/
+
+# Network scanning
+python network_web/network_scanner.py --network 192.168.1.0/24 --quick
+python network_web/network_scanner.py --host 192.168.1.1 --port-range 1 1024
 ```
 
 ## Development
@@ -324,12 +334,10 @@ make network-demo   # Network/web examples
 ### Network/Web
 - [x] Website availability checker
 - [x] QR code generator for URLs/text
-- [ ] Bulk URL shortener
-- [ ] Local network scanner
-- [ ] WiFi password manager
+- [x] Local network scanner
 
 ### Development Tools
-- [ ] Code formatter for multiple languages
+- [x] Code formatter for multiple languages
 - [ ] License header injector
 - [ ] Git commit message generator
 - [ ] Dependency vulnerability scanner
