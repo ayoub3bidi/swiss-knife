@@ -99,3 +99,24 @@ validate-system: ## Validate system utilities dependencies
 test-system: ## Test system utilities functionality
 	@echo "Testing system utilities tools..."
 	@$(VENV)/bin/python -c "from system_utilities.system_monitor import ResourceMonitor; print('✓ System monitor imports OK')" || echo "✗ System utilities test failed"
+
+# Development tools targets
+dev-demo: ## Show development tools examples
+	@echo "Development Tools Examples:"
+	@echo "  Code Formatter:"
+	@echo "    python development_tools/code_formatter.py src/ --recursive"
+	@echo "    python development_tools/code_formatter.py . --check --recursive"
+	@echo ""
+	@echo "  License Header Injector:"
+	@echo "    python development_tools/license_header_injector.py -l mit -a 'Your Name' src/ -r"
+	@echo "    python development_tools/license_header_injector.py -l apache -a 'Company' . -r --update"
+	@echo "    python development_tools/license_header_injector.py src/ --remove -r"
+
+validate-dev: ## Validate development tools dependencies
+	@echo "Checking development tools dependencies..."
+	@$(VENV)/bin/python -c "import tqdm; print('✓ tqdm installed')" 2>/dev/null || echo "✗ tqdm missing"
+
+test-dev: ## Test development tools functionality
+	@echo "Testing development tools..."
+	@$(VENV)/bin/python -c "from development_tools.code_formatter import CodeFormatter; print('✓ Code formatter imports OK')" || echo "✗ Code formatter test failed"
+	@$(VENV)/bin/python -c "from development_tools.license_header_injector import LicenseHeaderInjector; print('✓ License injector imports OK')" || echo "✗ License injector test failed"

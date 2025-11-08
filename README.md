@@ -338,7 +338,7 @@ make network-demo   # Network/web examples
 
 ### Development Tools
 - [x] Code formatter for multiple languages
-- [ ] License header injector
+- [x] License header injector
 - [ ] Git commit message generator
 - [ ] Dependency vulnerability scanner
 - [ ] Dead code detector

@@ -25,6 +25,86 @@ Format code files using industry-standard formatters for 12+ languages.
 - Rust: rustfmt
 - HTML/CSS/JSON/YAML/Markdown: Prettier
 
+### 📜 License Header Injector (`license_header_injector.py`)
+Inject, update, or remove license headers in source code files across multiple languages.
+
+**Features:**
+- 6 built-in license templates (MIT, Apache 2.0, GPL v3, BSD 3-Clause, ISC, Unlicense)
+- Custom license template support
+- Multi-language comment style support (C/C++, Python, JavaScript, Java, etc.)
+- Auto-detection of existing headers
+- Update or remove existing headers
+- Shebang and encoding declaration preservation
+- Dry-run mode for safe testing
+- Batch processing with filters
+- Comprehensive statistics and reporting
+
+**Supported Languages:**
+- C/C++, Java, JavaScript, TypeScript, Go, Rust, Swift, C#, PHP
+- Python, Ruby, Shell, Perl, R
+- HTML, XML, SVG, Vue
+- SQL, Lua, and more
+
+**Usage:**
+```bash
+# Add MIT license to Python files
+python license_header_injector.py -l mit -a "John Doe" src/ --ext py
+
+# Add Apache license recursively
+python license_header_injector.py -l apache -a "Acme Corp" . -r
+
+# Update existing headers
+python license_header_injector.py -l mit -a "John Doe" -y 2025 src/ --update -r
+
+# Remove all headers
+python license_header_injector.py src/ --remove -r
+
+# Dry run preview
+python license_header_injector.py -l mit -a "John Doe" src/ --dry-run -r
+
+# Custom template
+python license_header_injector.py -l custom --template my_license.txt -a "John Doe" src/
+```
+
+**License Templates:**
+- `mit`: MIT License (permissive)
+- `apache`: Apache License 2.0 (permissive with patent grant)
+- `gpl3`: GNU GPL v3.0 (copyleft)
+- `bsd3`: BSD 3-Clause License (permissive)
+- `isc`: ISC License (very permissive, similar to MIT)
+- `unlicense`: The Unlicense (public domain)
+- `custom`: Load from custom template file
+
+**Real-World Scenarios:**
+```bash
+# New open-source project setup
+python license_header_injector.py -l mit -a "Your Name" . -r --exclude tests,docs
+
+# Company project standardization
+python license_header_injector.py -l apache -a "Company Name" src/ -r --ext py,js,ts,java
+
+# Update copyright year across project
+python license_header_injector.py -l mit -a "Your Name" -y 2025 . -r --update
+
+# Remove headers before license change
+python license_header_injector.py . --remove -r
+python license_header_injector.py -l apache -a "Your Name" . -r
+```
+
+**Custom Template Format:**
+Create a text file with your license text using placeholders:
+- `{year}` - Copyright year
+- `{author}` - Copyright holder/author name
+
+Example custom template:
+```
+Proprietary Software License
+Copyright (c) {year} {author}
+
+This software and associated documentation files are proprietary.
+Unauthorized copying, distribution, or use is strictly prohibited.
+```
+
 ## Installation
 
 ```bash
