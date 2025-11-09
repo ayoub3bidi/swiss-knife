@@ -339,9 +339,9 @@ make network-demo   # Network/web examples
 ### Development Tools
 - [x] Code formatter for multiple languages
 - [x] License header injector
+- [x] Dead code detector
 - [ ] Git commit message generator
 - [ ] Dependency vulnerability scanner
-- [ ] Dead code detector
 
 ### Automation
 - [ ] Desktop screenshot scheduler

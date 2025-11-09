@@ -105,6 +105,73 @@ This software and associated documentation files are proprietary.
 Unauthorized copying, distribution, or use is strictly prohibited.
 ```
 
+### 🔍 Dead Code Detector (`dead_code_detector.py`)
+Detect unused functions, classes, variables, and imports in Python projects.
+
+**Features:**
+- Unused function/class/variable detection
+- Unused import identification
+- Confidence scoring (high/medium/low)
+- Two-pass analysis (definitions + usages)
+- Test file exclusion
+- Private member filtering
+- Detailed reporting by type and confidence
+- JSON/CSV export
+
+**Usage:**
+```bash
+# Analyze current directory
+python dead_code_detector.py .
+
+# High confidence only
+python dead_code_detector.py src/ --min-confidence high
+
+# Include test files
+python dead_code_detector.py . --include-tests
+
+# Include private members
+python dead_code_detector.py src/ --include-private
+
+# Export results
+python dead_code_detector.py . --export-json dead_code.json
+
+# Show all results
+python dead_code_detector.py src/ --show-all
+```
+
+**Confidence Levels:**
+- **HIGH**: No references found (very likely dead)
+- **MEDIUM**: Very few references (possibly dead)
+- **LOW**: Has references (might be used indirectly)
+
+**Real-World Scenarios:**
+```bash
+# Pre-refactoring cleanup
+python dead_code_detector.py . --min-confidence high --export-json cleanup.json
+
+# Find unused imports
+python dead_code_detector.py src/ --min-confidence high | grep import
+
+# Full project audit
+python dead_code_detector.py . --show-all --export-csv audit.csv
+
+# Exclude tests from analysis
+python dead_code_detector.py src/ --include-tests
+```
+
+**Limitations:**
+- Python only (for now)
+- May not detect dynamic usage (getattr, exec, etc.)
+- External API calls not tracked
+- Decorators may affect detection
+
+**Best Practices:**
+- Start with `--min-confidence high`
+- Review medium confidence items manually
+- Exclude test files initially
+- Export results before making changes
+- Use version control before deletion
+
 ## Installation
 
 ```bash
