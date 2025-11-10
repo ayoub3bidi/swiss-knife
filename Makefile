@@ -125,3 +125,19 @@ test-dev: ## Test development tools functionality
 validate-dev: ## Validate development tools dependencies
 	@echo "Checking development tools dependencies..."
 	@$(VENV)/bin/python -c "import tqdm; print('✓ tqdm installed')" 2>/dev/null || echo "✗ tqdm missing"
+
+automation-demo: ## Show automation tools examples
+	@echo "Automation Tools Examples:"
+	@echo "  Screenshot Scheduler:"
+	@echo "    python automation/screenshot_scheduler.py -o screenshots/ -i 5m"
+	@echo "    python automation/screenshot_scheduler.py -o timelapse/ -i 30s --max 100"
+	@echo "    python automation/screenshot_scheduler.py -o work_log/ -i 10m -d 8h"
+
+validate-automation: ## Validate automation dependencies
+	@echo "Checking automation dependencies..."
+	@$(VENV)/bin/python -c "import mss; print('✓ mss installed')" 2>/dev/null || echo "✗ mss missing"
+	@$(VENV)/bin/python -c "from PIL import Image; print('✓ Pillow installed')" 2>/dev/null || echo "✗ Pillow missing"
+
+test-automation: ## Test automation functionality
+	@echo "Testing automation tools..."
+	@$(VENV)/bin/python -c "from automation.screenshot_scheduler import ScreenshotScheduler; print('✓ Screenshot scheduler imports OK')" || echo "✗ Screenshot scheduler test failed"

@@ -340,11 +340,9 @@ make network-demo   # Network/web examples
 - [x] Code formatter for multiple languages
 - [x] License header injector
 - [x] Dead code detector
-- [ ] Git commit message generator
-- [ ] Dependency vulnerability scanner
 
 ### Automation
-- [ ] Desktop screenshot scheduler
+- [x] Desktop screenshot scheduler
 - [ ] Database backup automator
 - [ ] Email sender with templates
 - [ ] Calendar event creator from CSV
