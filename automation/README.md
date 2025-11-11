@@ -78,7 +78,7 @@ pip install -r automation/requirements.txt
 
 ## Coming Soon
 - ✅ Desktop screenshot scheduler (COMPLETED)
-- [ ] Database backup automator
+- ✅ Database backup automator
 - [ ] Email sender with templates
 - [ ] Calendar event creator from CSV
 - [ ] Password generator with policies

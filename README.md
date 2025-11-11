@@ -343,7 +343,7 @@ make network-demo   # Network/web examples
 
 ### Automation
 - [x] Desktop screenshot scheduler
-- [ ] Database backup automator
+- [x] Database backup automator
 - [ ] Email sender with templates
 - [ ] Calendar event creator from CSV
 - [ ] Password generator with policies

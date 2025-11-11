@@ -131,7 +131,11 @@ automation-demo: ## Show automation tools examples
 	@echo "  Screenshot Scheduler:"
 	@echo "    python automation/screenshot_scheduler.py -o screenshots/ -i 5m"
 	@echo "    python automation/screenshot_scheduler.py -o timelapse/ -i 30s --max 100"
-	@echo "    python automation/screenshot_scheduler.py -o work_log/ -i 10m -d 8h"
+	@echo ""
+	@echo "  Database Backup:"
+	@echo "    python automation/database_backup.py mysql -d mydb -u root -p pass -o backups/"
+	@echo "    python automation/database_backup.py sqlite --db-path app.db -o backups/"
+	@echo "    python automation/database_backup.py mysql -o backups/ --list"
 
 validate-automation: ## Validate automation dependencies
 	@echo "Checking automation dependencies..."
@@ -140,4 +144,6 @@ validate-automation: ## Validate automation dependencies
 
 test-automation: ## Test automation functionality
 	@echo "Testing automation tools..."
-	@$(VENV)/bin/python -c "from automation.screenshot_scheduler import ScreenshotScheduler; print('✓ Screenshot scheduler imports OK')" || echo "✗ Screenshot scheduler test failed"
+	@$(VENV)/bin/python -c "from automation.screenshot_scheduler import ScreenshotScheduler; print('✓ Screenshot scheduler OK')" || echo "✗ Failed"
+	@$(VENV)/bin/python -c "from automation.database_backup import DatabaseBackup; print('✓ Database backup OK')" || echo "✗ Failed"
+
