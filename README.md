@@ -344,9 +344,9 @@ make network-demo   # Network/web examples
 ### Automation
 - [x] Desktop screenshot scheduler
 - [x] Database backup automator
+- [x] Password generator with policies
 - [ ] Email sender with templates
 - [ ] Calendar event creator from CSV
-- [ ] Password generator with policies
 
 ### Data/Analysis
 - [ ] Excel report generator

@@ -35,6 +35,56 @@ python screenshot_scheduler.py -o shots/ -i 1m --format jpg --quality 95 --resiz
 python screenshot_scheduler.py -o multi/ -i 5m --monitor -1
 ```
 
+### 🔐 Password Generator (`password_generator.py`)
+Generate cryptographically secure passwords with customizable policies and strength analysis.
+
+**Features:**
+- Cryptographically secure (uses `secrets` module)
+- Customizable length and character requirements
+- Policy enforcement (min uppercase/lowercase/digits/special)
+- Exclude ambiguous/similar characters
+- Pattern detection (repeating, sequential, common words)
+- Passphrase generation (memorable)
+- Strength analysis with entropy calculation
+- Batch generation
+- JSON export
+
+**Usage:**
+```bash
+# Generate single password (16 chars)
+python password_generator.py
+
+# 20-character password
+python password_generator.py -l 20
+
+# Generate 10 passwords
+python password_generator.py -n 10
+
+# Strict policy
+python password_generator.py -l 16 --no-ambiguous --no-repeating --no-sequential
+
+# Custom requirements
+python password_generator.py -l 20 --min-upper 2 --min-lower 2 --min-digits 3 --min-special 3
+
+# Passphrase (memorable)
+python password_generator.py --passphrase -w 5
+
+# Analyze existing password
+python password_generator.py --analyze "MyP@ssw0rd123"
+
+# JSON output with strength
+python password_generator.py -n 5 --show-strength --json
+```
+
+**Strength Levels:**
+- **Excellent** (90-100): Very strong, resistant to attacks
+- **Strong** (70-89): Good security, recommended
+- **Good** (50-69): Acceptable for most uses
+- **Fair** (30-49): Weak, consider stronger
+- **Weak** (<30): Not recommended
+
+**No Dependencies:** Uses only Python standard library.
+
 **Real-World Scenarios:**
 
 **Time Tracking:**
@@ -79,6 +129,6 @@ pip install -r automation/requirements.txt
 ## Coming Soon
 - ✅ Desktop screenshot scheduler (COMPLETED)
 - ✅ Database backup automator
+- ✅ Password generator with policies
 - [ ] Email sender with templates
 - [ ] Calendar event creator from CSV
-- [ ] Password generator with policies

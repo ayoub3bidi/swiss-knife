@@ -130,12 +130,14 @@ automation-demo: ## Show automation tools examples
 	@echo "Automation Tools Examples:"
 	@echo "  Screenshot Scheduler:"
 	@echo "    python automation/screenshot_scheduler.py -o screenshots/ -i 5m"
-	@echo "    python automation/screenshot_scheduler.py -o timelapse/ -i 30s --max 100"
 	@echo ""
 	@echo "  Database Backup:"
 	@echo "    python automation/database_backup.py mysql -d mydb -u root -p pass -o backups/"
-	@echo "    python automation/database_backup.py sqlite --db-path app.db -o backups/"
-	@echo "    python automation/database_backup.py mysql -o backups/ --list"
+	@echo ""
+	@echo "  Password Generator:"
+	@echo "    python automation/password_generator.py -l 20"
+	@echo "    python automation/password_generator.py --passphrase -w 4"
+	@echo "    python automation/password_generator.py --analyze 'MyPassword123'"
 
 validate-automation: ## Validate automation dependencies
 	@echo "Checking automation dependencies..."
