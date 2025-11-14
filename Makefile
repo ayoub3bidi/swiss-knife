@@ -149,3 +149,13 @@ test-automation: ## Test automation functionality
 	@$(VENV)/bin/python -c "from automation.screenshot_scheduler import ScreenshotScheduler; print('✓ Screenshot scheduler OK')" || echo "✗ Failed"
 	@$(VENV)/bin/python -c "from automation.database_backup import DatabaseBackup; print('✓ Database backup OK')" || echo "✗ Failed"
 
+utilities-demo: ## Show utilities examples
+	@echo "Utilities Examples:"
+	@echo "  JSON Formatter:"
+	@echo "    python utilities/json_formatter.py data.json"
+	@echo "    python utilities/json_formatter.py data.json --minify"
+	@echo "    python utilities/json_formatter.py data/ -r --sort-keys"
+
+test-utilities: ## Test utilities functionality
+	@echo "Testing utilities..."
+	@$(VENV)/bin/python -c "from utilities.json_formatter import JSONFormatter; print('✓ JSON formatter OK')" || echo "✗ Failed"

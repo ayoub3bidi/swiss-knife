@@ -345,12 +345,10 @@ make network-demo   # Network/web examples
 - [x] Desktop screenshot scheduler
 - [x] Database backup automator
 - [x] Password generator with policies
-- [ ] Email sender with templates
-- [ ] Calendar event creator from CSV
 
 ### Data/Analysis
+- [x] JSON prettifier/minifier
 - [ ] Excel report generator
-- [ ] JSON prettifier/minifier
 - [ ] Configuration file merger
 - [ ] Environment variable manager
 - [ ] API response validator
