@@ -348,8 +348,8 @@ make network-demo   # Network/web examples
 
 ### Data/Analysis
 - [x] JSON prettifier/minifier
+- [x] Configuration file merger
 - [ ] Excel report generator
-- [ ] Configuration file merger
 - [ ] Environment variable manager
 - [ ] API response validator
 

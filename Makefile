@@ -152,10 +152,13 @@ test-automation: ## Test automation functionality
 utilities-demo: ## Show utilities examples
 	@echo "Utilities Examples:"
 	@echo "  JSON Formatter:"
-	@echo "    python utilities/json_formatter.py data.json"
 	@echo "    python utilities/json_formatter.py data.json --minify"
-	@echo "    python utilities/json_formatter.py data/ -r --sort-keys"
+	@echo ""
+	@echo "  Config Merger:"
+	@echo "    python utilities/config_merger.py base.json dev.json -o config.json"
+	@echo "    python utilities/config_merger.py config1.json config2.json --diff"
 
 test-utilities: ## Test utilities functionality
 	@echo "Testing utilities..."
 	@$(VENV)/bin/python -c "from utilities.json_formatter import JSONFormatter; print('✓ JSON formatter OK')" || echo "✗ Failed"
+	@$(VENV)/bin/python -c "from utilities.config_merger import ConfigMerger; print('✓ Config merger OK')" || echo "✗ Failed"

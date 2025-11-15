@@ -48,3 +48,39 @@ python json_formatter.py data.json --backup
 ```
 
 **No Dependencies:** Pure Python stdlib.
+
+### ⚙️ Configuration File Merger (`config_merger.py`)
+Merge and manage configuration files across environments with support for JSON, YAML, TOML, INI, and ENV formats.
+
+**Features:**
+- Multi-format support (JSON, YAML, TOML, INI, ENV)
+- Three merge strategies (override, deep merge, append)
+- Cross-format conversion
+- Configuration diff tool
+- Conflict detection
+
+**Usage:**
+```bash
+# Basic merge
+python config_merger.py base.json dev.json -o config.json
+
+# Multi-environment
+python config_merger.py base.json common.json prod.json -o final.json
+
+# Deep merge
+python config_merger.py base.yaml override.yaml -o merged.yaml --strategy merge
+
+# Show differences
+python config_merger.py config1.json config2.json --diff
+
+# Convert format
+python config_merger.py config.json -o config.yaml
+
+# Cross-format merge
+python config_merger.py base.yaml override.toml -o final.json
+```
+
+**Merge Strategies:**
+- `override`: Simple key replacement
+- `merge`: Deep merge nested structures
+- `append`: Append to lists instead of replacing
