@@ -84,3 +84,34 @@ python config_merger.py base.yaml override.toml -o final.json
 - `override`: Simple key replacement
 - `merge`: Deep merge nested structures
 - `append`: Append to lists instead of replacing
+
+### 🔐 Environment Variable Manager (`env_manager.py`)
+Manage, validate, and generate .env files with templates and validation rules.
+
+**Features:**
+- Load/save .env files
+- Template-based validation (required vars, patterns)
+- Generate templates from existing .env
+- Generate .env.example files
+- Merge multiple .env files
+- Diff comparison
+
+**Usage:**
+```bash
+# Validate
+python env_manager.py --validate .env --template .env.template.json
+
+# Generate template
+python env_manager.py --generate-template .env -o .env.template.json
+
+# Generate example
+python env_manager.py --generate-example .env.template.json -o .env.example
+
+# Merge
+python env_manager.py --merge .env.base .env.local -o .env
+
+# Diff
+python env_manager.py --diff .env.dev .env.prod
+```
+
+**No dependencies:** Pure Python stdlib.

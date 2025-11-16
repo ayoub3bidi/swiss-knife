@@ -156,9 +156,13 @@ utilities-demo: ## Show utilities examples
 	@echo ""
 	@echo "  Config Merger:"
 	@echo "    python utilities/config_merger.py base.json dev.json -o config.json"
-	@echo "    python utilities/config_merger.py config1.json config2.json --diff"
+	@echo ""
+	@echo "  Env Manager:"
+	@echo "    python utilities/env_manager.py --validate .env --template .env.template.json"
+	@echo "    python utilities/env_manager.py --merge .env.base .env.local -o .env"
 
 test-utilities: ## Test utilities functionality
 	@echo "Testing utilities..."
 	@$(VENV)/bin/python -c "from utilities.json_formatter import JSONFormatter; print('✓ JSON formatter OK')" || echo "✗ Failed"
 	@$(VENV)/bin/python -c "from utilities.config_merger import ConfigMerger; print('✓ Config merger OK')" || echo "✗ Failed"
+	@$(VENV)/bin/python -c "from utilities.env_manager import EnvManager; print('✓ Env manager OK')" || echo "✗ Failed"
