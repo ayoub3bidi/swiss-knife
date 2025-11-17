@@ -1,3 +1,4 @@
 tqdm>=4.64.0       # Progress bars (optional)
 pyyaml>=6.0        # YAML support
 toml>=0.10.2       # TOML support
+openpyxl>=3.0.0    # Excel file generation

@@ -160,6 +160,8 @@ utilities-demo: ## Show utilities examples
 	@echo "  Env Manager:"
 	@echo "    python utilities/env_manager.py --validate .env --template .env.template.json"
 	@echo "    python utilities/env_manager.py --merge .env.base .env.local -o .env"
+	@echo "  Excel Report:"
+	@echo "    python utilities/excel_report_generator.py data.csv -o report.xlsx"
 
 test-utilities: ## Test utilities functionality
 	@echo "Testing utilities..."

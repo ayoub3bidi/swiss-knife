@@ -115,3 +115,27 @@ python env_manager.py --diff .env.dev .env.prod
 ```
 
 **No dependencies:** Pure Python stdlib.
+
+### 📊 Excel Report Generator (`excel_report_generator.py`)
+Generate formatted Excel reports with charts, formulas, and styling from CSV/JSON data.
+
+**Features:**
+- Styled headers and tables
+- Auto-filter and freeze panes
+- Summary rows with formulas
+- Charts (bar, line, pie)
+- Auto-sized columns
+- CSV/JSON data import
+- Config-based generation
+
+**Usage:**
+```bash
+# From CSV
+python excel_report_generator.py data.csv -o report.xlsx --title "Q4 Sales"
+
+# From JSON config
+python excel_report_generator.py --config report_config.json -o report.xlsx
+```
+
+**Dependencies:** `openpyxl`
+
