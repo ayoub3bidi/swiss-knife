@@ -1,0 +1,159 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swiss-knife"
+version = "0.1.0"
+description = "A comprehensive collection of Python automation tools"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Ayoub Abidi", email = "ayoub3bidi@gmail.com"}
+]
+maintainers = [
+    {name = "Ayoub Abidi", email = "ayoub3bidi@gmail.com"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Utilities",
+]
+keywords = ["automation", "cli", "tools", "utilities", "file-management"]
+requires-python = ">=3.7"
+dependencies = [
+    "pathlib2; python_version<'3.4'",
+]
+
+[project.optional-dependencies]
+media = [
+    "Pillow>=8.0.0",
+    "pydub>=0.25.1",
+]
+network = [
+    "requests>=2.25.0",
+    "qrcode[pil]>=7.0.0",
+]
+system = [
+    "psutil>=5.8.0",
+]
+text = [
+    "markdown>=3.3.0",
+    "pygments>=2.7.0",
+]
+data = [
+    "openpyxl>=3.0.0",
+    "PyYAML>=5.4.0",
+]
+dev = [
+    "pytest>=6.0.0",
+    "pytest-cov>=2.10.0",
+    "flake8>=3.8.0",
+    "ruff>=0.1.0",
+    "mypy>=0.910",
+    "bandit>=1.7.0",
+]
+all = [
+    "swiss-knife[media,network,system,text,data]",
+]
+
+[project.urls]
+Homepage = "https://github.com/ayoub3bidi/swiss-knife"
+Repository = "https://github.com/ayoub3bidi/swiss-knife.git"
+Issues = "https://github.com/ayoub3bidi/swiss-knife/issues"
+Documentation = "https://github.com/ayoub3bidi/swiss-knife/docs"
+
+[project.scripts]
+sk-duplicates = "swiss_knife.cli.duplicate_finder:main"
+
+[tool.setuptools.packages.find]
+include = ["swiss_knife*"]
+exclude = ["tests*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--cov=swiss_knife",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-fail-under=80",
+]
+
+[tool.coverage.run]
+source = ["swiss_knife"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "setup.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.ruff]
+target-version = "py37"
+line-length = 88
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by formatter
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/*" = ["B011"]
+
+[tool.mypy]
+python_version = "3.7"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+skips = ["B101", "B601"]
