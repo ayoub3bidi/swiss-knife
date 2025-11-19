@@ -1,0 +1,114 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for Swiss Knife
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+assignees: ["ayoub3bidi"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please provide as much detail as possible to help us understand your request.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve? What use case does it address?
+      placeholder: |
+        I'm always frustrated when...
+        It would be helpful if...
+        Currently there's no way to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like to see implemented
+      placeholder: |
+        I would like to see...
+        The feature should work by...
+        It could be implemented as...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Describe any alternative solutions or features you've considered
+      placeholder: |
+        Alternative approaches could be...
+        I also considered...
+        Other tools do this by...
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feature Category
+      description: Which category does this feature belong to?
+      options:
+        - File Management
+        - Text Processing
+        - Automation & Security
+        - Network & Web
+        - System Utilities
+        - CLI Interface
+        - API/Library
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature to you?
+      options:
+        - Low - Nice to have
+        - Medium - Would be helpful
+        - High - Important for my workflow
+        - Critical - Blocking my use case
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Usage Examples
+      description: Provide examples of how this feature would be used
+      placeholder: |
+        # CLI usage example
+        sk-newtool --option value input.txt
+        
+        # Python API example
+        from swiss_knife.category import new_function
+        result = new_function(data, option=value)
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context, screenshots, or references about the feature request
+      placeholder: |
+        Related tools that have this feature...
+        Links to documentation or examples...
+        Screenshots or mockups...
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues to ensure this is not a duplicate
+          required: true
+        - label: This feature aligns with Swiss Knife's goals (automation, security, productivity)
+          required: true
+        - label: I would be willing to help implement this feature
+          required: false
+        - label: I would be willing to help test this feature
+          required: false

@@ -5,15 +5,6 @@
     A comprehensive collection of Python automation tools.
 </p>
 
-<p align="center">
-  <a href="https://www.python.org/downloads/">
-    <img src="https://img.shields.io/badge/python-3.8+-blue.svg" alt="Python">
-  </a>
-  <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
-  </a>
-</p>
-
 **Swiss Knife** is a production-ready Python package that provides a comprehensive collection of automation tools for file management, text processing, system utilities, network operations, and more.
 
 ## Features
