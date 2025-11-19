@@ -1,6 +1,6 @@
 """File management utilities."""
 
-from .duplicate_finder import find_duplicates, DuplicateFinder
-from .bulk_renamer import bulk_rename, BulkRenamer
+from .bulk_renamer import BulkRenamer, bulk_rename
+from .duplicate_finder import DuplicateFinder, find_duplicates
 
 __all__ = ["find_duplicates", "DuplicateFinder", "bulk_rename", "BulkRenamer"]

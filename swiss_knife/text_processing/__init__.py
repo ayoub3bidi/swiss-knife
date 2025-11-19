@@ -1,5 +1,5 @@
 """Text processing utilities."""
 
-from .csv_converter import convert_csv, CSVConverter
+from .csv_converter import CSVConverter, convert_csv
 
 __all__ = ["convert_csv", "CSVConverter"]
