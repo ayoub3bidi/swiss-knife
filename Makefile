@@ -1,170 +1,104 @@
-install: ## Install all dependencies
-	./$(VENV)/bin/pip install -r convert/requirements.txt
-	./$(VENV)/bin/pip install -r file_management/requirements.txt
-	./$(VENV)/bin/pip install -r text_processing/requirements.txt
-	./$(VENV)/bin/pip install -r system_utilities/requirements.txt
-	./$(VENV)/bin/pip install -r network_web/requirements.txt
-	./$(VENV)/bin/pip install -r development_tools/requirements.txt
-	./$(VENV)/bin/pip install -r automation/requirements.txt || true
-	./$(VENV)/bin/pip install -r utilities/requirements.txt || true
+# Swiss Knife - Makefile for development and testing
 
-validate-network: ## Validate network/web dependencies
-	@echo "Checking network/web dependencies..."
-	@$(VENV)/bin/python -c "import requests; print('✓ requests installed')" 2>/dev/null || echo "✗ requests missing"
-	@$(VENV)/bin/python -c "import urllib3; print('✓ urllib3 installed')" 2>/dev/null || echo "✗ urllib3 missing"
-	@$(VENV)/bin/python -c "import tqdm; print('✓ tqdm installed')" 2>/dev/null || echo "✗ tqdm missing"
-	@$(VENV)/bin/python -c "import certifi; print('✓ certifi installed')" 2>/dev/null || echo "✗ certifi missing"
-	@$(VENV)/bin/python -c "import qrcode; print('✓ qrcode installed')" 2>/dev/null || echo "✗ qrcode missing"
-	@$(VENV)/bin/python -c "from PIL import Image; print('✓ Pillow installed')" 2>/dev/null || echo "✗ Pillow missing"
-	@$(VENV)/bin/python -c "import ssl; print('✓ ssl available')"
+.PHONY: help install install-dev test test-cov lint format security build clean demo
 
-demo: ## Run demonstration of available tools
-	@echo "Sacred Scripts Automation Tools Demo"
-	@echo "===================================="
-	@echo ""
-	@echo "Audio/Video Processing:"
-	@echo "  • WAV to MP3: python convert/wav_to_mp3.py <file.wav>"
-	@echo "  • Audio visualization: python convert/sound_to_video.py <audio_file>"
-	@echo "  • Batch converter: python convert/batch_audio_converter.py --format mp3 *.wav"
-	@echo "  • Image converter: python convert/batch_image_converter.py --format jpeg *.png"
+VENV := venv
+PYTHON := $(VENV)/bin/python
+PIP := $(VENV)/bin/pip
+
+help: ## Show this help message
+	@echo "Swiss Knife - Development Commands"
+	@echo "=================================="
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+install: ## Install package in development mode
+	$(PIP) install -e .
+
+install-dev: ## Install with development dependencies
+	$(PIP) install -e .[dev,all]
+
+install-all: ## Install with all optional dependencies
+	$(PIP) install -e .[all]
+
+test: ## Run tests
+	$(PYTHON) -m pytest tests/ -v
+
+test-cov: ## Run tests with coverage
+	$(PYTHON) -m pytest tests/ --cov=swiss_knife --cov-report=term-missing --cov-report=html
+
+test-fast: ## Run tests without coverage
+	$(PYTHON) -m pytest tests/ -q --disable-warnings
+
+lint: ## Run linting checks
+	$(PYTHON) -m ruff check swiss_knife/
+	$(PYTHON) -m flake8 swiss_knife/
+
+format: ## Format code
+	$(PYTHON) -m ruff check swiss_knife/ --fix
+
+security: ## Run security checks
+	$(PYTHON) -m bandit -r swiss_knife/
+
+typecheck: ## Run type checking (optional)
+	$(PYTHON) -m mypy swiss_knife/ || true
+
+quality: lint security typecheck ## Run all quality checks
+
+build: ## Build package
+	$(PYTHON) -m build
+
+clean: ## Clean build artifacts
+	rm -rf build/ dist/ *.egg-info/ .pytest_cache/ htmlcov/ .coverage
+	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+	find . -type f -name "*.pyc" -delete
+
+demo: ## Show CLI usage examples
+	@echo "Swiss Knife - CLI Usage Examples"
+	@echo "================================"
 	@echo ""
 	@echo "File Management:"
-	@echo "  • Duplicate finder: python file_management/duplicate_finder.py /path/to/search"
-	@echo "  • Bulk renamer: python file_management/bulk_renamer.py '\\s+' '_' ~/Documents"
-	@echo "  • Broken symlinks: python file_management/broken_symlinks.py ~/Projects"
+	@echo "  sk-duplicates ~/Documents --algorithm sha256"
+	@echo "  sk-rename 'IMG_(\d+)' 'photo_\1' ~/Pictures --dry-run"
 	@echo ""
 	@echo "Text Processing:"
-	@echo "  • CSV to JSON: python text_processing/csv_converter.py data.csv -f json"
-	@echo "  • CSV to XML: python text_processing/csv_converter.py data.csv -f xml"
-	@echo "  • Markdown to HTML: python text_processing/markdown_converter.py README.md"
-	@echo "  • Text merger: python text_processing/text_merger.py *.txt -o merged.txt"
-	@echo "  • Word frequency: python text_processing/word_frequency.py document.txt"
+	@echo "  sk-csv data.csv --format json --pretty"
 	@echo ""
-	@echo "System Utilities:"
-	@echo "  • System monitor: python system_utilities/system_monitor.py"
-	@echo "  • Process killer: python system_utilities/process_killer.py --min-memory 1024 --dry-run"
-	@echo "  • Disk analyzer: python system_utilities/disk_analyzer.py ~/Documents"
+	@echo "Security & Automation:"
+	@echo "  sk-password --length 16 --symbols --exclude-ambiguous"
 	@echo ""
-	@echo "Network/Web Tools:"
-	@echo "  • Website checker: python network_web/website_checker.py https://example.com"
-	@echo "  • Bulk URL check: python network_web/website_checker.py --file urls.txt"
-	@echo "  • SSL monitoring: python network_web/website_checker.py --file urls.txt --ssl-warning-days 30"
-	@echo "  • QR generator: python network_web/qr_generator.py --url https://example.com -o qr.png"
-	@echo "  • WiFi QR: python network_web/qr_generator.py --wifi --ssid Net --password pass -o wifi.png"
-	@echo "  • Batch QR: python network_web/qr_generator.py --batch urls.txt --output-dir qr_codes/"
-	@echo "  • Network scan: python network_web/network_scanner.py --network 192.168.1.0/24 --quick"
-	@echo "  • Host scan: python network_web/network_scanner.py --host 192.168.1.1"
-	@echo ""
-	@echo "Run 'make validate-audio', 'make validate-files', 'make validate-text',"
-	@echo "'make validate-network', or 'make validate-system' to check dependencies"
+	@echo "For more examples, see README_TESTING.md"
 
-# Network/Web specific targets
-network-demo: ## Show network/web usage examples
-	@echo "Network/Web Tools Examples:"
-	@echo "  Website Checker:"
-	@echo "    Single URL:           python network_web/website_checker.py https://example.com"
-	@echo "    Multiple URLs:        python network_web/website_checker.py https://google.com https://github.com"
-	@echo "    From file:            python network_web/website_checker.py --file urls.txt"
-	@echo "    Verbose SSL:          python network_web/website_checker.py https://example.com --verbose"
-	@echo "    Export JSON:          python network_web/website_checker.py --file urls.txt --export-json report.json"
-	@echo "    Custom timeout:       python network_web/website_checker.py https://example.com --timeout 30"
-	@echo ""
-	@echo "  QR Code Generator:"
-	@echo "    URL:                  python network_web/qr_generator.py --url https://example.com -o qr.png"
-	@echo "    WiFi:                 python network_web/qr_generator.py --wifi --ssid Net --password pass -o wifi.png"
-	@echo "    Contact card:         python network_web/qr_generator.py --vcard --name 'John' --vcard-phone '+123' -o contact.png"
-	@echo "    With label:           python network_web/qr_generator.py --url https://example.com -o qr.png --label 'Visit Us'"
-	@echo "    Custom style:         python network_web/qr_generator.py --url https://example.com -o qr.png --style rounded"
-	@echo "    Custom colors:        python network_web/qr_generator.py --url https://example.com -o qr.png --fill-color blue"
-	@echo "    Batch from file:      python network_web/qr_generator.py --batch urls.txt --output-dir qr_codes/"
-	@echo "    Batch from JSON:      python network_web/qr_generator.py --batch-json config.json --output-dir qr_codes/"
-	@echo ""
-	@echo "QR Styles: square, circle, rounded, vertical, horizontal, gapped"
-	@echo "QR Types: url, text, wifi, vcard, email, sms, phone, geo"
+validate: ## Validate installation
+	@echo "Validating Swiss Knife installation..."
+	@$(PYTHON) -c "import swiss_knife; print(f'✓ Swiss Knife v{swiss_knife.__version__} installed')"
+	@$(PYTHON) -c "from swiss_knife.file_management import find_duplicates; print('✓ File management module OK')"
+	@$(PYTHON) -c "from swiss_knife.text_processing import convert_csv; print('✓ Text processing module OK')"
+	@$(PYTHON) -c "from swiss_knife.automation import generate_password; print('✓ Automation module OK')"
+	@echo "✓ All core modules validated"
 
-test-network: ## Test network/web functionality  
-	@echo "Testing network/web tools..."
-	@$(VENV)/bin/python -c "from network_web.website_checker import WebsiteChecker; print('✓ Website checker imports OK')" || echo "✗ Website checker test failed"
-	@$(VENV)/bin/python -c "from network_web.qr_generator import QRGenerator; print('✓ QR generator imports OK')" || echo "✗ QR generator test failed"
-	@$(VENV)/bin/python -c "from network_web.network_scanner import NetworkScanner; print('✓ Network scanner imports OK')" || echo "✗ Network scanner test failed"
+check-cli: ## Check CLI entry points
+	@echo "Checking CLI entry points..."
+	@sk-duplicates --help > /dev/null && echo "✓ sk-duplicates" || echo "✗ sk-duplicates"
+	@sk-csv --help > /dev/null && echo "✓ sk-csv" || echo "✗ sk-csv"  
+	@sk-password --help > /dev/null && echo "✓ sk-password" || echo "✗ sk-password"
 
-test-all: test-audio test-files test-text test-network test-system ## Run all functionality tests
+dev-setup: ## Set up development environment
+	python3 -m venv $(VENV)
+	$(PIP) install --upgrade pip setuptools wheel
+	$(MAKE) install-dev
+	@echo "Development environment ready!"
 
-# Add validate-system if not present
-validate-system: ## Validate system utilities dependencies
-	@echo "Checking system utilities dependencies..."
-	@$(VENV)/bin/python -c "import psutil; print('✓ psutil installed')" 2>/dev/null || echo "✗ psutil missing"
-	@$(VENV)/bin/python -c "import tqdm; print('✓ tqdm installed')" 2>/dev/null || echo "✗ tqdm missing"
+ci: ## Run CI pipeline locally
+	$(MAKE) lint
+	$(MAKE) security
+	$(MAKE) test-cov
+	$(MAKE) build
 
-test-system: ## Test system utilities functionality
-	@echo "Testing system utilities tools..."
-	@$(VENV)/bin/python -c "from system_utilities.system_monitor import ResourceMonitor; print('✓ System monitor imports OK')" || echo "✗ System utilities test failed"
-
-# Development tools targets
-dev-demo: ## Show development tools examples
-	@echo "Development Tools Examples:"
-	@echo "  Code Formatter:"
-	@echo "    python development_tools/code_formatter.py src/ --recursive"
-	@echo "    python development_tools/code_formatter.py . --check --recursive"
-	@echo ""
-	@echo "  License Header Injector:"
-	@echo "    python development_tools/license_header_injector.py -l mit -a 'Your Name' src/ -r"
-	@echo "    python development_tools/license_header_injector.py -l apache -a 'Company' . -r --update"
-	@echo ""
-	@echo "  Dead Code Detector:"
-	@echo "    python development_tools/dead_code_detector.py ."
-	@echo "    python development_tools/dead_code_detector.py src/ --min-confidence high"
-	@echo "    python development_tools/dead_code_detector.py . --export-json dead_code.json"
-
-test-dev: ## Test development tools functionality
-	@echo "Testing development tools..."
-	@$(VENV)/bin/python -c "from development_tools.code_formatter import CodeFormatter; print('✓ Code formatter imports OK')" || echo "✗ Code formatter test failed"
-	@$(VENV)/bin/python -c "from development_tools.license_header_injector import LicenseHeaderInjector; print('✓ License injector imports OK')" || echo "✗ License injector test failed"
-	@$(VENV)/bin/python -c "from development_tools.dead_code_detector import PythonDeadCodeDetector; print('✓ Dead code detector imports OK')" || echo "✗ Dead code detector test failed"
-
-validate-dev: ## Validate development tools dependencies
-	@echo "Checking development tools dependencies..."
-	@$(VENV)/bin/python -c "import tqdm; print('✓ tqdm installed')" 2>/dev/null || echo "✗ tqdm missing"
-
-automation-demo: ## Show automation tools examples
-	@echo "Automation Tools Examples:"
-	@echo "  Screenshot Scheduler:"
-	@echo "    python automation/screenshot_scheduler.py -o screenshots/ -i 5m"
-	@echo ""
-	@echo "  Database Backup:"
-	@echo "    python automation/database_backup.py mysql -d mydb -u root -p pass -o backups/"
-	@echo ""
-	@echo "  Password Generator:"
-	@echo "    python automation/password_generator.py -l 20"
-	@echo "    python automation/password_generator.py --passphrase -w 4"
-	@echo "    python automation/password_generator.py --analyze 'MyPassword123'"
-
-validate-automation: ## Validate automation dependencies
-	@echo "Checking automation dependencies..."
-	@$(VENV)/bin/python -c "import mss; print('✓ mss installed')" 2>/dev/null || echo "✗ mss missing"
-	@$(VENV)/bin/python -c "from PIL import Image; print('✓ Pillow installed')" 2>/dev/null || echo "✗ Pillow missing"
-
-test-automation: ## Test automation functionality
-	@echo "Testing automation tools..."
-	@$(VENV)/bin/python -c "from automation.screenshot_scheduler import ScreenshotScheduler; print('✓ Screenshot scheduler OK')" || echo "✗ Failed"
-	@$(VENV)/bin/python -c "from automation.database_backup import DatabaseBackup; print('✓ Database backup OK')" || echo "✗ Failed"
-
-utilities-demo: ## Show utilities examples
-	@echo "Utilities Examples:"
-	@echo "  JSON Formatter:"
-	@echo "    python utilities/json_formatter.py data.json --minify"
-	@echo ""
-	@echo "  Config Merger:"
-	@echo "    python utilities/config_merger.py base.json dev.json -o config.json"
-	@echo ""
-	@echo "  Env Manager:"
-	@echo "    python utilities/env_manager.py --validate .env --template .env.template.json"
-	@echo "    python utilities/env_manager.py --merge .env.base .env.local -o .env"
-	@echo "  Excel Report:"
-	@echo "    python utilities/excel_report_generator.py data.csv -o report.xlsx"
-
-test-utilities: ## Test utilities functionality
-	@echo "Testing utilities..."
-	@$(VENV)/bin/python -c "from utilities.json_formatter import JSONFormatter; print('✓ JSON formatter OK')" || echo "✗ Failed"
-	@$(VENV)/bin/python -c "from utilities.config_merger import ConfigMerger; print('✓ Config merger OK')" || echo "✗ Failed"
-	@$(VENV)/bin/python -c "from utilities.env_manager import EnvManager; print('✓ Env manager OK')" || echo "✗ Failed"
+release-check: ## Check if ready for release
+	@echo "Release readiness check..."
+	$(MAKE) clean
+	$(MAKE) quality
+	$(MAKE) test-cov
+	$(MAKE) build
+	$(PYTHON) -m twine check dist/*
+	@echo "✓ Release checks passed"
