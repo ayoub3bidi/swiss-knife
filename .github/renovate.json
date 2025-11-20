@@ -1,0 +1,144 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":dependencies",
+    ":semanticCommits",
+    ":enableVulnerabilityAlerts"
+  ],
+  "python": {
+    "rangeStrategy": "auto"
+  },
+  "ignoreDeps": [],
+  "postUpdateOptions": [
+    "gomodTidy",
+    "npmDedupe",
+    "pipCompile",
+    "yarnDedupeModules"
+  ],
+  "packageRules": [
+    {
+      "description": "Disable automerge by default",
+      "automerge": false
+    },
+    {
+      "description": "Auto-merge minor and patch dependencies",
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest"
+      ],
+      "matchDatasources": [
+        "pypi"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Development dependencies - automerge patch and minor",
+      "matchDepTypes": [
+        "dev-dependencies"
+      ],
+      "automerge": true,
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Critical security updates - require human review",
+      "matchDatasources": [
+        "pypi"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": false,
+      "labels": [
+        "security",
+        "major-update"
+      ]
+    },
+    {
+      "description": "Python version updates - require review",
+      "matchDepNames": [
+        "python"
+      ],
+      "automerge": false,
+      "labels": [
+        "python-version"
+      ]
+    },
+    {
+      "description": "Testing framework updates",
+      "matchDepNames": [
+        "pytest",
+        "pytest-cov",
+        "pytest-xdist"
+      ],
+      "groupName": "testing-dependencies",
+      "schedule": [
+        "after 9am on Monday"
+      ]
+    },
+    {
+      "description": "Linting and formatting tools",
+      "matchDepNames": [
+        "ruff",
+        "flake8",
+        "mypy",
+        "black",
+        "isort"
+      ],
+      "groupName": "linting-dependencies",
+      "schedule": [
+        "after 9am on Monday"
+      ]
+    },
+    {
+      "description": "Security scanning tools",
+      "matchDepNames": [
+        "bandit",
+        "safety"
+      ],
+      "groupName": "security-dependencies",
+      "schedule": [
+        "after 9am on Monday"
+      ]
+    }
+  ],
+  "schedule": [
+    "before 3am on Monday"
+  ],
+  "timezone": "UTC",
+  "prCreation": "as-needed",
+  "prConcurrentLimit": 3,
+  "prConcurrentLimitPerCodeOwner": 1,
+  "semanticCommits": "enabled",
+  "commitMessagePrefix": "chore(deps):",
+  "commitMessageAction": "update",
+  "labels": [
+    "dependencies",
+    "automated"
+  ],
+  "assignees": [
+    "@ayoub3bidi"
+  ],
+  "reviewers": [
+    "@ayoub3bidi"
+  ],
+  "vulnerabilityAlerts": {
+    "labels": [
+      "security",
+      "vulnerability"
+    ],
+    "automerge": false,
+    "assignees": [
+      "@ayoub3bidi"
+    ]
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "before 3am on the first day of the month"
+    ]
+  }
+}
