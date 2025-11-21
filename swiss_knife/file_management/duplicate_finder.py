@@ -1,5 +1,3 @@
-"""Duplicate file detection using cryptographic hashes."""
-
 import hashlib
 from collections import defaultdict
 from pathlib import Path
@@ -9,13 +7,11 @@ from ..core import SafetyError, confirm_destructive_action, validate_path
 
 
 class DuplicateFinder:
-    """Find duplicate files using hash comparison."""
 
     ALGORITHMS = ["md5", "sha1", "sha256", "sha512"]
 
     def __init__(self, algorithm: str = "sha256", min_size: int = 0):
-        """Initialize duplicate finder.
-
+        """
         Args:
             algorithm: Hash algorithm to use
             min_size: Minimum file size in bytes
@@ -28,7 +24,6 @@ class DuplicateFinder:
         self._hash_func = getattr(hashlib, algorithm)
 
     def _calculate_hash(self, file_path: Path) -> str:
-        """Calculate file hash using streaming to handle large files."""
         hash_obj = self._hash_func()
 
         try:
@@ -40,7 +35,7 @@ class DuplicateFinder:
             raise SafetyError(f"Cannot read file {file_path}: {e}")
 
     def find_duplicates(self, paths: List[Path]) -> Dict[str, List[Path]]:
-        """Find duplicate files in given paths.
+        """
 
         Args:
             paths: List of directories or files to scan
@@ -82,7 +77,7 @@ class DuplicateFinder:
         keep_strategy: str = "first",
         force: bool = False,
     ) -> int:
-        """Delete duplicate files keeping one per group.
+        """
 
         Args:
             duplicates: Result from find_duplicates()
@@ -136,7 +131,7 @@ class DuplicateFinder:
 def find_duplicates(
     paths: List[str], algorithm: str = "sha256", min_size: int = 0
 ) -> Dict[str, List[str]]:
-    """Find duplicate files (convenience function).
+    """
 
     Args:
         paths: List of directory or file paths

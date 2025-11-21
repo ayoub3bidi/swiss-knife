@@ -3,7 +3,7 @@ A collection of system monitoring and management tools for tracking resource usa
 
 ## Available Scripts
 
-### 🖥️ System Resource Monitor (`system_monitor.py`)
+### System Resource Monitor (`system_monitor.py`)
 Real-time system resource monitoring with configurable thresholds and intelligent alerting.
 
 **Features:**
@@ -115,7 +115,7 @@ python system_utilities/process_killer.py --memory-threshold 85 --exclude-user p
 python system_utilities/process_killer.py --min-memory 1024 --force
 ```
 
-### 💾 Disk Space Analyzer (`disk_analyzer.py`)
+### Disk Space Analyzer (`disk_analyzer.py`)
 Analyze directory sizes and visualize space usage with detailed breakdowns.
 
 **Usage:**
@@ -136,6 +136,4 @@ disk-demo: ## Show disk analyzer examples
 	@echo "  Analyze directory:  python system_utilities/disk_analyzer.py ~/Documents"
 	@echo "  Find space hogs:    python system_utilities/disk_analyzer.py /var --min-size 100MB"
 ```
-
-This completes the system utilities section nicely. Ready to move to the next category? The Development Tools section has some interesting ones like "Code formatter for multiple languages" or we could jump to Network/Web tools.
 

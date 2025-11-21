@@ -1,5 +1,3 @@
-"""CSV to JSON/XML converter with type inference."""
-
 import csv
 import json
 import xml.etree.ElementTree as ET
@@ -10,10 +8,9 @@ from ..core import SafetyError, check_file_size_limit, validate_path
 
 
 class CSVConverter:
-    """Convert CSV files to JSON or XML with intelligent type inference."""
 
     def __init__(self, max_file_size_mb: int = 100):
-        """Initialize CSV converter.
+        """
 
         Args:
             max_file_size_mb: Maximum file size to process in MB
@@ -21,7 +18,6 @@ class CSVConverter:
         self.max_file_size_mb = max_file_size_mb
 
     def _infer_type(self, value: str) -> Any:
-        """Infer the type of a string value."""
         if not value or value.lower() in ("", "null", "none"):
             return None
 
@@ -48,7 +44,7 @@ class CSVConverter:
     def read_csv(
         self, file_path: Path, delimiter: str = ",", infer_types: bool = True
     ) -> List[Dict[str, Any]]:
-        """Read CSV file and return list of dictionaries.
+        """
 
         Args:
             file_path: Path to CSV file
@@ -85,7 +81,7 @@ class CSVConverter:
         return data
 
     def to_json(self, data: List[Dict[str, Any]], pretty: bool = True) -> str:
-        """Convert data to JSON string.
+        """
 
         Args:
             data: List of dictionaries
@@ -105,7 +101,7 @@ class CSVConverter:
     def to_xml(
         self, data: List[Dict[str, Any]], root_tag: str = "data", row_tag: str = "row"
     ) -> str:
-        """Convert data to XML string.
+        """
 
         Args:
             data: List of dictionaries
@@ -144,7 +140,7 @@ class CSVConverter:
         output_path: Optional[str] = None,
         **kwargs,
     ) -> str:
-        """Convert CSV file to specified format.
+        """
 
         Args:
             input_path: Path to input CSV file
@@ -185,7 +181,7 @@ class CSVConverter:
 def convert_csv(
     input_path: str, output_format: str, output_path: Optional[str] = None, **kwargs
 ) -> str:
-    """Convert CSV file (convenience function).
+    """
 
     Args:
         input_path: Path to input CSV file

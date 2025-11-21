@@ -4,7 +4,7 @@ General-purpose helper scripts for data manipulation and common tasks.
 
 ## Available Scripts
 
-### 📋 JSON Formatter (`json_formatter.py`)
+### JSON Formatter (`json_formatter.py`)
 Format, validate, minify, and manipulate JSON files with comprehensive error handling.
 
 **Features:**
@@ -49,7 +49,7 @@ python json_formatter.py data.json --backup
 
 **No Dependencies:** Pure Python stdlib.
 
-### ⚙️ Configuration File Merger (`config_merger.py`)
+### Configuration File Merger (`config_merger.py`)
 Merge and manage configuration files across environments with support for JSON, YAML, TOML, INI, and ENV formats.
 
 **Features:**
@@ -85,7 +85,7 @@ python config_merger.py base.yaml override.toml -o final.json
 - `merge`: Deep merge nested structures
 - `append`: Append to lists instead of replacing
 
-### 🔐 Environment Variable Manager (`env_manager.py`)
+### Environment Variable Manager (`env_manager.py`)
 Manage, validate, and generate .env files with templates and validation rules.
 
 **Features:**
@@ -116,7 +116,7 @@ python env_manager.py --diff .env.dev .env.prod
 
 **No dependencies:** Pure Python stdlib.
 
-### 📊 Excel Report Generator (`excel_report_generator.py`)
+### Excel Report Generator (`excel_report_generator.py`)
 Generate formatted Excel reports with charts, formulas, and styling from CSV/JSON data.
 
 **Features:**
@@ -136,6 +136,3 @@ python excel_report_generator.py data.csv -o report.xlsx --title "Q4 Sales"
 # From JSON config
 python excel_report_generator.py --config report_config.json -o report.xlsx
 ```
-
-**Dependencies:** `openpyxl`
-

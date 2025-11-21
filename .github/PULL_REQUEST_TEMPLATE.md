@@ -151,7 +151,7 @@ make test-cov
 ---
 
 **By submitting this pull request, I confirm that:**
-- [ ] I have read and agree to the [Code of Conduct](docs/CODE_OF_CONDUCT.md)
-- [ ] I have read the [Contributing Guidelines](docs/CONTRIBUTING.md)
+- [ ] I have read and agree to the [Code of Conduct](../CODE_OF_CONDUCT.md)
+- [ ] I have read the [Contributing Guidelines](../CONTRIBUTING.md)
 - [ ] My code follows the project's coding standards
 - [ ] I have tested my changes thoroughly

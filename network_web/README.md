@@ -4,7 +4,7 @@ Network and web utilities for monitoring, testing, and automation.
 
 ## Available Scripts
 
-### 🌐 Website Availability Checker (`website_checker.py`)
+### Website Availability Checker (`website_checker.py`)
 Monitor website availability, response times, SSL certificate expiration, and HTTP status codes.
 
 **Features:**
@@ -18,7 +18,7 @@ Monitor website availability, response times, SSL certificate expiration, and HT
 - JSON/CSV export for reporting
 - Success rate statistics
 
-### 📱 QR Code Generator (`qr_generator.py`)
+### QR Code Generator (`qr_generator.py`)
 Generate QR codes for URLs, WiFi credentials, contact cards, and various data types.
 
 **Features:**
@@ -30,7 +30,7 @@ Generate QR codes for URLs, WiFi credentials, contact cards, and various data ty
 - High-resolution output
 - Configurable size and border
 
-### 🔍 Local Network Scanner (`network_scanner.py`)
+### Local Network Scanner (`network_scanner.py`)
 Discover devices, open ports, and services on local networks with concurrent scanning.
 
 **Features:**
@@ -679,20 +679,3 @@ python website_checker.py --file urls.txt --delay 5
 # Use custom User-Agent
 python website_checker.py --file urls.txt --user-agent "MyMonitor/1.0"
 ```
-
-## Coming Soon
-- ✅ Website availability checker (COMPLETED)
-- ✅ QR code generator for URLs/text (COMPLETED)
-- [ ] Bulk URL shortener with custom domains
-- [ ] Local network scanner and port checker
-- [ ] DNS lookup and propagation checker
-- [ ] HTTP header analyzer
-- [ ] Website screenshot capture
-
-## Dependencies
-- `requests`: HTTP library for making web requests
-- `urllib3`: HTTP client (included with requests)
-- `tqdm`: Progress bars for bulk operations
-- `certifi`: SSL certificate bundle
-- `qrcode[pil]`: QR code generation with styling support
-- `Pillow`: Image processing and manipulation

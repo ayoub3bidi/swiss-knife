@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-CSV to JSON/XML Converter
-Convert CSV files to JSON or XML format with various formatting options.
-"""
 
 import argparse
 import csv
@@ -51,7 +47,6 @@ class CSVConverter:
         self.stats = {"rows_processed": 0, "rows_skipped": 0, "fields_found": 0}
 
     def _normalize_header(self, header: str) -> str:
-        """Normalize header name for use as JSON key or XML tag."""
         if self.strip_whitespace:
             header = header.strip()
 
@@ -67,7 +62,6 @@ class CSVConverter:
         return header or "unnamed"
 
     def _convert_value(self, value: str) -> Any:
-        """Convert string value to appropriate type."""
         if self.strip_whitespace:
             value = value.strip()
 
@@ -99,13 +93,11 @@ class CSVConverter:
         return value
 
     def _is_empty_row(self, row: Dict) -> bool:
-        """Check if row contains only empty values."""
         return all(
             not v or (isinstance(v, str) and not v.strip()) for v in row.values()
         )
 
     def read_csv(self, filepath: Path) -> List[Dict]:
-        """Read CSV file and return list of dictionaries."""
         rows = []
 
         try:
@@ -168,7 +160,6 @@ class CSVConverter:
         indent: int = 2,
         sort_keys: bool = False,
     ) -> str:
-        """Convert data to JSON format."""
         return json.dumps(
             data,
             indent=indent if pretty else None,
@@ -183,7 +174,6 @@ class CSVConverter:
         row_tag: str = "row",
         pretty: bool = True,
     ) -> str:
-        """Convert data to XML format."""
         root = ET.Element(root_tag)
 
         for row in data:
@@ -214,7 +204,6 @@ class CSVConverter:
         return xml_string
 
     def _prettify_xml(self, xml_string: str) -> str:
-        """Add proper indentation to XML."""
         import xml.dom.minidom
 
         dom = xml.dom.minidom.parseString(xml_string)
@@ -223,7 +212,6 @@ class CSVConverter:
     def convert_file(
         self, input_path: Path, output_path: Path, format: str, **kwargs
     ) -> None:
-        """Convert CSV file to specified format."""
         print(f"Reading: {input_path}")
         data = self.read_csv(input_path)
 
@@ -243,7 +231,6 @@ class CSVConverter:
         self.print_stats(input_path, output_path)
 
     def print_stats(self, input_path: Path, output_path: Path):
-        """Print conversion statistics."""
         input_size = input_path.stat().st_size
         output_size = output_path.stat().st_size
 

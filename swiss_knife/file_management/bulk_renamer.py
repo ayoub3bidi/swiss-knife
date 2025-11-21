@@ -1,5 +1,3 @@
-"""Bulk file renaming with regex patterns."""
-
 import re
 from collections import Counter
 from pathlib import Path
@@ -9,10 +7,9 @@ from ..core import SafetyError, confirm_destructive_action, safe_filename, valid
 
 
 class BulkRenamer:
-    """Bulk file renaming with regex patterns and safety checks."""
 
     def __init__(self, dry_run: bool = False):
-        """Initialize bulk renamer.
+        """
 
         Args:
             dry_run: If True, only show what would be renamed
@@ -23,7 +20,7 @@ class BulkRenamer:
     def add_pattern(
         self, pattern: str, replacement: str, target_dir: Path, recursive: bool = False
     ) -> List[Tuple[Path, Path]]:
-        """Add a rename pattern and return planned operations.
+        """
 
         Args:
             pattern: Regex pattern to match
@@ -85,7 +82,7 @@ class BulkRenamer:
         return operations
 
     def execute(self, force: bool = False) -> int:
-        """Execute all planned rename operations.
+        """
 
         Args:
             force: Skip confirmation prompts
@@ -127,7 +124,7 @@ def bulk_rename(
     recursive: bool = False,
     dry_run: bool = False,
 ) -> int:
-    """Bulk rename files (convenience function).
+    """
 
     Args:
         pattern: Regex pattern to match

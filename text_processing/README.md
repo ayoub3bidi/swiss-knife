@@ -4,7 +4,7 @@ Collection of utilities for text file manipulation, conversion, and analysis.
 
 ## Available Scripts
 
-### 📊 CSV to JSON/XML Converter (`csv_converter.py`)
+### CSV to JSON/XML Converter (`csv_converter.py`)
 Convert CSV files to JSON or XML format with intelligent type inference and flexible formatting options.
 
 **Features:**
@@ -18,7 +18,7 @@ Convert CSV files to JSON or XML format with intelligent type inference and flex
 - Progress tracking
 - Compression statistics
 
-### 📝 Markdown to HTML Converter (`markdown_converter.py`)
+### Markdown to HTML Converter (`markdown_converter.py`)
 Convert Markdown files to styled HTML with syntax highlighting, themes, and table of contents.
 
 **Features:**
@@ -32,7 +32,7 @@ Convert Markdown files to styled HTML with syntax highlighting, themes, and tabl
 - Batch directory conversion
 - Responsive design
 
-### 🔗 Text File Merger (`text_merger.py`)
+### Text File Merger (`text_merger.py`)
 Merge multiple text files with customizable delimiters and advanced formatting options.
 
 **Features:**
@@ -45,7 +45,7 @@ Merge multiple text files with customizable delimiters and advanced formatting o
 - Error handling strategies (skip, stop, replace)
 - Preview mode for testing
 
-### 📈 Word Frequency Analyzer (`word_frequency.py`)
+### Word Frequency Analyzer (`word_frequency.py`)
 Analyze word frequency in text files with advanced filtering and pattern matching.
 
 **Features:**
@@ -399,20 +399,3 @@ python word_frequency.py huge_file.txt --min-frequency 5
 # Disable context storage for large corpora
 python word_frequency.py big_data/ -r  # Don't use --contexts
 ```
-
-## Coming Soon
-- ✅ CSV to JSON/XML converter (COMPLETED)
-- ✅ Markdown to HTML converter (COMPLETED)
-- ✅ Text file merger with delimiters (COMPLETED)
-- ✅ Word frequency analyzer (COMPLETED)
-- [ ] Email extractor from text files
-- [ ] N-gram analyzer (bigrams, trigrams)
-- [ ] Sentiment analysis tool
-- [ ] Text summarization
-- [ ] Readability score calculator
-
-## Dependencies
-- `tqdm`: Progress bars
-- `python-dateutil`: Date/time utilities
-- `markdown`: Markdown parsing and conversion
-- `Pygments`: Syntax highlighting for code blocks

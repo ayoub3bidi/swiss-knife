@@ -189,27 +189,6 @@ pytest --cov=swiss_knife --cov-report=html
 pytest -q --disable-warnings
 ```
 
-## Adding New Features
-
-### New Module Checklist
-- [ ] Create module directory under `swiss_knife/`
-- [ ] Implement API classes and functions with type hints
-- [ ] Add comprehensive docstrings
-- [ ] Create CLI wrapper in `swiss_knife/cli/`
-- [ ] Add console script entry point in `pyproject.toml`
-- [ ] Write comprehensive tests (95%+ coverage)
-- [ ] Update documentation
-- [ ] Add usage examples
-
-### New CLI Tool Checklist
-- [ ] Create CLI module following existing patterns
-- [ ] Add argument parser with help text
-- [ ] Implement error handling
-- [ ] Add console script entry point
-- [ ] Write CLI tests
-- [ ] Update documentation
-- [ ] Add to README examples
-
 ## Security Considerations
 
 ### Input Validation
@@ -291,7 +270,7 @@ pytest -q --disable-warnings
 
 ## Contributing Guidelines
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines including:
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed contribution guidelines including:
 - Code of conduct
 - Issue reporting
 - Pull request process

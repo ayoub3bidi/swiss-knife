@@ -17,7 +17,7 @@ Thank you for your interest in contributing to Swiss Knife! This document provid
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to ayoub3bidi@gmail.com.
+This project and everyone participating in it is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to contact@ayoub3bidi.me.
 
 ## Getting Started
 
@@ -331,7 +331,7 @@ Use the feature request template and include:
 
 For security vulnerabilities:
 1. **Do not** create a public issue
-2. **Email** ayoub3bidi@gmail.com directly
+2. **Email** contact@ayoub3bidi.me directly
 3. **Include** detailed information about the vulnerability
 4. **Wait** for acknowledgment before public disclosure
 
@@ -342,7 +342,7 @@ For security vulnerabilities:
 - **GitHub Issues**: Bug reports, feature requests
 - **GitHub Discussions**: General questions, ideas
 - **Pull Requests**: Code contributions
-- **Email**: ayoub3bidi@gmail.com for sensitive issues
+- **Email**: contact@ayoub3bidi.me for sensitive issues
 
 ### Getting Help
 

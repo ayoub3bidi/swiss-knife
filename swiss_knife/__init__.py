@@ -1,11 +1,7 @@
-"""Swiss Knife - A comprehensive collection of Python automation tools.
-
-Automating the mundane, one tool at a time.
-"""
 
 __version__ = "0.1.0"
 __author__ = "Ayoub Abidi"
-__email__ = "ayoub3bidi@gmail.com"
+__email__ = "contact@ayoub3bidi.me"
 
 from .core import SafetyError, ValidationError
 

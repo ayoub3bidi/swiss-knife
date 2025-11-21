@@ -1,5 +1,3 @@
-"""Core utilities for Swiss Knife package."""
-
 from pathlib import Path
 from typing import Union
 
@@ -17,7 +15,6 @@ class ValidationError(Exception):
 
 
 def validate_path(path: Union[str, Path], must_exist: bool = True) -> Path:
-    """Validate and normalize a file path."""
     path = Path(path).resolve()
 
     if must_exist and not path.exists():
@@ -34,7 +31,6 @@ def validate_path(path: Union[str, Path], must_exist: bool = True) -> Path:
 
 
 def confirm_destructive_action(message: str, force: bool = False) -> bool:
-    """Confirm destructive actions with user."""
     if force:
         return True
 
@@ -43,7 +39,6 @@ def confirm_destructive_action(message: str, force: bool = False) -> bool:
 
 
 def check_file_size_limit(path: Path, max_size_mb: int = 100) -> None:
-    """Check if file size is within limits."""
     if not path.exists():
         return
 
@@ -53,7 +48,6 @@ def check_file_size_limit(path: Path, max_size_mb: int = 100) -> None:
 
 
 def safe_filename(filename: str) -> str:
-    """Create a safe filename by removing dangerous characters."""
     import re
 
     # Remove or replace dangerous characters

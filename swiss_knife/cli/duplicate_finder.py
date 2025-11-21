@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""CLI for duplicate file finder."""
 
 import argparse
 import json
@@ -9,7 +8,6 @@ from ..file_management.duplicate_finder import DuplicateFinder
 
 
 def main():
-    """Main CLI entry point."""
     parser = argparse.ArgumentParser(
         description="Find and optionally delete duplicate files"
     )

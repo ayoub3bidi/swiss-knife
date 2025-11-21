@@ -9,10 +9,10 @@ description = "A comprehensive collection of Python automation tools"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "Ayoub Abidi", email = "ayoub3bidi@gmail.com"}
+    {name = "Ayoub Abidi", email = "contact@ayoub3bidi.me"}
 ]
 maintainers = [
-    {name = "Ayoub Abidi", email = "ayoub3bidi@gmail.com"}
+    {name = "Ayoub Abidi", email = "contact@ayoub3bidi.me"}
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",

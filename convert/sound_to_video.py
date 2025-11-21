@@ -1,15 +1,18 @@
-import sys
 import os
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-from scipy.io import wavfile
-import moviepy.editor as mpe
-from pydub import AudioSegment
+import sys
 import tempfile
+
 import matplotlib
-matplotlib.use('Agg')  #! Required for saving animation
+import matplotlib.pyplot as plt
+import moviepy.editor as mpe
+import numpy as np
+from matplotlib.animation import FuncAnimation
+from pydub import AudioSegment
+from scipy.io import wavfile
+
+matplotlib.use("Agg")  #! Required for saving animation
 # from tqdm import tqdm
+
 
 def convert_to_wav(audio_path):
     try:
@@ -25,18 +28,19 @@ def convert_to_wav(audio_path):
         print(f"Error converting audio file: {str(e)}")
         return None
 
+
 def create_audio_visualization(audio_path):
     try:
         if not os.path.exists(audio_path):
             print(f"Error: File '{audio_path}' does not exist.")
             return False
 
-        directory = os.path.dirname(audio_path) if os.path.dirname(audio_path) else '.'
+        directory = os.path.dirname(audio_path) if os.path.dirname(audio_path) else "."
         filename = os.path.splitext(os.path.basename(audio_path))[0]
         output_path = os.path.join(directory, f"{filename}_visualization.mp4")
 
         temp_wav = None
-        if not audio_path.lower().endswith('.wav'):
+        if not audio_path.lower().endswith(".wav"):
             temp_wav = convert_to_wav(audio_path)
             if not temp_wav:
                 return False
@@ -50,16 +54,16 @@ def create_audio_visualization(audio_path):
         if len(audio_data.shape) > 1:
             audio_data = audio_data.mean(axis=1)
 
-        duration = len(audio_data) / sample_rate
+        len(audio_data) / sample_rate
 
         segment_duration = 0.05  # 50ms segments
         segment_samples = int(sample_rate * segment_duration)
         num_segments = len(audio_data) // segment_samples
 
         fig, ax = plt.subplots(figsize=(10, 6))
-        ax.set_facecolor('black')
-        fig.patch.set_facecolor('black')
-        line, = ax.plot([], [], lw=2, color='cyan')
+        ax.set_facecolor("black")
+        fig.patch.set_facecolor("black")
+        (line,) = ax.plot([], [], lw=2, color="cyan")
 
         max_amplitude = np.max(np.abs(audio_data))
         ax.set_xlim(0, segment_samples)
@@ -72,28 +76,40 @@ def create_audio_visualization(audio_path):
             end_idx = start_idx + segment_samples
             segment = audio_data[start_idx:end_idx]
             line.set_data(range(len(segment)), segment)
-            return line,
+            return (line,)
 
         print("Creating animation...")
-        anim = FuncAnimation(fig, animate, frames=num_segments,
-                           interval=segment_duration*1000, blit=True)
+        anim = FuncAnimation(
+            fig,
+            animate,
+            frames=num_segments,
+            interval=segment_duration * 1000,
+            blit=True,
+        )
 
         temp_path = "temp_animation.mp4"
-        anim.save(temp_path, fps=int(1/segment_duration), 
-                 progress_callback=lambda i, n: print(f'Saving frame {i} of {n}'))
+        anim.save(
+            temp_path,
+            fps=int(1 / segment_duration),
+            progress_callback=lambda i, n: print(f"Saving frame {i} of {n}"),
+        )
         plt.close()
 
         print("Adding audio to video...")
         video = mpe.VideoFileClip(temp_path)
         audio = mpe.AudioFileClip(audio_path)
         final_video = video.set_audio(audio)
-        final_video.write_videofile(output_path, codec='libx264', 
-                                  audio_codec='aac', fps=int(1/segment_duration))
+        final_video.write_videofile(
+            output_path,
+            codec="libx264",
+            audio_codec="aac",
+            fps=int(1 / segment_duration),
+        )
 
         os.remove(temp_path)
         if temp_wav:
             os.remove(temp_wav)
-        
+
         print(f"Successfully created visualization! Saved as: {output_path}")
         return True
 
@@ -105,14 +121,16 @@ def create_audio_visualization(audio_path):
             os.remove(temp_wav)
         return False
 
+
 def main():
     if len(sys.argv) != 2:
         print("Usage: python audio_to_video.py <path_to_audio_file>")
         print("Supported formats: MP3, WAV, OGG, FLAC, AAC, M4A, WMA, and more")
         sys.exit(1)
-    
+
     audio_path = sys.argv[1]
     create_audio_visualization(audio_path)
+
 
 if __name__ == "__main__":
     main()

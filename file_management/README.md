@@ -3,7 +3,7 @@ A collection of powerful file management automation tools for organizing, cleani
 
 ## Available Scripts
 
-### 🔍 Duplicate File Finder (`duplicate_finder.py`)
+### Duplicate File Finder (`duplicate_finder.py`)
 Advanced duplicate file detection using cryptographic hash comparison for 100% accuracy.
 
 **Features:**
@@ -16,7 +16,7 @@ Advanced duplicate file detection using cryptographic hash comparison for 100% a
 - Progress bars and detailed statistics
 - Dry-run mode for safe testing
 
-### 📝 Bulk File Renamer (`bulk_renamer.py`)
+### Bulk File Renamer (`bulk_renamer.py`)
 Advanced bulk file renaming with regex pattern matching and collision prevention.
 
 **Features:**
@@ -30,7 +30,7 @@ Advanced bulk file renaming with regex pattern matching and collision prevention
 - Interactive confirmation per file
 - JSON/text export of operations
 
-### 🔗 Broken Symlink Detector (`broken_symlinks.py`)
+### Broken Symlink Detector (`broken_symlinks.py`)
 Find and manage broken symbolic links with advanced detection capabilities.
 
 **Features:**

@@ -1,5 +1,3 @@
-# Swiss Knife - Makefile for development and testing
-
 .PHONY: help install install-dev test test-cov lint format security build clean demo
 
 VENV := venv

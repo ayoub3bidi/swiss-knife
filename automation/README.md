@@ -4,7 +4,7 @@ Scripts for automating repetitive tasks and scheduled operations.
 
 ## Available Scripts
 
-### 📸 Desktop Screenshot Scheduler (`screenshot_scheduler.py`)
+### Desktop Screenshot Scheduler (`screenshot_scheduler.py`)
 Automatically capture screenshots at specified intervals for documentation, monitoring, or timelapse creation.
 
 **Features:**
@@ -35,7 +35,7 @@ python screenshot_scheduler.py -o shots/ -i 1m --format jpg --quality 95 --resiz
 python screenshot_scheduler.py -o multi/ -i 5m --monitor -1
 ```
 
-### 🔐 Password Generator (`password_generator.py`)
+### Password Generator (`password_generator.py`)
 Generate cryptographically secure passwords with customizable policies and strength analysis.
 
 **Features:**
@@ -126,9 +126,3 @@ Each session creates `session_metadata.json` with:
 pip install -r automation/requirements.txt
 ```
 
-## Coming Soon
-- ✅ Desktop screenshot scheduler (COMPLETED)
-- ✅ Database backup automator
-- ✅ Password generator with policies
-- [ ] Email sender with templates
-- [ ] Calendar event creator from CSV

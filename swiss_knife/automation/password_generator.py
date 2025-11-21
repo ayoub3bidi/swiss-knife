@@ -1,15 +1,11 @@
-"""Secure password generation with customizable policies."""
-
 import secrets
 import string
 from typing import List
 
 
 class PasswordGenerator:
-    """Generate secure passwords with customizable policies."""
 
     def __init__(self):
-        """Initialize password generator."""
         self.lowercase = string.ascii_lowercase
         self.uppercase = string.ascii_uppercase
         self.digits = string.digits
@@ -29,7 +25,7 @@ class PasswordGenerator:
         min_digits: int = 1,
         min_symbols: int = 0,
     ) -> str:
-        """Generate a secure password.
+        """
 
         Args:
             length: Password length
@@ -105,7 +101,7 @@ class PasswordGenerator:
         return "".join(password)
 
     def generate_multiple(self, count: int, **kwargs) -> List[str]:
-        """Generate multiple passwords.
+        """
 
         Args:
             count: Number of passwords to generate
@@ -120,8 +116,7 @@ class PasswordGenerator:
         return [self.generate(**kwargs) for _ in range(count)]
 
     def check_strength(self, password: str) -> dict:
-        """Check password strength.
-
+        """
         Args:
             password: Password to check
 
@@ -205,7 +200,7 @@ class PasswordGenerator:
 
 
 def generate_password(length: int = 12, **kwargs) -> str:
-    """Generate a secure password (convenience function).
+    """
 
     Args:
         length: Password length
