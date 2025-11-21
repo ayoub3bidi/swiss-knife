@@ -83,9 +83,7 @@
       "description": "Linting and formatting tools",
       "matchDepNames": [
         "ruff",
-        "flake8",
         "mypy",
-        "black",
         "isort"
       ],
       "groupName": "linting-dependencies",

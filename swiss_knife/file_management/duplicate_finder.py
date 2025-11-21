@@ -7,7 +7,6 @@ from ..core import SafetyError, confirm_destructive_action, validate_path
 
 
 class DuplicateFinder:
-
     ALGORITHMS = ["md5", "sha1", "sha256", "sha512"]
 
     def __init__(self, algorithm: str = "sha256", min_size: int = 0):

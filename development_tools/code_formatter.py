@@ -19,12 +19,12 @@ except ImportError:
 class CodeFormatter:
     FORMATTERS = {
         "python": {
-            "tool": "black",
+            "tool": "ruff",
             "extensions": [".py"],
-            "check_cmd": ["black", "--version"],
-            "format_cmd": ["black", "{file}"],
-            "check_only_cmd": ["black", "--check", "{file}"],
-            "install": "pip install black",
+            "check_cmd": ["ruff", "--version"],
+            "format_cmd": ["ruff", "{file}"],
+            "check_only_cmd": ["ruff", "--check", "{file}"],
+            "install": "pip install ruff",
         },
         "javascript": {
             "tool": "prettier",
@@ -361,7 +361,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Supported Languages:
-  Python      (.py)          - Black
+  Python      (.py)          - Ruff
   JavaScript  (.js, .jsx)    - Prettier
   TypeScript  (.ts, .tsx)    - Prettier
   JSON        (.json)        - Prettier

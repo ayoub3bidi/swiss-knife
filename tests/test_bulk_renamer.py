@@ -45,6 +45,7 @@ class TestBulkRenamer:
         )
 
         assert len(operations) == 2
+        operations.sort(key=lambda x: x[0].name)
         assert operations[0][0].name == "IMG_001.jpg"
         assert operations[0][1].name == "photo_001.jpg"
         assert operations[1][0].name == "IMG_002.jpg"

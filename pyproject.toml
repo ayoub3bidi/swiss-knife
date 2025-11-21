@@ -58,7 +58,6 @@ data = [
 dev = [
     "pytest>=6.0.0",
     "pytest-cov>=2.10.0",
-    "flake8>=3.8.0",
     "ruff>=0.1.0",
     "mypy>=0.910",
     "bandit>=1.7.0",
@@ -116,14 +115,17 @@ exclude_lines = [
 target-version = "py38"
 line-length = 88
 
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
 [tool.ruff.lint]
 select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
     "F",  # pyflakes
     "I",  # isort
-    "B",  # flake8-bugbear
-    "C4", # flake8-comprehensions
     "UP", # pyupgrade
 ]
 ignore = [

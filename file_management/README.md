@@ -49,7 +49,7 @@ Find and manage broken symbolic links with advanced detection capabilities.
 pip install -r file_management/requirements.txt
 
 # Optional: Install development dependencies
-pip install pytest black flake8
+pip install pytest ruff
 ```
 
 ## Quick Start

@@ -8,7 +8,6 @@ from ..core import SafetyError, check_file_size_limit, validate_path
 
 
 class CSVConverter:
-
     def __init__(self, max_file_size_mb: int = 100):
         """
 

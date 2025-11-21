@@ -17,7 +17,7 @@ Format code files using industry-standard formatters for 12+ languages.
 - JSON export for automation
 
 **Supported Formatters:**
-- Python: Black
+- Python: Ruff
 - JavaScript/TypeScript: Prettier
 - C/C++: clang-format
 - Java: google-java-format
@@ -179,7 +179,7 @@ python dead_code_detector.py src/ --include-tests
 pip install -r development_tools/requirements.txt
 
 # Install formatters (as needed)
-pip install black                    # Python
+pip install ruff                     # Python
 npm install -g prettier              # JS/TS/HTML/CSS/JSON
 rustup component add rustfmt         # Rust
 # go install includes gofmt
@@ -345,7 +345,7 @@ Files skipped:      0
 
 ```bash
 # Python
-pip install black
+pip install ruff
 
 # JavaScript/TypeScript/JSON/HTML/CSS/Markdown
 npm install -g prettier

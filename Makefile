@@ -29,10 +29,9 @@ test-fast: ## Run tests without coverage
 
 lint: ## Run linting checks
 	$(PYTHON) -m ruff check swiss_knife/
-	$(PYTHON) -m flake8 swiss_knife/
 
 format: ## Format code
-	$(PYTHON) -m ruff check swiss_knife/ --fix
+	$(PYTHON) -m ruff format swiss_knife/
 
 security: ## Run security checks
 	$(PYTHON) -m bandit -r swiss_knife/

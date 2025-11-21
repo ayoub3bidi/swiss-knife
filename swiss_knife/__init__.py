@@ -1,4 +1,3 @@
-
 __version__ = "0.1.0"
 __author__ = "Ayoub Abidi"
 __email__ = "contact@ayoub3bidi.me"

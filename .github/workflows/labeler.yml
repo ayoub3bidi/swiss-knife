@@ -3,13 +3,6 @@ name: Labeler
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    paths:
-      - 'swiss_knife/**'
-      - 'tests/**'
-      - 'docs/**'
-      - '.github/**'
-      - 'pyproject.toml'
-      - 'README.md'
 
 permissions:
   contents: read
@@ -18,50 +11,7 @@ permissions:
 jobs:
   label:
     runs-on: ubuntu-latest
-    name: Auto Labeler
-    
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/labeler@v5
       with:
-        fetch-depth: 0
-    
-    - name: Label PR by changed files
-      uses: actions/labeler@v4
-      with:
-        configuration-path: .github/labeler.yml
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-    
-    - name: Label PR by title keywords
-      uses: actions/github-script@v7
-      with:
-        script: |
-          const title = context.payload.pull_request.title.toLowerCase();
-          const labels = [];
-          
-          if (title.includes('🐛') || title.includes('bug')) {
-            labels.push('bug');
-          }
-          if (title.includes('✨') || title.includes('feature')) {
-            labels.push('enhancement');
-          }
-          if (title.includes('💥') || title.includes('breaking')) {
-            labels.push('breaking-change');
-          }
-          if (title.includes('📚') || title.includes('docs')) {
-            labels.push('documentation');
-          }
-          if (title.includes('🔒') || title.includes('security')) {
-            labels.push('security');
-          }
-          if (title.includes('⚡') || title.includes('perf')) {
-            labels.push('performance');
-          }
-          
-          if (labels.length > 0) {
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: labels
-            });
-          }
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"

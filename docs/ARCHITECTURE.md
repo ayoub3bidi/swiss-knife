@@ -143,7 +143,7 @@ Error Handling ← Validation ← Safety ← Exception ← I/O Operations
 
 ### Development Dependencies
 - **Testing**: pytest, pytest-cov
-- **Linting**: ruff, flake8, mypy
+- **Linting**: ruff, mypy
 - **Security**: bandit
 - **Building**: build, twine
 

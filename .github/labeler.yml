@@ -1,60 +1,46 @@
-file-management:
+# Core package changes
+"core":
   - changed-files:
-      - any-glob-to-any-file:
-        - 'swiss_knife/file_management/**/*'
-        - 'tests/test_*file*.py'
-        - 'tests/test_*duplicate*.py'
-        - 'tests/test_*rename*.py'
+    - any-glob-to-any-file: 'swiss_knife/core.py'
 
-text-processing:
+# Module-specific labels
+"file-management":
   - changed-files:
-      - any-glob-to-any-file:
-        - 'swiss_knife/text_processing/**/*'
-        - 'tests/test_*csv*.py'
-        - 'tests/test_*text*.py'
+    - any-glob-to-any-file: 'swiss_knife/file_management/**'
 
-automation-security:
+"text-processing":
   - changed-files:
-      - any-glob-to-any-file:
-        - 'swiss_knife/automation/**/*'
-        - 'tests/test_*password*.py'
-        - 'tests/test_*security*.py'
+    - any-glob-to-any-file: 'swiss_knife/text_processing/**'
 
-cli:
+"automation":
   - changed-files:
-      - any-glob-to-any-file:
-        - 'swiss_knife/cli/**/*'
-        - 'tests/test_cli*.py'
+    - any-glob-to-any-file: 'swiss_knife/automation/**'
 
-core:
+"cli":
   - changed-files:
-      - any-glob-to-any-file:
-        - 'swiss_knife/core.py'
-        - 'tests/test_core.py'
+    - any-glob-to-any-file: 'swiss_knife/cli/**'
 
-documentation:
+# Test changes
+"tests":
   - changed-files:
-      - any-glob-to-any-file:
-        - 'README.md'
-        - 'docs/**/*'
-        - '**/*.md'
+    - any-glob-to-any-file: 'tests/**'
 
-testing:
+# Documentation changes
+"documentation":
   - changed-files:
-      - any-glob-to-any-file:
-        - 'tests/**/*'
-        - 'pytest.ini'
-        - 'pyproject.toml'
+    - any-glob-to-any-file: 
+      - 'docs/**'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
 
-ci:
+# Configuration changes
+"configuration":
   - changed-files:
-      - any-glob-to-any-file:
-        - '.github/workflows/**/*'
-        - '.github/CODEOWNERS'
-        - 'pyproject.toml'
+    - any-glob-to-any-file:
+      - 'pyproject.toml'
+      - '.github/**'
 
-dependencies:
+# Dependencies
+"dependencies":
   - changed-files:
-      - any-glob-to-any-file:
-        - 'pyproject.toml'
-        - 'requirements*.txt'
+    - any-glob-to-any-file: 'pyproject.toml'

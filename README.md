@@ -118,7 +118,6 @@ pytest
 
 # Run linting
 ruff check swiss_knife/
-flake8 swiss_knife/
 
 # Run security checks
 bandit -r swiss_knife/

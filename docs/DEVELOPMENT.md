@@ -82,13 +82,13 @@ make ci            # Run full CI pipeline locally
 ## Coding Standards
 
 ### Python Style
-- **Line Length**: 88 characters (Black/Ruff default)
+- **Line Length**: 88 characters (Ruff default)
 - **Imports**: Sorted with isort (handled by ruff)
 - **Formatting**: Handled by ruff formatter
 - **Type Hints**: Required for all public APIs
 
 ### Code Quality Tools
-- **Linting**: ruff (replaces flake8, isort, pyupgrade)
+- **Linting**: ruff
 - **Formatting**: ruff format
 - **Type Checking**: mypy (optional but recommended)
 - **Security**: bandit

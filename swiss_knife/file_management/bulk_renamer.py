@@ -7,7 +7,6 @@ from ..core import SafetyError, confirm_destructive_action, safe_filename, valid
 
 
 class BulkRenamer:
-
     def __init__(self, dry_run: bool = False):
         """
 
