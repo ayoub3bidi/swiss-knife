@@ -7,7 +7,7 @@ name = "swiss-knife"
 version = "0.1.0"
 description = "A comprehensive collection of Python automation tools"
 readme = "README.md"
-license = "MIT"
+license = {text = "MIT"}
 authors = [
     {name = "Ayoub Abidi", email = "contact@ayoub3bidi.me"}
 ]
