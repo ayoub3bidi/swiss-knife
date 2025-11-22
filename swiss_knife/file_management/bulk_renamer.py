@@ -14,7 +14,7 @@ class BulkRenamer:
             dry_run: If True, only show what would be renamed
         """
         self.dry_run = dry_run
-        self.operations = []
+        self.operations: List[Tuple[Path, Path]] = []
 
     def add_pattern(
         self, pattern: str, replacement: str, target_dir: Path, recursive: bool = False

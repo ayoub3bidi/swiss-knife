@@ -7,7 +7,7 @@ from pathlib import Path
 from ..file_management.duplicate_finder import DuplicateFinder
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
         description="Find and optionally delete duplicate files"
     )

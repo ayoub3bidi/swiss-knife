@@ -1,7 +1,7 @@
 import hashlib
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Callable, Any
 
 from ..core import SafetyError, confirm_destructive_action, validate_path
 
@@ -20,7 +20,7 @@ class DuplicateFinder:
 
         self.algorithm = algorithm
         self.min_size = min_size
-        self._hash_func = getattr(hashlib, algorithm)
+        self._hash_func: Callable[[], Any] = getattr(hashlib, algorithm)
 
     def _calculate_hash(self, file_path: Path) -> str:
         hash_obj = self._hash_func()
@@ -29,7 +29,7 @@ class DuplicateFinder:
             with open(file_path, "rb") as f:
                 while chunk := f.read(8192):
                     hash_obj.update(chunk)
-            return hash_obj.hexdigest()
+            return str(hash_obj.hexdigest())
         except OSError as e:
             raise SafetyError(f"Cannot read file {file_path}: {e}")
 
@@ -50,7 +50,7 @@ class DuplicateFinder:
             if path.is_file():
                 files = [path]
             else:
-                files = path.rglob("*")
+                files = list(path.rglob("*"))
 
             for file_path in files:
                 if not file_path.is_file():

@@ -1,10 +1,10 @@
 import secrets
 import string
-from typing import List
+from typing import Any, List
 
 
 class PasswordGenerator:
-    def __init__(self):
+    def __init__(self) -> None:
         self.lowercase = string.ascii_lowercase
         self.uppercase = string.ascii_uppercase
         self.digits = string.digits
@@ -99,7 +99,7 @@ class PasswordGenerator:
 
         return "".join(password)
 
-    def generate_multiple(self, count: int, **kwargs) -> List[str]:
+    def generate_multiple(self, count: int, **kwargs: Any) -> List[str]:
         """
 
         Args:
@@ -198,7 +198,7 @@ class PasswordGenerator:
         }
 
 
-def generate_password(length: int = 12, **kwargs) -> str:
+def generate_password(length: int = 12, **kwargs: Any) -> str:
     """
 
     Args:

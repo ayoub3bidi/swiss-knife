@@ -137,7 +137,7 @@ class CSVConverter:
         input_path: str,
         output_format: str,
         output_path: Optional[str] = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> str:
         """
 
@@ -150,8 +150,8 @@ class CSVConverter:
         Returns:
             Path to output file or converted string
         """
-        input_path = Path(input_path)
-        data = self.read_csv(input_path, **kwargs)
+        input_file = Path(input_path)
+        data = self.read_csv(input_file, **kwargs)
 
         if output_format.lower() == "json":
             result = self.to_json(data, kwargs.get("pretty", True))
@@ -167,7 +167,7 @@ class CSVConverter:
         if output_path:
             output_file = Path(output_path)
         else:
-            output_file = input_path.with_suffix(extension)
+            output_file = input_file.with_suffix(extension)
 
         try:
             with open(output_file, "w", encoding="utf-8") as f:
@@ -178,7 +178,7 @@ class CSVConverter:
 
 
 def convert_csv(
-    input_path: str, output_format: str, output_path: Optional[str] = None, **kwargs
+    input_path: str, output_format: str, output_path: Optional[str] = None, **kwargs: Any
 ) -> str:
     """
 
