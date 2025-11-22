@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional
 
 try:
     import defusedxml
-    defusedxml.defuse_stdlib()
+    defusedxml.defuse_stdlib()  # type: ignore[attr-defined]
 except ImportError:
     pass  # defusedxml not available, continue with standard library
 

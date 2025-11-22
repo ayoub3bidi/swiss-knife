@@ -1,7 +1,7 @@
 import hashlib
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict, List, Callable, Any
+from typing import Any, Callable, Dict, List
 
 from ..core import SafetyError, confirm_destructive_action, validate_path
 
