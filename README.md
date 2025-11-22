@@ -27,11 +27,8 @@
 # Basic installation
 pip install swiss-knife
 
-# With optional dependencies for specific features
-pip install swiss-knife[text]      # Text processing with markdown support
-pip install swiss-knife[data]      # Data processing with Excel/YAML support
-pip install swiss-knife[dev]       # Development tools
-pip install swiss-knife[all]       # All optional dependencies
+# With development tools
+pip install swiss-knife[dev]
 ```
 
 ### Command Line Usage
