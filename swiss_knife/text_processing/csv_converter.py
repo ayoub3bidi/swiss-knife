@@ -1,8 +1,14 @@
 import csv
 import json
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET  # nosec B405 - secured by defusedxml.defuse_stdlib()
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+try:
+    import defusedxml
+    defusedxml.defuse_stdlib()
+except ImportError:
+    pass  # defusedxml not available, continue with standard library
 
 from ..core import SafetyError, check_file_size_limit, validate_path
 

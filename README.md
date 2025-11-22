@@ -27,6 +27,9 @@
 # Basic installation
 pip install swiss-knife
 
+# With XML processing support (recommended for security)
+pip install swiss-knife[xml]
+
 # With development tools
 pip install swiss-knife[dev]
 ```

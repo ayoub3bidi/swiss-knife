@@ -34,6 +34,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+xml = [
+    "defusedxml>=0.7.0",
+]
 dev = [
     "pytest>=6.0.0",
     "pytest-cov>=2.10.0",
