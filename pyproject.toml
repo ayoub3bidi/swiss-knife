@@ -31,7 +31,6 @@ classifiers = [
 keywords = ["automation", "cli", "tools", "utilities", "file-management"]
 requires-python = ">=3.8"
 dependencies = [
-    "pathlib2; python_version<'3.4'",
 ]
 
 [project.optional-dependencies]
