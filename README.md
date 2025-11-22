@@ -2,36 +2,22 @@
 
 <p align="center">
     <img src="./logo.png" alt="Swiss Knife Logo" width="100"/> <br/>
-    A comprehensive collection of Python automation tools.
+    A Python automation toolkit for file management, text processing, and security utilities.
 </p>
 
-**Swiss Knife** is a production-ready Python package that provides a comprehensive collection of automation tools for file management, text processing, system utilities, network operations, and more.
+**Swiss Knife** is a Python package that provides essential automation tools with a focus on safety, security, and ease of use.
 
 ## Features
 
 ### File Management
-- **Duplicate Detection**: Find and remove duplicate files using cryptographic hashes
-- **Bulk Renaming**: Rename files in bulk using regex patterns with safety checks
-- **Broken Symlinks**: Detect and clean up broken symbolic links
+- **Duplicate Detection**: Find and remove duplicate files using cryptographic hashes (MD5, SHA1, SHA256, SHA512)
+- **Bulk Renaming**: Rename files in bulk using regex patterns with safety checks and dry-run mode
 
 ### Text Processing  
-- **CSV Conversion**: Convert CSV files to JSON/XML with intelligent type inference
-- **Text Merging**: Merge multiple text files with customizable delimiters
-- **Word Analysis**: Analyze word frequency with filtering and export options
+- **CSV Conversion**: Convert CSV files to JSON/XML with intelligent type inference and validation
 
 ### Security & Automation
-- **Password Generation**: Generate secure passwords with customizable policies
-- **Strength Analysis**: Analyze password strength with detailed feedback
-
-### Network & Web
-- **Website Monitoring**: Check website availability and SSL certificates
-- **Network Scanning**: Discover devices and open ports on local networks
-- **QR Code Generation**: Create QR codes for URLs, WiFi, contacts, and more
-
-### System Utilities
-- **Resource Monitoring**: Monitor CPU, memory, disk, and network usage
-- **Process Management**: Manage processes based on resource usage
-- **Disk Analysis**: Analyze directory sizes and file distributions
+- **Password Generation**: Generate secure passwords with customizable policies and strength analysis
 
 ## Quick Start
 
@@ -42,10 +28,10 @@
 pip install swiss-knife
 
 # With optional dependencies for specific features
-pip install swiss-knife[media]     # Image/audio processing
-pip install swiss-knife[network]   # Network tools
-pip install swiss-knife[system]    # System monitoring
-pip install swiss-knife[all]       # Everything
+pip install swiss-knife[text]      # Text processing with markdown support
+pip install swiss-knife[data]      # Data processing with Excel/YAML support
+pip install swiss-knife[dev]       # Development tools
+pip install swiss-knife[all]       # All optional dependencies
 ```
 
 ### Command Line Usage
@@ -53,21 +39,6 @@ pip install swiss-knife[all]       # Everything
 ```bash
 # Find duplicate files
 sk-duplicates ~/Documents --algorithm sha256 --min-size 1MB
-
-# Bulk rename files
-sk-rename "IMG_(\d+)" "photo_\1" ~/Pictures --dry-run
-
-# Convert CSV to JSON
-sk-csv data.csv --format json --pretty
-
-# Generate secure passwords
-sk-password --length 16 --symbols --exclude-ambiguous
-
-# Check website availability
-sk-check https://example.com --ssl-warning-days 30
-
-# Monitor system resources
-sk-monitor --cpu-threshold 80 --memory-threshold 90
 ```
 
 ### Python API Usage
