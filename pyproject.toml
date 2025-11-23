@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "swiss-knife-py"
-version = "0.1.0b1"
+version = "0.1.0b2"
 description = "A comprehensive collection of Python automation tools"
 readme = "README.md"
 license = {text = "MIT"}
