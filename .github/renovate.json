@@ -19,6 +19,7 @@
   "packageRules": [
     {
       "description": "Disable automerge by default",
+      "matchDatasources": ["pypi"],
       "automerge": false
     },
     {
@@ -109,7 +110,6 @@
   "timezone": "UTC",
   "prCreation": "as-needed",
   "prConcurrentLimit": 3,
-  "prConcurrentLimitPerCodeOwner": 1,
   "semanticCommits": "enabled",
   "commitMessagePrefix": "chore(deps):",
   "commitMessageAction": "update",
