@@ -10,7 +10,7 @@
 Install Swiss Knife using pip:
 
 ```bash
-pip install swiss-knife
+pip install swiss-knife-py
 ```
 
 ## Installation with Optional Dependencies
@@ -20,37 +20,37 @@ Swiss Knife supports optional feature sets that can be installed as needed:
 ### Media Processing
 For image and audio processing capabilities:
 ```bash
-pip install swiss-knife[media]
+pip install swiss-knife-py[media]
 ```
 
 ### Network Tools
 For network scanning and web utilities:
 ```bash
-pip install swiss-knife[network]
+pip install swiss-knife-py[network]
 ```
 
 ### System Monitoring
 For system resource monitoring:
 ```bash
-pip install swiss-knife[system]
+pip install swiss-knife-py[system]
 ```
 
 ### Text Processing
 For advanced text processing features:
 ```bash
-pip install swiss-knife[text]
+pip install swiss-knife-py[text]
 ```
 
 ### Data Processing
 For Excel and YAML processing:
 ```bash
-pip install swiss-knife[data]
+pip install swiss-knife-py[data]
 ```
 
 ### All Features
 To install all optional dependencies:
 ```bash
-pip install swiss-knife[all]
+pip install swiss-knife-py[all]
 ```
 
 ## Development Installation
@@ -91,7 +91,7 @@ For isolated installations, use a virtual environment:
 ```bash
 python -m venv swiss-knife-env
 source swiss-knife-env/bin/activate  # On Windows: swiss-knife-env\Scripts\activate
-pip install swiss-knife[all]
+pip install swiss-knife-py[all]
 ```
 
 ### Upgrade

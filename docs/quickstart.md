@@ -5,7 +5,7 @@ This guide will help you get started with Swiss Knife in just a few minutes.
 ## Installation
 
 ```bash
-pip install swiss-knife[all]
+pip install swiss-knife-py[all]
 ```
 
 ## Command Line Usage

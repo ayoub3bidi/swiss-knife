@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "swiss-knife"
-version = "0.1.0"
+name = "swiss-knife-py"
+version = "0.1.0b1"
 description = "A comprehensive collection of Python automation tools"
 readme = "README.md"
 license = {text = "MIT"}
@@ -53,6 +53,9 @@ Documentation = "https://github.com/ayoub3bidi/swiss-knife/docs"
 
 [project.scripts]
 sk-duplicates = "swiss_knife.cli.duplicate_finder:main"
+sk-csv = "swiss_knife.cli.csv_cli:main"
+sk-password = "swiss_knife.cli.password_cli:main"
+sk-rename = "swiss_knife.cli.rename_cli:main"
 
 [tool.setuptools.packages.find]
 include = ["swiss_knife*"]

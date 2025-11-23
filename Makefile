@@ -61,9 +61,9 @@ demo: ## Show CLI usage examples
 	@echo "  sk-csv data.csv --format json --pretty"
 	@echo ""
 	@echo "Security & Automation:"
-	@echo "  sk-password --length 16 --symbols --exclude-ambiguous"
+	@echo "  sk-password --length 16 --exclude-ambiguous"
 	@echo ""
-	@echo "For more examples, see README_TESTING.md"
+	@echo "For more examples, see README.md"
 
 validate: ## Validate installation
 	@echo "Validating Swiss Knife installation..."
@@ -76,8 +76,9 @@ validate: ## Validate installation
 check-cli: ## Check CLI entry points
 	@echo "Checking CLI entry points..."
 	@sk-duplicates --help > /dev/null && echo "✓ sk-duplicates" || echo "✗ sk-duplicates"
-	@sk-csv --help > /dev/null && echo "✓ sk-csv" || echo "✗ sk-csv"  
+	@sk-csv --help > /dev/null && echo "✓ sk-csv" || echo "✗ sk-csv"
 	@sk-password --help > /dev/null && echo "✓ sk-password" || echo "✗ sk-password"
+	@sk-rename --help > /dev/null && echo "✓ sk-rename" || echo "✗ sk-rename"
 
 dev-setup: ## Set up development environment
 	python3 -m venv $(VENV)

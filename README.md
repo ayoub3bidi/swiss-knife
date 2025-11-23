@@ -1,7 +1,7 @@
 # Swiss Knife
 
 <p align="center">
-    <img src="./logo.png" alt="Swiss Knife Logo" width="100"/> <br/>
+    <img src="https://raw.githubusercontent.com/ayoub3bidi/swiss-knife/main/logo.png" alt="Swiss Knife Logo" width="100"/> <br/>
     A Python automation toolkit for file management, text processing, and security utilities.
 </p>
 
@@ -25,13 +25,13 @@
 
 ```bash
 # Basic installation
-pip install swiss-knife
+pip install swiss-knife-py
 
 # With XML processing support (recommended for security)
-pip install swiss-knife[xml]
+pip install swiss-knife-py[xml]
 
 # With development tools
-pip install swiss-knife[dev]
+pip install swiss-knife-py[dev]
 ```
 
 ### Command Line Usage
@@ -39,14 +39,24 @@ pip install swiss-knife[dev]
 ```bash
 # Find duplicate files
 sk-duplicates ~/Documents --algorithm sha256 --min-size 1MB
+
+# Convert CSV to JSON
+sk-csv data.csv --format json --output data.json --pretty
+
+# Generate secure password
+sk-password --length 16 --exclude-ambiguous
+
+# Bulk rename files
+sk-rename 'IMG_(\d+)' 'photo_\1' ~/Pictures --dry-run
 ```
 
 ### Python API Usage
 
 ```python
-from swiss_knife.file_management import find_duplicates, bulk_rename
-from swiss_knife.text_processing import convert_csv
-from swiss_knife.automation import generate_password
+from swiss_knife.file_management.duplicate_finder import find_duplicates
+from swiss_knife.file_management.bulk_renamer import bulk_rename
+from swiss_knife.text_processing.csv_converter import convert_csv
+from swiss_knife.automation.password_generator import generate_password
 
 # Find duplicates
 duplicates = find_duplicates(["/path/to/search"], algorithm="sha256")
