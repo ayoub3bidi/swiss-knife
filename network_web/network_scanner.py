@@ -393,6 +393,15 @@ class NetworkScanner:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Scan local network for devices and open ports",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -425,6 +434,8 @@ COMMON NETWORKS:
   - Smaller: 192.168.1.0/28 (14 hosts)
 """,
     )
+    add_version_argument(parser, "network_scanner", include_long=True)
+
 
     # Scan target
     target = parser.add_mutually_exclusive_group(required=True)

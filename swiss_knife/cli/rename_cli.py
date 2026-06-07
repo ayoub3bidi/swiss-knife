@@ -5,12 +5,14 @@ import sys
 from pathlib import Path
 
 from ..file_management.bulk_renamer import BulkRenamer
+from ._common import add_version_argument
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Bulk rename files using regex patterns"
     )
+    add_version_argument(parser, "sk-rename")
     parser.add_argument("pattern", help="Regex pattern to match filenames")
     parser.add_argument("replacement", help="Replacement string (can use regex groups)")
     parser.add_argument(

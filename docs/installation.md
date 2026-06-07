@@ -49,9 +49,11 @@ Verify your installation by running:
 ```bash
 # Check CLI tools
 sk-duplicates --help
+sk-duplicates --version
 
 # Test Python import
 python -c "import swiss_knife; print('Swiss Knife installed successfully!')"
+python -c "import swiss_knife; print(swiss_knife.__version__)"
 ```
 
 ## Troubleshooting
@@ -59,7 +61,7 @@ python -c "import swiss_knife; print('Swiss Knife installed successfully!')"
 ### Permission Issues
 If you encounter permission errors, try installing with the `--user` flag:
 ```bash
-pip install --user swiss-knife
+pip install --user swiss-knife-py
 ```
 
 ### Virtual Environment (Recommended)
@@ -73,5 +75,5 @@ pip install swiss-knife-py[all]
 ### Upgrade
 To upgrade to the latest version:
 ```bash
-pip install --upgrade swiss-knife
+pip install --upgrade swiss-knife-py
 ```

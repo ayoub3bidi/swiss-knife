@@ -351,6 +351,15 @@ class MarkdownConverter:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Convert Markdown to HTML with syntax highlighting",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -380,6 +389,8 @@ Examples:
 Available themes: default, monokai, github, dracula, solarized-dark, solarized-light
         """,
     )
+    add_version_argument(parser, "markdown_converter", include_long=True)
+
 
     parser.add_argument("input", type=Path, help="Input markdown file or directory")
     parser.add_argument(

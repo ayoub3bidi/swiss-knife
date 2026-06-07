@@ -21,8 +21,11 @@ swiss_knife/
 │   ├── __init__.py
 │   └── csv_converter.py
 └── cli/                     # Command-line interfaces
-    ├── __init__.py
-    └── duplicate_finder.py
+    ├── _common.py           # Shared CLI helpers (e.g. --version)
+    ├── duplicate_finder.py  # sk-duplicates
+    ├── csv_cli.py           # sk-csv
+    ├── password_cli.py      # sk-password
+    └── rename_cli.py        # sk-rename
 ```
 
 ## Design Principles

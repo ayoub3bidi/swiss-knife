@@ -3,6 +3,13 @@
 These are the CLI tools installed by `pip install swiss-knife-py`.
 For additional standalone scripts (network scanner, system monitor, etc.) see the repository's `network_web/` and `system_utilities/` directories.
 
+## Global options
+
+Every packaged CLI supports:
+
+- `-V`, `--version`: Print the installed package version and exit
+- `-h`, `--help`: Show command help
+
 ## sk-duplicates
 
 Find and optionally delete duplicate files using cryptographic hashes.

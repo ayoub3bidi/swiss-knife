@@ -293,6 +293,15 @@ def parse_size(size_str: str) -> int:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Bulk file renamer with regex pattern matching",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -326,6 +335,8 @@ Special placeholders in replacement:
   \\1, \\2  - Regex capture groups
         """,
     )
+    add_version_argument(parser, "bulk_renamer", include_long=True)
+
 
     parser.add_argument("pattern", help="Regex pattern to match")
     parser.add_argument(

@@ -138,13 +138,14 @@ jobs:
           ## Installation
           
           ```bash
-          pip install swissknife==${{ steps.version.outputs.VERSION }}
+          pip install 'swiss-knife-py[all]==${{ steps.version.outputs.VERSION }}'
           ```
           
           ## Verification
           
           ```bash
           sk-duplicates --version
+          python -c "import swiss_knife; print(swiss_knife.__version__)"
           ```
         files: dist/*
         draft: false

@@ -327,6 +327,15 @@ class BrokenSymlinkDetector:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Find and manage broken symbolic links",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -348,6 +357,8 @@ Examples:
   python broken_symlinks.py /path/to/check --delete --use-trash
         """,
     )
+    add_version_argument(parser, "broken_symlinks", include_long=True)
+
 
     parser.add_argument(
         "paths", nargs="+", type=Path, help="Directories or symlinks to check"

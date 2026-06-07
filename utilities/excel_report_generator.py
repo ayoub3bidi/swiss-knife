@@ -280,6 +280,15 @@ class ExcelReportGenerator:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Generate formatted Excel reports from data",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -317,6 +326,8 @@ Config file format (JSON):
 }
         """,
     )
+    add_version_argument(parser, "excel_report_generator", include_long=True)
+
 
     parser.add_argument(
         "input", nargs="?", type=Path, help="Input data file (CSV or JSON)"

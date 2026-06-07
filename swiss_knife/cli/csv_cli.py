@@ -5,12 +5,14 @@ import sys
 from pathlib import Path
 
 from ..text_processing.csv_converter import CSVConverter
+from ._common import add_version_argument
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Convert CSV files to JSON or XML formats"
     )
+    add_version_argument(parser, "sk-csv")
     parser.add_argument("input", help="Input CSV file path")
     parser.add_argument(
         "--format",

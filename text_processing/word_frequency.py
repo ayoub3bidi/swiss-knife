@@ -501,6 +501,15 @@ class WordFrequencyAnalyzer:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Analyze word frequency in text files",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -531,6 +540,8 @@ Examples:
   python word_frequency.py doc.txt --only-alpha --min-frequency 5
         """,
     )
+    add_version_argument(parser, "word_frequency", include_long=True)
+
 
     parser.add_argument("input", type=Path, help="Input file or directory")
 

@@ -361,6 +361,15 @@ class WebsiteChecker:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Check website availability and monitor SSL certificates",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -391,6 +400,8 @@ Examples:
   python website_checker.py https://example.com --expected-status 200,301,302
 """,
     )
+    add_version_argument(parser, "website_checker", include_long=True)
+
 
     parser.add_argument("urls", nargs="*", help="URLs to check")
     parser.add_argument(

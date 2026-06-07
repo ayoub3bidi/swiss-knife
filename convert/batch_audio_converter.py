@@ -275,6 +275,15 @@ class BatchAudioConverter:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Batch convert audio files between different formats",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -286,6 +295,8 @@ Examples:
   %(prog)s --format mp3 --quality low --workers 8 ./audio_files/  # Fast batch conversion
         """,
     )
+    add_version_argument(parser, "batch_audio_converter", include_long=True)
+
 
     parser.add_argument(
         "files", nargs="+", help="Audio files, directories, or glob patterns to convert"

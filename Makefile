@@ -75,10 +75,14 @@ validate: ## Validate installation
 
 check-cli: ## Check CLI entry points
 	@echo "Checking CLI entry points..."
-	@sk-duplicates --help > /dev/null && echo "✓ sk-duplicates" || echo "✗ sk-duplicates"
-	@sk-csv --help > /dev/null && echo "✓ sk-csv" || echo "✗ sk-csv"
-	@sk-password --help > /dev/null && echo "✓ sk-password" || echo "✗ sk-password"
-	@sk-rename --help > /dev/null && echo "✓ sk-rename" || echo "✗ sk-rename"
+	@sk-duplicates --help > /dev/null && echo "✓ sk-duplicates --help" || echo "✗ sk-duplicates --help"
+	@sk-csv --help > /dev/null && echo "✓ sk-csv --help" || echo "✗ sk-csv --help"
+	@sk-password --help > /dev/null && echo "✓ sk-password --help" || echo "✗ sk-password --help"
+	@sk-rename --help > /dev/null && echo "✓ sk-rename --help" || echo "✗ sk-rename --help"
+	@sk-duplicates --version | grep -q "sk-duplicates" && echo "✓ sk-duplicates --version" || echo "✗ sk-duplicates --version"
+	@sk-csv --version | grep -q "sk-csv" && echo "✓ sk-csv --version" || echo "✗ sk-csv --version"
+	@sk-password --version | grep -q "sk-password" && echo "✓ sk-password --version" || echo "✗ sk-password --version"
+	@sk-rename --version | grep -q "sk-rename" && echo "✓ sk-rename --version" || echo "✗ sk-rename --version"
 
 dev-setup: ## Set up development environment
 	python3 -m venv $(VENV)

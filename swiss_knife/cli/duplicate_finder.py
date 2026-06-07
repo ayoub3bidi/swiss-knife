@@ -7,12 +7,14 @@ from pathlib import Path
 
 from ..core import SafetyError, ValidationError
 from ..file_management.duplicate_finder import DuplicateFinder
+from ._common import add_version_argument
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Find and optionally delete duplicate files"
     )
+    add_version_argument(parser, "sk-duplicates")
     parser.add_argument("paths", nargs="+", help="Directories or files to scan")
     parser.add_argument(
         "--algorithm",

@@ -296,6 +296,15 @@ class ProcessKiller:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Kill processes by resource usage with safety features",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -329,6 +338,8 @@ SAFETY FEATURES:
 WARNING: Use with extreme caution! Killing processes can cause data loss.
         """,
     )
+    add_version_argument(parser, "process_killer", include_long=True)
+
 
     parser.add_argument(
         "--memory-threshold",

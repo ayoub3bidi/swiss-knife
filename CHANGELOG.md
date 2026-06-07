@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-06-07
+
+### Fixed
+
+- Added `-V` / `--version` to all packaged CLI tools (`sk-duplicates`, `sk-csv`, `sk-password`, `sk-rename`)
+- Added `-V` / `--version` (or `-V` only where `--version` is reserved) to standalone repository scripts
+- Corrected GitHub release workflow install/verification instructions (`swiss-knife-py`, not `swissknife`)
+- Corrected wrong PyPI package names in installation troubleshooting docs
+- Retroactively corrected historical GitHub release install/verification sections
+
+### Changed
+
+- Package version is single-sourced in `swiss_knife/__init__.py`; setuptools reads it via dynamic metadata
+
+### Documentation
+
+- Updated README standalone script directory list
+- Updated ARCHITECTURE CLI module listing
+- Updated CLI reference with global `--version` option
+- Updated AGENTS.md smoke-test and version guidance
+
 ## [0.1.0] - 2026-06-07
 
 ### Added

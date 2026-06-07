@@ -3,12 +3,14 @@
 import argparse
 
 from ..automation.password_generator import PasswordGenerator
+from ._common import add_version_argument
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Generate secure passwords with customizable options"
     )
+    add_version_argument(parser, "sk-password")
     parser.add_argument(
         "--length",
         "-l",

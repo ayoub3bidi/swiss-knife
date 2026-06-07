@@ -356,6 +356,15 @@ class CodeFormatter:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Format code files using language-specific formatters",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -400,6 +409,8 @@ Examples:
   python code_formatter.py src/ --export-json format_report.json
 """,
     )
+    add_version_argument(parser, "code_formatter", include_long=True)
+
 
     parser.add_argument(
         "paths", nargs="+", type=Path, help="Files or directories to format"

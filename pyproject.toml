@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "swiss-knife-py"
-version = "0.1.0"
+dynamic = ["version"]
 description = "A comprehensive collection of Python automation tools"
 readme = "README.md"
 license = {text = "MIT"}
@@ -63,6 +63,9 @@ sk-rename = "swiss_knife.cli.rename_cli:main"
 [tool.setuptools.packages.find]
 include = ["swiss_knife*"]
 exclude = ["tests*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "swiss_knife.__version__"}
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

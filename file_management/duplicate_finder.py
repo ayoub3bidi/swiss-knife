@@ -253,6 +253,15 @@ def delete_duplicates(duplicates: Dict[str, List[Path]], keep_strategy: str = "f
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Find and manage duplicate files using hash comparison",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -265,6 +274,8 @@ Examples:
   %(prog)s /path/to/search --delete-duplicates --keep-strategy shortest_name
         """,
     )
+    add_version_argument(parser, "duplicate_finder", include_long=True)
+
 
     parser.add_argument(
         "paths",

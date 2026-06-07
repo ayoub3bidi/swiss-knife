@@ -319,6 +319,15 @@ class TextMerger:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Merge multiple text files with customizable delimiters",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -349,6 +358,8 @@ Delimiter presets: line, double, hash, star, dash, blank, minimal, section
 Sort options: name, size, date, extension
         """,
     )
+    add_version_argument(parser, "text_merger", include_long=True)
+
 
     parser.add_argument(
         "files", nargs="+", help="Files, directories, or glob patterns to merge"

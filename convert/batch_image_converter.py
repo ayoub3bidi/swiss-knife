@@ -414,6 +414,15 @@ class BatchImageConverter:
 
 
 def main():
+    import sys
+    from pathlib import Path
+
+    repo_root = Path(__file__).resolve().parents[1]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts._common import add_version_argument
+
+
     parser = argparse.ArgumentParser(
         description="Batch convert and resize images between different formats",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -426,6 +435,8 @@ Examples:
   %(prog)s --format png --quality maximum --preserve-metadata *.heic  # Convert HEIC to PNG
         """,
     )
+    add_version_argument(parser, "batch_image_converter", include_long=True)
+
 
     parser.add_argument(
         "files", nargs="+", help="Image files, directories, or glob patterns to process"
