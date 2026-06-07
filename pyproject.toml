@@ -55,6 +55,7 @@ Issues = "https://github.com/ayoub3bidi/swiss-knife/issues"
 Documentation = "https://github.com/ayoub3bidi/swiss-knife/docs"
 
 [project.scripts]
+sk = "swiss_knife.cli.main:main"
 sk-duplicates = "swiss_knife.cli.duplicate_finder:main"
 sk-csv = "swiss_knife.cli.csv_cli:main"
 sk-password = "swiss_knife.cli.password_cli:main"

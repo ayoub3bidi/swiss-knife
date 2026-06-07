@@ -3,9 +3,36 @@
 These are the CLI tools installed by `pip install swiss-knife-py`.
 For additional standalone scripts (network scanner, system monitor, etc.) see the repository's `network_web/` and `system_utilities/` directories.
 
+## sk
+
+Package umbrella command. Use it to check the installed version and list available tools.
+
+### Usage
+
+```bash
+sk [-h] [-V]
+```
+
+### Options
+
+- `-V`, `--version`: Print the installed package version and exit (`swiss-knife X.Y.Z`)
+- `-h`, `--help`: Show installed tools and usage examples
+
+Running `sk` with no arguments prints the same help as `sk --help`.
+
+Tool-specific work is done via the `sk-*` commands listed below—not via `sk` subcommands.
+
+### Examples
+
+```bash
+sk --version
+sk --help
+sk
+```
+
 ## Global options
 
-Every packaged CLI supports:
+Every packaged CLI (including `sk` and each `sk-*` tool) supports:
 
 - `-V`, `--version`: Print the installed package version and exit
 - `-h`, `--help`: Show command help

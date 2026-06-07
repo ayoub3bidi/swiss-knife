@@ -5,7 +5,7 @@ Repository guidance for agents working in this workspace.
 ## Scope
 
 - The installable package is `swiss_knife/` (PyPI name: `swiss-knife-py`, import: `swiss_knife`).
-- Current release: **0.1.1** on PyPI. Base install has **zero runtime dependencies**.
+- Current release: **0.1.2** on PyPI. Base install has **zero runtime dependencies**.
 - Standalone script trees live at the repo root and are **not** installed by `pip install swiss-knife-py`:
   `automation/`, `convert/`, `file_management/`, `network_web/`, `system_utilities/`, `text_processing/`, `utilities/`, `development_tools/`.
 - Do not treat standalone scripts as package APIs. Many mirror or predate the packaged modules under `swiss_knife/`.
@@ -25,6 +25,7 @@ swiss_knife/
 │   └── csv_converter.py
 └── cli/
     ├── _common.py           # Shared CLI helpers (--version)
+    ├── main.py              # sk (umbrella: version + tool listing)
     ├── duplicate_finder.py  # sk-duplicates
     ├── csv_cli.py           # sk-csv
     ├── password_cli.py      # sk-password
@@ -43,12 +44,13 @@ Defined in `pyproject.toml` under `[project.scripts]`:
 
 | Console script   | Module                              |
 |------------------|-------------------------------------|
+| `sk`             | `swiss_knife.cli.main`              |
 | `sk-duplicates`  | `swiss_knife.cli.duplicate_finder`  |
 | `sk-csv`         | `swiss_knife.cli.csv_cli`           |
 | `sk-password`    | `swiss_knife.cli.password_cli`      |
 | `sk-rename`      | `swiss_knife.cli.rename_cli`        |
 
-All packaged CLIs support `-V` / `--version` (via `swiss_knife/cli/_common.py`).
+All packaged CLIs support `-V` / `--version` (via `swiss_knife/cli/_common.py`). Use `sk --version` for the package version; per-tool commands print their own prog name with the same version.
 
 ## Versioning
 
@@ -89,8 +91,9 @@ python3 -m venv /tmp/sk-test && /tmp/sk-test/bin/pip install 'swiss-knife-py[all
 /tmp/sk-test/bin/python -c "import swiss_knife; from swiss_knife.file_management import find_duplicates; from swiss_knife.text_processing import convert_csv; from swiss_knife.automation import generate_password"
 
 # CLI help and version
+/tmp/sk-test/bin/sk --help
+/tmp/sk-test/bin/sk --version
 /tmp/sk-test/bin/sk-duplicates --help
-/tmp/sk-test/bin/sk-duplicates --version
 /tmp/sk-test/bin/sk-csv --help
 /tmp/sk-test/bin/sk-password --help
 /tmp/sk-test/bin/sk-rename --help
@@ -102,7 +105,7 @@ python3 -m venv /tmp/sk-test && /tmp/sk-test/bin/pip install 'swiss-knife-py[all
 /tmp/sk-test/bin/sk-rename 'old' 'new' /path/to/dir --dry-run
 ```
 
-As of 0.1.1, all of the above pass when installed from PyPI.
+As of 0.1.2, all of the above pass when installed from PyPI.
 
 ### Developer verification (in-repo)
 

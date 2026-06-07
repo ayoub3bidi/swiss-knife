@@ -75,6 +75,8 @@ validate: ## Validate installation
 
 check-cli: ## Check CLI entry points
 	@echo "Checking CLI entry points..."
+	@sk --help > /dev/null && echo "✓ sk --help" || echo "✗ sk --help"
+	@sk --version | grep -q "swiss-knife" && echo "✓ sk --version" || echo "✗ sk --version"
 	@sk-duplicates --help > /dev/null && echo "✓ sk-duplicates --help" || echo "✗ sk-duplicates --help"
 	@sk-csv --help > /dev/null && echo "✓ sk-csv --help" || echo "✗ sk-csv --help"
 	@sk-password --help > /dev/null && echo "✓ sk-password --help" || echo "✗ sk-password --help"

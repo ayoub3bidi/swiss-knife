@@ -22,6 +22,7 @@ swiss_knife/
 │   └── csv_converter.py
 └── cli/                     # Command-line interfaces
     ├── _common.py           # Shared CLI helpers (e.g. --version)
+    ├── main.py              # sk (umbrella: version + tool listing)
     ├── duplicate_finder.py  # sk-duplicates
     ├── csv_cli.py           # sk-csv
     ├── password_cli.py      # sk-password

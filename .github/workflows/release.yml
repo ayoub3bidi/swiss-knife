@@ -144,7 +144,8 @@ jobs:
           ## Verification
           
           ```bash
-          sk-duplicates --version
+          sk --version
+          sk-password --length 16
           python -c "import swiss_knife; print(swiss_knife.__version__)"
           ```
         files: dist/*

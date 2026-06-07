@@ -8,6 +8,12 @@ This guide covers the installable `swiss_knife` package and its CLI tools.
 pip install swiss-knife-py[all]
 ```
 
+Check the installed version:
+
+```bash
+sk --version
+```
+
 ## Command Line Usage
 
 ### Find Duplicate Files

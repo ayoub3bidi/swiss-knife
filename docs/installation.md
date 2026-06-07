@@ -47,9 +47,12 @@ pip install -e .[dev,all]
 Verify your installation by running:
 
 ```bash
-# Check CLI tools
+# Check package version and list installed tools
+sk --version
+sk --help
+
+# Check a tool CLI
 sk-duplicates --help
-sk-duplicates --version
 
 # Test Python import
 python -c "import swiss_knife; print('Swiss Knife installed successfully!')"
@@ -71,6 +74,9 @@ python -m venv swiss-knife-env
 source swiss-knife-env/bin/activate  # On Windows: swiss-knife-env\Scripts\activate
 pip install swiss-knife-py[all]
 ```
+
+### Command name collision
+The `sk` command is a short name that may conflict with other tools on your system. If `which sk` does not point to Swiss Knife, check the version with `sk-duplicates --version` or `pip show swiss-knife-py` instead.
 
 ### Upgrade
 To upgrade to the latest version:
