@@ -19,6 +19,10 @@
 ### Security & Automation
 - **Password Generation**: Generate secure passwords with customizable policies and strength analysis
 
+## Standalone Scripts
+
+This repository also contains standalone scripts in `automation/`, `convert/`, `network_web/`, `system_utilities/`, `text_processing/`, and `utilities/`. These scripts are not installed by `pip install swiss-knife-py`; use the separate requirements files in those directories when running them directly from the repository.
+
 ## Quick Start
 
 ### Installation

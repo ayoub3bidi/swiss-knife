@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "swiss-knife-py"
-version = "0.1.0b2"
+version = "0.1.0"
 description = "A comprehensive collection of Python automation tools"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
     {name = "Ayoub Abidi", email = "contact@ayoub3bidi.me"}
 ]
@@ -15,7 +15,7 @@ maintainers = [
     {name = "Ayoub Abidi", email = "contact@ayoub3bidi.me"}
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: System Administrators",
     "Operating System :: OS Independent",
@@ -35,6 +35,9 @@ dependencies = [
 
 [project.optional-dependencies]
 xml = [
+    "defusedxml>=0.7.0",
+]
+all = [
     "defusedxml>=0.7.0",
 ]
 dev = [

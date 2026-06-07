@@ -198,10 +198,10 @@ class TestCLIDuplicateFinder:
             with pytest.raises(SystemExit):
                 main()
 
-    def test_main_nonexistent_path(self):
-        from swiss_knife.core import ValidationError
-
+    def test_main_nonexistent_path(self, capsys):
         with patch("sys.argv", ["sk-duplicates", "/nonexistent/path"]):
-            with patch("builtins.print"):
-                with pytest.raises(ValidationError):
-                    main()
+            with pytest.raises(SystemExit) as exc_info:
+                main()
+            assert exc_info.value.code == 1
+        captured = capsys.readouterr()
+        assert "Error:" in captured.err

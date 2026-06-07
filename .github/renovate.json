@@ -8,12 +8,7 @@
     "rangeStrategy": "auto"
   },
   "ignoreDeps": [],
-  "postUpdateOptions": [
-    "gomodTidy",
-    "npmDedupe",
-    "pipCompile",
-    "yarnDedupeModules"
-  ],
+  "postUpdateOptions": ["pipCompile"],
   "packageRules": [
     {
       "description": "Disable automerge by default",

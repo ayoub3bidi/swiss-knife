@@ -1,53 +1,41 @@
 # CLI Reference
 
-Swiss Knife provides several command-line tools for common automation tasks.
+These are the CLI tools installed by `pip install swiss-knife-py`.
+For additional standalone scripts (network scanner, system monitor, etc.) see the repository's `network_web/` and `system_utilities/` directories.
 
 ## sk-duplicates
 
-Find and manage duplicate files using cryptographic hashes.
+Find and optionally delete duplicate files using cryptographic hashes.
 
 ### Usage
 
 ```bash
-sk-duplicates [OPTIONS] DIRECTORIES...
+sk-duplicates [OPTIONS] PATHS...
 ```
 
 ### Options
 
-- `--algorithm, -a`: Hash algorithm to use (md5, sha1, sha256, sha512)
-- `--min-size`: Minimum file size to check (e.g., 1MB, 500KB)
-- `--max-size`: Maximum file size to check
-- `--extensions`: File extensions to include (e.g., .jpg,.png,.pdf)
-- `--exclude-extensions`: File extensions to exclude
-- `--dry-run`: Show what would be done without making changes
-- `--remove-duplicates`: Remove duplicate files (keeps one copy)
-- `--interactive`: Prompt before removing each duplicate
-- `--output, -o`: Save results to file (JSON format)
-- `--verbose, -v`: Verbose output
+- `--algorithm`: Hash algorithm to use (`md5`, `sha1`, `sha256`, `sha512`; default: `sha256`)
+- `--min-size`: Minimum file size in bytes (default: `0`)
+- `--delete-duplicates`: Delete duplicate files, keeping one file per duplicate group
+- `--keep-strategy`: File to keep (`first`, `last`, `shortest_name`, `longest_name`; default: `first`)
+- `--export-json`: Export duplicate groups to a JSON file
+- `--yes`: Skip confirmation prompts for deletion
 - `--help`: Show help message
 
 ### Examples
 
 ```bash
-# Basic duplicate detection
 sk-duplicates ~/Documents
-
-# Use SHA256 for better accuracy
-sk-duplicates ~/Documents --algorithm sha256
-
-# Only check image files larger than 1MB
-sk-duplicates ~/Pictures --extensions .jpg,.jpeg,.png --min-size 1MB
-
-# Remove duplicates interactively
-sk-duplicates ~/Downloads --remove-duplicates --interactive
-
-# Save results to file
-sk-duplicates ~/Documents --output duplicates_report.json
+sk-duplicates ~/Documents --algorithm md5
+sk-duplicates ~/Downloads --min-size 1024
+sk-duplicates ~/Downloads --delete-duplicates --keep-strategy shortest_name --yes
+sk-duplicates ~/Documents --export-json duplicates_report.json
 ```
 
 ## sk-password
 
-Generate secure passwords with customizable options.
+Generate secure passwords or check password strength.
 
 ### Usage
 
@@ -57,69 +45,60 @@ sk-password [OPTIONS]
 
 ### Options
 
-- `--length, -l`: Password length (default: 12)
-- `--count, -c`: Number of passwords to generate (default: 1)
-- `--uppercase`: Include uppercase letters (default: true)
-- `--lowercase`: Include lowercase letters (default: true)
-- `--digits`: Include digits (default: true)
-- `--symbols`: Include symbols
-- `--exclude-ambiguous`: Exclude ambiguous characters (0, O, l, 1, etc.)
-- `--custom-chars`: Use custom character set
-- `--no-similar`: Exclude similar-looking characters
-- `--analyze`: Show password strength analysis
-- `--output, -o`: Save passwords to file
+- `--length`, `-l`: Password length (default: `12`)
+- `--count`, `-c`: Number of passwords to generate (default: `1`)
+- `--no-uppercase`: Exclude uppercase letters
+- `--no-lowercase`: Exclude lowercase letters
+- `--no-digits`: Exclude digits
+- `--no-symbols`: Exclude symbols
+- `--exclude-ambiguous`: Exclude `0`, `O`, `1`, `l`, and `I`
+- `--min-uppercase`: Minimum uppercase letters (default: `1`)
+- `--min-lowercase`: Minimum lowercase letters (default: `1`)
+- `--min-digits`: Minimum digits (default: `1`)
+- `--min-symbols`: Minimum symbols (default: `0`)
+- `--check`: Check strength of the supplied password instead of generating one
 - `--help`: Show help message
 
 ### Examples
 
 ```bash
-# Generate a 16-character password
-sk-password --length 16
-
-# Generate 5 passwords with symbols
-sk-password --count 5 --symbols
-
-# Generate password excluding ambiguous characters
-sk-password --length 20 --symbols --exclude-ambiguous
-
-# Analyze password strength
-sk-password --length 16 --analyze
-
-# Save passwords to file
-sk-password --count 10 --output passwords.txt
+sk-password
+sk-password --length 20
+sk-password --count 5 --length 10
+sk-password --length 30 --exclude-ambiguous
+sk-password --check "MyStr0ng!P@ssw0rd2024"
 ```
 
 ## sk-csv
 
-Convert CSV files to different formats.
+Convert CSV files to JSON or XML.
 
 ### Usage
 
 ```bash
-sk-csv [OPTIONS] INPUT_FILE
+sk-csv [OPTIONS] INPUT
 ```
 
 ### Options
 
-- `--format, -f`: Output format (json, xml, yaml)
-- `--output, -o`: Output file path
-- `--pretty`: Pretty-print output
-- `--delimiter`: CSV delimiter (default: comma)
-- `--encoding`: File encoding (default: utf-8)
-- `--no-header`: CSV has no header row
+- `--format`: Output format (`json` or `xml`; default: `json`)
+- `--output`, `-o`: Output file path; defaults to the input file with the new extension
+- `--delimiter`: CSV delimiter character (default: comma)
+- `--no-infer-types`: Keep all CSV values as strings
+- `--pretty`: Pretty-print JSON output (default)
+- `--no-pretty`: Disable pretty-printing for JSON
+- `--root-tag`: XML root element tag name (default: `data`)
+- `--row-tag`: XML row element tag name (default: `row`)
+- `--max-size-mb`: Maximum file size to process in MB (default: `100`)
 - `--help`: Show help message
 
 ### Examples
 
 ```bash
-# Convert CSV to JSON
 sk-csv data.csv --format json --output data.json
-
-# Convert with pretty formatting
-sk-csv data.csv --format json --pretty
-
-# Convert CSV with semicolon delimiter
-sk-csv data.csv --format xml --delimiter ";"
+sk-csv data.csv --format xml --output data.xml
+sk-csv data.csv --format json --delimiter ";"
+sk-csv data.csv --format xml --root-tag people --row-tag person
 ```
 
 ## sk-rename
@@ -129,131 +108,20 @@ Bulk rename files using regex patterns.
 ### Usage
 
 ```bash
-sk-rename [OPTIONS] PATTERN REPLACEMENT DIRECTORY
+sk-rename [OPTIONS] PATTERN REPLACEMENT [DIRECTORY]
 ```
 
 ### Options
 
-- `--extensions`: File extensions to include
-- `--recursive, -r`: Process subdirectories
-- `--dry-run`: Show what would be renamed
-- `--case-sensitive`: Case-sensitive pattern matching
-- `--backup`: Create backup of original names
-- `--verbose, -v`: Verbose output
+- `--recursive`, `-r`: Process subdirectories recursively
+- `--dry-run`, `-n`: Show what would be renamed without making changes
+- `--yes`, `-y`: Skip confirmation prompts
 - `--help`: Show help message
 
 ### Examples
 
 ```bash
-# Rename IMG_001.jpg to Photo_001.jpg
-sk-rename "IMG_(\d+)" "Photo_\1" ~/Pictures --extensions .jpg
-
-# Dry run to preview changes
-sk-rename "old_name" "new_name" ~/Documents --dry-run
-
-# Recursive rename with backup
-sk-rename "pattern" "replacement" ~/Files --recursive --backup
+sk-rename "IMG_(\d+)" "photo_\1" ~/Pictures --dry-run
+sk-rename "IMG_(\d+)" "photo_\1" ~/Pictures --yes
+sk-rename "IMG_(\d+)" "photo_\1" ~/Pictures --recursive --dry-run
 ```
-
-## sk-monitor
-
-Monitor system resources and processes.
-
-### Usage
-
-```bash
-sk-monitor [OPTIONS]
-```
-
-### Options
-
-- `--cpu-threshold`: CPU usage threshold for alerts (%)
-- `--memory-threshold`: Memory usage threshold for alerts (%)
-- `--disk-threshold`: Disk usage threshold for alerts (%)
-- `--interval`: Monitoring interval in seconds (default: 5)
-- `--duration`: Monitoring duration in seconds
-- `--output, -o`: Save monitoring data to file
-- `--format`: Output format (json, csv)
-- `--help`: Show help message
-
-### Examples
-
-```bash
-# Monitor with default settings
-sk-monitor
-
-# Monitor with custom thresholds
-sk-monitor --cpu-threshold 80 --memory-threshold 90
-
-# Monitor for 1 hour and save to file
-sk-monitor --duration 3600 --output system_stats.json
-```
-
-## sk-check
-
-Check website availability and SSL certificates.
-
-### Usage
-
-```bash
-sk-check [OPTIONS] URLS...
-```
-
-### Options
-
-- `--timeout`: Request timeout in seconds (default: 10)
-- `--ssl-warning-days`: Days before SSL expiry to warn (default: 30)
-- `--follow-redirects`: Follow HTTP redirects
-- `--output, -o`: Save results to file
-- `--format`: Output format (json, csv)
-- `--verbose, -v`: Verbose output
-- `--help`: Show help message
-
-### Examples
-
-```bash
-# Check single website
-sk-check https://example.com
-
-# Check multiple websites
-sk-check https://site1.com https://site2.com
-
-# Check with SSL certificate monitoring
-sk-check https://example.com --ssl-warning-days 7
-
-# Save results to file
-sk-check https://example.com --output health_check.json
-```
-
-## Global Options
-
-All commands support these global options:
-
-- `--version`: Show version information
-- `--help`: Show help message
-- `--config`: Use custom configuration file
-- `--quiet, -q`: Suppress non-error output
-- `--debug`: Enable debug output
-
-## Configuration Files
-
-Swiss Knife supports configuration files in YAML format:
-
-```yaml
-# ~/.swiss-knife/config.yml
-defaults:
-  algorithm: sha256
-  dry_run: false
-  verbose: true
-
-duplicates:
-  min_size: 1MB
-  extensions: [.jpg, .png, .pdf]
-
-passwords:
-  length: 16
-  symbols: true
-  exclude_ambiguous: true
-```
-
-Use with: `sk-duplicates --config ~/.swiss-knife/config.yml`

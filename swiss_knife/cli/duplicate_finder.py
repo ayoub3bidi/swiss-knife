@@ -2,8 +2,10 @@
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
+from ..core import SafetyError, ValidationError
 from ..file_management.duplicate_finder import DuplicateFinder
 
 
@@ -40,39 +42,46 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    # Initialize finder
-    finder = DuplicateFinder(args.algorithm, args.min_size)
+    try:
+        # Initialize finder
+        finder = DuplicateFinder(args.algorithm, args.min_size)
 
-    # Find duplicates
-    paths = [Path(p) for p in args.paths]
-    duplicates = finder.find_duplicates(paths)
+        # Find duplicates
+        paths = [Path(p) for p in args.paths]
+        duplicates = finder.find_duplicates(paths)
 
-    if not duplicates:
-        print("No duplicates found.")
-        return
+        if not duplicates:
+            print("No duplicates found.")
+            return
 
-    # Display results
-    total_files = sum(len(files) for files in duplicates.values())
-    total_groups = len(duplicates)
-    print(f"Found {total_files} duplicate files in {total_groups} groups:")
+        # Display results
+        total_files = sum(len(files) for files in duplicates.values())
+        total_groups = len(duplicates)
+        print(f"Found {total_files} duplicate files in {total_groups} groups:")
 
-    for i, (hash_val, files) in enumerate(duplicates.items(), 1):
-        print(f"\nGroup {i} ({len(files)} files, hash: {hash_val[:16]}...):")
-        for file_path in files:
-            size_mb = file_path.stat().st_size / (1024 * 1024)
-            print(f"  {file_path} ({size_mb:.2f} MB)")
+        for i, (hash_val, files) in enumerate(duplicates.items(), 1):
+            print(f"\nGroup {i} ({len(files)} files, hash: {hash_val[:16]}...):")
+            for file_path in files:
+                size_mb = file_path.stat().st_size / (1024 * 1024)
+                print(f"  {file_path} ({size_mb:.2f} MB)")
 
-    # Export to JSON if requested
-    if args.export_json:
-        export_data = {h: [str(f) for f in files] for h, files in duplicates.items()}
-        with open(args.export_json, "w") as f:
-            json.dump(export_data, f, indent=2)
-        print(f"\nResults exported to {args.export_json}")
+        # Export to JSON if requested
+        if args.export_json:
+            export_data = {h: [str(f) for f in files] for h, files in duplicates.items()}
+            with open(args.export_json, "w") as f:
+                json.dump(export_data, f, indent=2)
+            print(f"\nResults exported to {args.export_json}")
 
-    # Delete duplicates if requested
-    if args.delete_duplicates:
-        deleted = finder.delete_duplicates(duplicates, args.keep_strategy, args.yes)
-        print(f"\nDeleted {deleted} duplicate files.")
+        # Delete duplicates if requested
+        if args.delete_duplicates:
+            deleted = finder.delete_duplicates(duplicates, args.keep_strategy, args.yes)
+            print(f"\nDeleted {deleted} duplicate files.")
+    except (ValidationError, SafetyError) as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f"Unexpected error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

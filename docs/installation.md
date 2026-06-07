@@ -15,36 +15,12 @@ pip install swiss-knife-py
 
 ## Installation with Optional Dependencies
 
-Swiss Knife supports optional feature sets that can be installed as needed:
+Swiss Knife supports optional dependencies that can be installed as needed:
 
-### Media Processing
-For image and audio processing capabilities:
+### XML Safety
+For XML hardening during CSV-to-XML conversion:
 ```bash
-pip install swiss-knife-py[media]
-```
-
-### Network Tools
-For network scanning and web utilities:
-```bash
-pip install swiss-knife-py[network]
-```
-
-### System Monitoring
-For system resource monitoring:
-```bash
-pip install swiss-knife-py[system]
-```
-
-### Text Processing
-For advanced text processing features:
-```bash
-pip install swiss-knife-py[text]
-```
-
-### Data Processing
-For Excel and YAML processing:
-```bash
-pip install swiss-knife-py[data]
+pip install swiss-knife-py[xml]
 ```
 
 ### All Features

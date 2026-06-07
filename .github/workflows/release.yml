@@ -37,7 +37,7 @@ jobs:
     
     - name: Run tests
       run: |
-        pytest --maxfail=1 --disable-warnings -q --cov=swissknife --cov-report=xml
+        pytest --maxfail=1 --disable-warnings -q --cov=swiss_knife --cov-report=xml
 
   build:
     needs: test

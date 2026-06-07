@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-This guide will help you get started with Swiss Knife in just a few minutes.
+This guide covers the installable `swiss_knife` package and its CLI tools.
 
 ## Installation
 
@@ -13,30 +13,33 @@ pip install swiss-knife-py[all]
 ### Find Duplicate Files
 
 ```bash
-# Find duplicates in your Documents folder
 sk-duplicates ~/Documents
-
-# Use SHA256 for better accuracy
 sk-duplicates ~/Documents --algorithm sha256
-
-# Only check files larger than 1MB
-sk-duplicates ~/Documents --min-size 1MB
-
-# Dry run to see what would be found
-sk-duplicates ~/Documents --dry-run
+sk-duplicates ~/Documents --min-size 1024
+sk-duplicates ~/Downloads --delete-duplicates --yes
 ```
 
 ### Generate Secure Passwords
 
 ```bash
-# Generate a 16-character password
 sk-password --length 16
+sk-password --length 20 --exclude-ambiguous
+sk-password --count 5 --length 10
+sk-password --check "MyStr0ng!P@ssw0rd2024"
+```
 
-# Include symbols and exclude ambiguous characters
-sk-password --length 20 --symbols --exclude-ambiguous
+### Convert CSV Files
 
-# Generate multiple passwords
-sk-password --count 5
+```bash
+sk-csv data.csv --format json --output data.json
+sk-csv data.csv --format xml --root-tag people --row-tag person
+```
+
+### Rename Files
+
+```bash
+sk-rename 'IMG_(\d+)' 'photo_\1' ~/Pictures --dry-run
+sk-rename 'IMG_(\d+)' 'photo_\1' ~/Pictures --yes
 ```
 
 ## Python API Usage
@@ -44,21 +47,18 @@ sk-password --count 5
 ### File Management
 
 ```python
-from swiss_knife.file_management import find_duplicates, bulk_rename
+from swiss_knife.file_management import bulk_rename, find_duplicates
 
-# Find duplicate files
 duplicates = find_duplicates(["/path/to/search"], algorithm="sha256")
-for group in duplicates:
-    print(f"Duplicates found: {group}")
+for file_hash, files in duplicates.items():
+    print(file_hash, files)
 
-# Bulk rename files
-renamed_count = bulk_rename(
+bulk_rename(
     pattern=r"IMG_(\d+)",
-    replacement=r"photo_\1", 
-    directory="/path/to/images",
-    dry_run=True  # Test first
+    replacement=r"photo_\1",
+    target_dir="/path/to/images",
+    dry_run=True,
 )
-print(f"Would rename {renamed_count} files")
 ```
 
 ### Text Processing
@@ -66,82 +66,26 @@ print(f"Would rename {renamed_count} files")
 ```python
 from swiss_knife.text_processing import convert_csv
 
-# Convert CSV to JSON
 convert_csv(
-    input_file="data.csv",
+    input_path="data.csv",
     output_format="json",
     output_path="data.json",
-    pretty=True
+    pretty=True,
 )
 ```
 
-### Password Generation
+### Automation
 
 ```python
-from swiss_knife.automation import generate_password, analyze_password_strength
+from swiss_knife.automation import PasswordGenerator, generate_password
 
-# Generate secure password
 password = generate_password(length=16, include_symbols=True)
-print(f"Generated: {password}")
-
-# Analyze password strength
-strength = analyze_password_strength(password)
-print(f"Strength: {strength['score']}/100")
-```
-
-## Common Use Cases
-
-### 1. Clean Up Duplicate Files
-
-```bash
-# Find and review duplicates
-sk-duplicates ~/Downloads --dry-run
-
-# Remove duplicates (keeping one copy)
-sk-duplicates ~/Downloads --remove-duplicates
-```
-
-### 2. Organize Photos
-
-```python
-from swiss_knife.file_management import bulk_rename
-
-# Rename IMG_001.jpg to Photo_001.jpg
-bulk_rename(
-    pattern=r"IMG_(\d+)",
-    replacement=r"Photo_\1",
-    directory="~/Pictures",
-    extensions=[".jpg", ".jpeg", ".png"]
-)
-```
-
-### 3. Process Data Files
-
-```python
-from swiss_knife.text_processing import convert_csv, merge_text_files
-
-# Convert CSV to JSON
-convert_csv("sales_data.csv", "json", "sales_data.json")
-
-# Merge multiple log files
-merge_text_files(
-    input_files=["log1.txt", "log2.txt", "log3.txt"],
-    output_file="combined_logs.txt",
-    delimiter="\n---\n"
-)
+analysis = PasswordGenerator().check_strength(password)
+print(analysis["strength"])
 ```
 
 ## Next Steps
 
-- Read the [CLI Reference](cli-reference.md) for all available commands
+- Read the [CLI Reference](cli-reference.md) for command details
 - Explore the [Python API](api-reference.md) for programmatic usage
-- Check out [examples](https://github.com/ayoub3bidi/swiss-knife/tree/main/examples) in the repository
-- Join the [community discussions](https://github.com/ayoub3bidi/swiss-knife/discussions)
-
-## Getting Help
-
-If you encounter any issues:
-
-1. Check the [troubleshooting section](installation.md#troubleshooting)
-2. Search [existing issues](https://github.com/ayoub3bidi/swiss-knife/issues)
-3. Create a [new issue](https://github.com/ayoub3bidi/swiss-knife/issues/new) if needed
+- Check the [Installation Guide](installation.md) for optional dependencies

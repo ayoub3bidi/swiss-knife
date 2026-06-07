@@ -20,12 +20,8 @@ def validate_path(path: Union[str, Path], must_exist: bool = True) -> Path:
     if must_exist and not path.exists():
         raise ValidationError(f"Path does not exist: {path}")
 
-    # Prevent path traversal attacks
-    try:
-        path.relative_to(Path.cwd())
-    except ValueError:
-        # Allow absolute paths but warn
-        pass
+    # Absolute paths outside cwd are permitted; callers are responsible
+    # for validating that operations are safe for their use case.
 
     return path
 
