@@ -5,8 +5,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 try:
-    import defusedxml
-    defusedxml.defuse_stdlib()  # type: ignore[attr-defined]
+    import defusedxml  # type: ignore[import]
+    defusedxml.defuse_stdlib()
 except ImportError:
     pass  # defusedxml not available, continue with standard library
 

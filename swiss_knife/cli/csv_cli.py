@@ -90,10 +90,13 @@ def main() -> None:
 
         # Convert to desired format
         if args.format == "json":
-            result = converter.to_json(data, **convert_kwargs)
+            pretty = not args.no_pretty
+            result = converter.to_json(data, pretty=pretty)
             extension = ".json"
         elif args.format == "xml":
-            result = converter.to_xml(data, **convert_kwargs)
+            root_tag = str(convert_kwargs.get("root_tag", "data"))
+            row_tag = str(convert_kwargs.get("row_tag", "row"))
+            result = converter.to_xml(data, root_tag=root_tag, row_tag=row_tag)
             extension = ".xml"
 
         # Determine output file
