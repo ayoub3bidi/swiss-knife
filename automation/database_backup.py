@@ -336,6 +336,8 @@ class DatabaseBackup:
         except Exception:
             return None
 
+        return None
+
     def rotate_backups(self) -> None:
         print(f"\n{'=' * 60}")
         print("Rotating backups")

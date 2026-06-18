@@ -155,6 +155,8 @@ class NetworkScanner:
         except Exception:
             return None
 
+        return None
+
     def scan_host(
         self,
         ip: str,
