@@ -62,6 +62,17 @@
       ]
     },
     {
+      "description": "GitHub Actions version updates",
+      "matchDatasources": ["github-actions"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "groupName": "github-actions",
+      "schedule": [
+        "after 9am on Monday"
+      ]
+    },
+    {
       "description": "Testing framework updates",
       "matchDepNames": [
         "pytest",

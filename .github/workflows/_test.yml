@@ -1,0 +1,64 @@
+name: Reusable Test
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        description: "Python version to test against"
+        type: string
+        required: true
+      run-lint:
+        description: "Run ruff linting"
+        type: boolean
+        default: false
+      run-mypy:
+        description: "Run mypy type checking"
+        type: boolean
+        default: false
+      upload-coverage:
+        description: "Upload coverage to Codecov"
+        type: boolean
+        default: false
+    secrets:
+      CODECOV_TOKEN:
+        description: "Codecov upload token"
+        required: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Set up Python ${{ inputs.python-version }}
+      uses: actions/setup-python@v6
+      with:
+        python-version: ${{ inputs.python-version }}
+        cache: pip
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e .[dev,all]
+
+    - name: Lint with ruff
+      if: ${{ inputs.run-lint }}
+      run: ruff check swiss_knife/
+
+    - name: Type check with mypy
+      if: ${{ inputs.run-mypy }}
+      run: mypy swiss_knife/ || true
+
+    - name: Test with pytest
+      run: pytest --disable-warnings -q --cov=swiss_knife --cov-report=xml
+
+    - name: Upload coverage to Codecov
+      if: ${{ inputs.upload-coverage }}
+      uses: codecov/codecov-action@v5
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+        token: ${{ secrets.CODECOV_TOKEN }}
