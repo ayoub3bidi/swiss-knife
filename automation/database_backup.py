@@ -6,15 +6,9 @@ import hashlib
 import json
 import shutil
 import subprocess
-import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
-
-try:
-    HAS_TQDM = True
-except ImportError:
-    HAS_TQDM = False
 
 
 class DatabaseBackup:
@@ -340,9 +334,7 @@ class DatabaseBackup:
                 date_str = parts[-2] + parts[-1]  # YYYYMMDD + HHMMSS
                 return datetime.strptime(date_str, "%Y%m%d%H%M%S")
         except Exception:
-            pass
-
-        return None
+            return None
 
     def rotate_backups(self) -> None:
         print(f"\n{'=' * 60}")

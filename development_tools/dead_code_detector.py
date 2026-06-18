@@ -3,7 +3,6 @@
 import argparse
 import ast
 import json
-import sys
 from collections import defaultdict
 from dataclasses import asdict, dataclass
 from pathlib import Path

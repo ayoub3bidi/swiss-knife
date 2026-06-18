@@ -16,12 +16,7 @@ except ImportError:
     print("Error: psutil not installed. Run: pip install psutil")
     sys.exit(1)
 
-try:
-    from tqdm import tqdm  # noqa: F401
 
-    HAS_TQDM = True
-except ImportError:
-    HAS_TQDM = False
 
 
 class AlertManager:

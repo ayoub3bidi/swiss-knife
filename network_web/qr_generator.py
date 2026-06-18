@@ -182,7 +182,7 @@ class QRGenerator:
 
         try:
             font = ImageFont.truetype("arial.ttf", font_size)
-        except:  # noqa: E722
+        except Exception:
             font = ImageFont.load_default()
 
         # Center text

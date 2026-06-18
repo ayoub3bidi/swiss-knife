@@ -2,18 +2,10 @@
 
 import argparse
 import json
-import sys
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
-
-try:
-    from tqdm import tqdm  # noqa: F401
-
-    HAS_TQDM = True
-except ImportError:
-    HAS_TQDM = False
 
 
 @dataclass
@@ -230,7 +222,7 @@ class DiskAnalyzer:
                         f"{prefix}  ├── {name} ({self._format_size(size)}, {percent:.1f}%)"
                     )
             except Exception:
-                pass
+                _ = None
 
     def print_bar_chart(
         self,

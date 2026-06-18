@@ -1,7 +1,6 @@
 import argparse
 import glob
 import logging
-import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from enum import Enum
@@ -161,7 +160,7 @@ class BatchImageConverter:
                     elif orientation == 8:
                         image = image.rotate(90, expand=True)
         except (AttributeError, KeyError, TypeError):
-            pass
+            _ = None
         return image
 
     def _resize_image(self, image: Image.Image) -> Image.Image:

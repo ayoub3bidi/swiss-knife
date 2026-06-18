@@ -2,7 +2,6 @@
 
 import argparse
 import json
-import sys
 from copy import deepcopy
 from pathlib import Path
 from typing import Any, Dict, Optional

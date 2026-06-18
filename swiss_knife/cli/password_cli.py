@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import sys
 
 from ..automation.password_generator import PasswordGenerator
 from ._common import add_version_argument
@@ -129,7 +130,7 @@ def main() -> None:
 
     except ValueError as e:
         print(f"Error: {e}")
-        exit(1)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

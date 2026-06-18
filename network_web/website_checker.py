@@ -4,7 +4,6 @@ import argparse
 import json
 import socket
 import ssl
-import sys
 import time
 from datetime import datetime
 from pathlib import Path
@@ -70,6 +69,7 @@ class WebsiteChecker:
         """Get SSL certificate information."""
         try:
             context = ssl.create_default_context()
+            context.minimum_version = ssl.TLSVersion.TLSv1_2
             with socket.create_connection(
                 (hostname, port), timeout=self.timeout
             ) as sock:

@@ -31,17 +31,17 @@ class CSVConverter:
             return value.lower() in ("true", "yes", "1")
 
         # Integer
-        try:
-            if "." not in value and "e" not in value.lower():
+        if "." not in value and "e" not in value.lower():
+            try:
                 return int(value)
-        except ValueError:
-            pass
+            except ValueError:
+                _ = None
 
         # Float
         try:
             return float(value)
         except ValueError:
-            pass
+            _ = None
 
         # String (default)
         return value

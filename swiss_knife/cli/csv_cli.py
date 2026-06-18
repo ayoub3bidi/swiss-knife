@@ -91,6 +91,8 @@ def main() -> None:
         data = converter.read_csv(Path(args.input), **read_kwargs)
 
         # Convert to desired format
+        result = ""
+        extension = ""
         if args.format == "json":
             pretty = not args.no_pretty
             result = converter.to_json(data, pretty=pretty)

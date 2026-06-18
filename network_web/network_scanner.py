@@ -7,7 +7,6 @@ import json
 import platform
 import socket
 import subprocess
-import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -118,9 +117,9 @@ class NetworkScanner:
                     sock.send(b"\r\n")
                     banner = sock.recv(1024).decode("utf-8", errors="ignore").strip()
                     return banner[:100] if banner else None
-                except:  # noqa: E722
+                except Exception:
                     return None
-        except:  # noqa: E722
+        except Exception:
             return None
 
     def _get_hostname(self, ip: str) -> Optional[str]:
@@ -153,10 +152,8 @@ class NetworkScanner:
                                 return part
                             if "-" in part and len(part) == 17:
                                 return part.replace("-", ":")
-        except:  # noqa: E722
-            pass
-
-        return None
+        except Exception:
+            return None
 
     def scan_host(
         self,

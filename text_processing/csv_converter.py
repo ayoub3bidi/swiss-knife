@@ -4,7 +4,6 @@ import argparse
 import csv
 import json
 import re
-import sys
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
 from pathlib import Path
@@ -78,17 +77,17 @@ class CSVConverter:
             return False
 
         # Try integer
-        try:
-            if "." not in value and "e" not in value.lower():
+        if "." not in value and "e" not in value.lower():
+            try:
                 return int(value)
-        except ValueError:
-            pass
+            except ValueError:
+                _ = None
 
         # Try float
         try:
             return float(value)
         except ValueError:
-            pass
+            _ = None
 
         return value
 

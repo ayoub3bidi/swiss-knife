@@ -11,10 +11,10 @@ from pathlib import Path
 def read_repo_version() -> str:
     """Return package/repo version from installed metadata or swiss_knife/__init__.py."""
     try:
-        from importlib.metadata import PackageNotFoundError, version
+        from importlib.metadata import version as _version
 
-        return version("swiss-knife-py")
-    except (ImportError, PackageNotFoundError):
+        return _version("swiss-knife-py")
+    except ImportError:
         pass
 
     repo_root = Path(__file__).resolve().parents[1]
