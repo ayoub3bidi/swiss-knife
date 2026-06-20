@@ -7,7 +7,7 @@ name = "swiss-knife-py"
 dynamic = ["version"]
 description = "A comprehensive collection of Python automation tools"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
     {name = "Ayoub Abidi", email = "contact@ayoub3bidi.me"}
 ]
