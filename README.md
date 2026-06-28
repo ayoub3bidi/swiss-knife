@@ -2,10 +2,15 @@
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/ayoub3bidi/swiss-knife/main/logo.png" alt="Swiss Knife Logo" width="100"/> <br/>
-    A Python automation toolkit for file management, text processing, and security utilities.
+    A Python package that provides essential automation tools with a focus on safety, security, and ease of use.
 </p>
 
-**Swiss Knife** is a Python package that provides essential automation tools with a focus on safety, security, and ease of use.
+[![Python versions](https://img.shields.io/pypi/pyversions/swiss-knife-py.svg)](https://pypi.org/project/swiss-knife-py/)
+[![CI](https://github.com/ayoub3bidi/swiss-knife/actions/workflows/ci.yml/badge.svg)](https://github.com/ayoub3bidi/swiss-knife/actions/workflows/ci.yml)
+[![Security](https://github.com/ayoub3bidi/swiss-knife/actions/workflows/security.yml/badge.svg)](https://github.com/ayoub3bidi/swiss-knife/actions/workflows/security.yml)
+[![codecov](https://codecov.io/gh/ayoub3bidi/swiss-knife/branch/main/graph/badge.svg)](https://codecov.io/gh/ayoub3bidi/swiss-knife)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Downloads](https://img.shields.io/pypi/dm/swiss-knife-py.svg)](https://pypi.org/project/swiss-knife-py/)
 
 ## Features
 
