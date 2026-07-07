@@ -1,6 +1,6 @@
 # Python API Reference
 
-Swiss Knife exposes APIs from the installable `swiss_knife` package for file management, CSV conversion, password generation, and shared safety helpers.
+Swiss Knife exposes APIs from the installable `swiss_knife` package for file management, CSV conversion, password generation, and utility helpers.
 
 ## Core
 
@@ -123,6 +123,31 @@ print(analysis["score"])
 ```
 
 Returns a dictionary with score, strength label, character-type booleans, unique character count, and feedback.
+
+## Utilities
+
+```python
+from swiss_knife.utilities import (
+    convert_keys_to_camel_case,
+    decode_base64_text,
+    get_env_bool,
+    get_env_int,
+    get_or_default,
+    is_http_status_code,
+    is_uuid,
+    parse_bool,
+)
+```
+
+`parse_bool(value, default=None)` converts common boolean-like strings such as `yes`, `no`, `1`, and `0`.
+
+`get_env_int`, `get_env_float`, and `get_env_bool` read environment variables and return typed values when parsing succeeds.
+
+`convert_keys_to_camel_case(data)` recursively converts dictionary keys from `snake_case` to `camelCase`.
+
+`decode_base64_text(encoded_data)` decodes UTF-8 base64 content into text.
+
+`is_uuid(value, version=None)` validates UUID strings, and `is_http_status_code(status_code)` checks concrete codes and wildcard classes like `2**`.
 
 ## Examples
 
