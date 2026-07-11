@@ -131,6 +131,7 @@ from swiss_knife.utilities import (
     convert_keys_to_camel_case,
     decode_base64_text,
     get_env_bool,
+    get_env_float,
     get_env_int,
     get_or_default,
     is_http_status_code,
