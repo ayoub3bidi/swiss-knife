@@ -23,7 +23,6 @@ The following sections are used: **Added**, **Changed**, **Deprecated**, **Remov
 
 - Moved standalone scripts from root directories into `scripts/` to clarify package vs repository scope
 - Raised test coverage threshold to 85% (actual: 91%)
-- Modernized `pyproject.toml` license to SPDX string format (`license = "MIT"`)
 
 ### Documentation
 
