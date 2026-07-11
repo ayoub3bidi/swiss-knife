@@ -106,7 +106,7 @@ class TestBulkRenamer:
 
         result = renamer.execute()
 
-        assert result == 0
+        assert result == 1
         assert (self.temp_dir / "IMG_001.jpg").exists()
 
     def test_execute_force(self):
@@ -141,5 +141,5 @@ class TestBulkRenameFunction:
                 r"IMG_(\d+)", r"photo_\1", str(self.temp_dir), dry_run=True
             )
 
-        assert result == 0
+        assert result == 2
         mock_print.assert_called()

@@ -5,7 +5,7 @@ Repository guidance for agents working in this workspace.
 ## Scope
 
 - The installable package is `swiss_knife/` (PyPI name: `swiss-knife-py`, import: `swiss_knife`).
-- Current release: **0.1.2** on PyPI. Base install has **zero runtime dependencies**.
+- Current release: **0.1.3** on PyPI. Base install has **zero runtime dependencies**.
 - Standalone script trees live at the repo root and are **not** installed by `pip install swiss-knife-py`:
   `automation/`, `convert/`, `file_management/`, `network_web/`, `system_utilities/`, `text_processing/`, `utilities/`, `development_tools/`.
 - Do not treat standalone scripts as package APIs. Many mirror or predate the packaged modules under `swiss_knife/`.
@@ -14,8 +14,10 @@ Repository guidance for agents working in this workspace.
 
 ```
 swiss_knife/
-├── __init__.py              # __version__, SafetyError, ValidationError
+├── __init__.py              # __version__, SafetyError, ValidationError + utilities re-exports
 ├── core.py                  # validate_path, safe_filename, confirm_destructive_action, ...
+├── utilities/
+│   └── common.py            # parse_bool, get_env_*, is_empty, is_not_empty, convert_keys_to_camel_case, ...
 ├── automation/
 │   └── password_generator.py
 ├── file_management/
@@ -34,9 +36,11 @@ swiss_knife/
 
 Public re-exports:
 
+- `swiss_knife` (top-level): `SafetyError`, `ValidationError`, `convert_keys_to_camel_case`, `get_env_bool`, `get_env_float`, `get_env_int`, `is_empty`, `is_not_empty`, `parse_bool`
 - `swiss_knife.file_management`: `find_duplicates`, `bulk_rename`, `DuplicateFinder`, `BulkRenamer`
 - `swiss_knife.text_processing`: `convert_csv`, `CSVConverter`
 - `swiss_knife.automation`: `generate_password`, `PasswordGenerator`
+- `swiss_knife.utilities`: 19 helpers including `parse_bool`, `is_empty`, `is_not_empty`, `get_env_int`, `get_env_float`, `get_env_bool`, `convert_keys_to_camel_case`, `decode_base64_text`, `is_uuid`, `is_http_status_code`, and more
 
 ## CLI Entry Points
 
@@ -51,6 +55,16 @@ Defined in `pyproject.toml` under `[project.scripts]`:
 | `sk-rename`      | `swiss_knife.cli.rename_cli`        |
 
 All packaged CLIs support `-V` / `--version` (via `swiss_knife/cli/_common.py`). Use `sk --version` for the package version; per-tool commands print their own prog name with the same version.
+
+## Top-level re-exports
+
+`swiss_knife/__init__.py` re-exports a curated subset of utilities for convenience:
+
+```python
+from swiss_knife import parse_bool, is_empty, is_not_empty, get_env_int, get_env_float, get_env_bool, convert_keys_to_camel_case
+```
+
+The full set of `swiss_knife.utilities` helpers (19 total) includes `decode_base64_text`, `is_uuid`, `is_http_status_code`, `has_value`, `get_or_default`, `delete_if_present`, `is_true`, `is_false`, `is_numeric`, `to_camel_case`, `sanitize_metric_name`, `sanitize_header_name`, and the re-exported ones above.
 
 ## Versioning
 
@@ -105,7 +119,7 @@ python3 -m venv /tmp/sk-test && /tmp/sk-test/bin/pip install 'swiss-knife-py[all
 /tmp/sk-test/bin/sk-rename 'old' 'new' /path/to/dir --dry-run
 ```
 
-As of 0.1.2, all of the above pass when installed from PyPI.
+As of 0.1.3, all of the above pass when installed from PyPI.
 
 ### Developer verification (in-repo)
 
@@ -125,7 +139,7 @@ Install the built wheel into a fresh venv before end-to-end CLI checks when vali
 - Prefer real CLI invocations through installed console scripts.
 - Validate both success paths and error handling (missing paths, invalid input).
 - Keep API checks aligned with what the installable package actually exports.
-- Test suite lives in `tests/`; coverage threshold is 65% (`pyproject.toml`).
+- Test suite lives in `tests/`; coverage threshold is 75% (`pyproject.toml`).
 
 ## Documentation Rules
 
@@ -133,10 +147,11 @@ Install the built wheel into a fresh venv before end-to-end CLI checks when vali
 - PyPI install command is always `swiss-knife-py` (not `swiss-knife` or `swissknife`).
 - Remove claims about non-existent package modules, extras, or CLI commands.
 - Keep README, quickstart, installation, and API reference consistent with `swiss_knife/` contents.
-- Authoritative references: `docs/cli-reference.md`, `docs/api-reference.md`, `docs/quickstart.md`.
+- Authoritative references: `docs/cli-reference.md`, `docs/api-reference.md`, `docs/quickstart.md`, `docs/installation.md`, `docs/ARCHITECTURE.md`, `docs/DEVELOPMENT.md`.
 
 ## CI / Release
 
-- CI (`.github/workflows/ci.yml`): matrix Python 3.8–3.12, ruff, bandit, mypy (non-blocking), pytest with coverage.
-- Release (`.github/workflows/release.yml`): tag `v*` triggers test → build → PyPI publish → GitHub release.
-- Makefile targets: `dev-setup`, `install-dev`, `test`, `test-cov`, `lint`, `format`, `security`, `build`, `validate`, `check-cli`, `ci`, `release-check`.
+- CI (`.github/workflows/ci.yml`): matrix Python 3.8–3.12 via reusable `_test.yml` workflow, ruff, bandit, mypy (non-blocking), pytest with coverage; build + twine check on Python 3.12.
+- Additional workflows: `security.yml` (Semgrep), `labeler.yml` (PR auto-labeling).
+- Release (`.github/workflows/release.yml`): tag `v*` triggers test → build → PyPI publish → GitHub release with auto-generated changelog.
+- Makefile targets: `dev-setup`, `install-dev`, `install-all`, `test`, `test-cov`, `test-fast`, `lint`, `format`, `security`, `typecheck`, `quality`, `build`, `validate`, `check-cli`, `ci`, `release-check`, `demo`, `clean`.

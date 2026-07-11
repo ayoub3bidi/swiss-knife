@@ -133,18 +133,26 @@ def process_files(
 ```
 tests/
 ├── __init__.py
-├── test_core.py              # Core utilities tests
-├── test_duplicate_finder.py  # Module-specific tests
+├── test_core.py
+├── test_utilities.py
+├── test_bulk_renamer.py
+├── test_duplicate_finder.py
 ├── test_csv_converter.py
 ├── test_password_generator.py
-└── conftest.py               # Shared fixtures
+├── test_minimal_coverage.py
+├── test_cli_main.py
+├── test_cli_csv.py
+├── test_cli_duplicate_finder.py
+├── test_cli_password.py
+├── test_cli_rename.py
+└── test_cli_version.py
 ```
 
 ### Writing Tests
 - **Use pytest**: Modern testing framework
 - **Fixtures**: Use `tmp_path` for file operations
 - **Mocking**: Mock external dependencies
-- **Coverage**: Aim for 95%+ on core modules
+- **Coverage**: Minimum 75% overall (enforced by CI)
 
 Example test:
 ```python

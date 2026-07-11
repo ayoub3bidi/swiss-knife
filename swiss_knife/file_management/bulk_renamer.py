@@ -87,13 +87,13 @@ class BulkRenamer:
             force: Skip confirmation prompts
 
         Returns:
-            Number of files renamed
+            Number of files that were renamed (or would be renamed in dry-run mode)
         """
         if not self.operations:
             return 0
 
         if self.dry_run:
-            return 0
+            return len(self.operations)
 
         if not confirm_destructive_action(
             f"Rename {len(self.operations)} files?", force
@@ -130,7 +130,7 @@ def bulk_rename(
         dry_run: Only show what would be renamed
 
     Returns:
-        Number of files renamed (0 for dry run)
+        Number of files that would be renamed (or were renamed when dry_run is False)
     """
     renamer = BulkRenamer(dry_run=dry_run)
     operations = renamer.add_pattern(pattern, replacement, Path(target_dir), recursive)
@@ -139,6 +139,6 @@ def bulk_rename(
         print(f"Would rename {len(operations)} files:")
         for old_path, new_path in operations:
             print(f"  {old_path.name} -> {new_path.name}")
-        return 0
+        return len(operations)
 
     return renamer.execute()

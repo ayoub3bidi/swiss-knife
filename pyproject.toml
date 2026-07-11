@@ -82,7 +82,7 @@ addopts = [
     "--cov=swiss_knife",
     "--cov-report=term-missing",
     "--cov-report=html",
-    "--cov-fail-under=65",
+    "--cov-fail-under=75",
 ]
 
 [tool.coverage.run]

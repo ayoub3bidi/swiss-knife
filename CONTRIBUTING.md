@@ -181,7 +181,7 @@ def process_files(
 
 ### Test Requirements
 
-- **Coverage**: Minimum 65% overall, 95% for core modules
+- **Coverage**: Minimum 75% overall (enforced by CI via `--cov-fail-under`)
 - **Types**: Unit tests, integration tests, CLI tests
 - **Mocking**: Mock external dependencies and I/O operations
 - **Fixtures**: Use pytest fixtures for test data
@@ -354,7 +354,6 @@ For security vulnerabilities:
 ### Recognition
 
 Contributors are recognized through:
-- **Contributors file**: Listed in CONTRIBUTORS.md
 - **Release notes**: Mentioned in changelog
 - **GitHub**: Contributor statistics
 - **Community**: Recognition in discussions

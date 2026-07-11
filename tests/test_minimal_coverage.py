@@ -77,7 +77,7 @@ class TestMinimalCoverage:
 
         result = renamer.execute()
 
-        assert result == 0
+        assert result == 1
         assert test_file.exists()
 
     def test_duplicate_finder_algorithms(self):

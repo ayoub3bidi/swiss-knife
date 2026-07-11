@@ -61,7 +61,7 @@ Parameters:
 - `recursive`: Whether to process subdirectories
 - `dry_run`: Preview changes without renaming files
 
-Returns the number of files renamed. Dry runs return `0`.
+Returns the number of files that would be renamed (dry run) or were renamed (execution).
 
 ## Text Processing
 

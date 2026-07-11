@@ -8,19 +8,18 @@ Swiss Knife is designed as a modular Python package that provides automation too
 
 ```
 swiss_knife/
-├── __init__.py              # Package metadata and version
+├── __init__.py              # Package metadata, version, top-level re-exports
 ├── core.py                  # Core utilities and safety functions
-├── automation/              # Security and automation tools
-│   ├── __init__.py
+├── utilities/
+│   └── common.py            # General-purpose helpers (env parsing, camelCase, etc.)
+├── automation/
 │   └── password_generator.py
-├── file_management/         # File operation tools
-│   ├── __init__.py
+├── file_management/
 │   ├── duplicate_finder.py
 │   └── bulk_renamer.py
-├── text_processing/         # Text manipulation tools
-│   ├── __init__.py
+├── text_processing/
 │   └── csv_converter.py
-└── cli/                     # Command-line interfaces
+└── cli/
     ├── _common.py           # Shared CLI helpers (e.g. --version)
     ├── main.py              # sk (umbrella: version + tool listing)
     ├── duplicate_finder.py  # sk-duplicates
@@ -60,6 +59,17 @@ Provides foundational utilities used across all modules:
 - **Safety Functions**: `confirm_destructive_action()`, `check_file_size_limit()`
 - **Validation**: `validate_path()`, `safe_filename()`
 - **Exception Classes**: `SafetyError`, `ValidationError`
+
+### Utilities Module (`utilities/`)
+General-purpose helpers re-exported at the top level for convenience:
+
+- **Type checks**: `parse_bool()`, `is_empty()`, `is_not_empty()`, `is_numeric()`, `is_true()`, `is_false()`
+- **Environment**: `get_env_int()`, `get_env_float()`, `get_env_bool()`
+- **Data transforms**: `convert_keys_to_camel_case()`, `to_camel_case()`
+- **Sanitizers**: `sanitize_metric_name()`, `sanitize_header_name()`
+- **Validators**: `is_uuid()`, `is_http_status_code()`
+- **Encoding**: `decode_base64_text()`
+- **Mapping helpers**: `has_value()`, `get_or_default()`, `delete_if_present()`
 
 ### API Layer
 Each functional module exposes:
@@ -124,32 +134,19 @@ Error Handling ← Validation ← Safety ← Exception ← I/O Operations
 - Configurable memory limits
 - Efficient data structures
 
-### Concurrency
-- Thread-safe operations where needed
-- Async support for I/O-bound operations (future)
-- Process-based parallelism for CPU-intensive tasks
-
-### Caching
-- Intelligent caching of computed results
-- Cache invalidation strategies
-- Memory-bounded caches
-
 ## Dependencies
 
-### Core Dependencies
-- **Standard Library**: Minimal external dependencies
-- **Type Hints**: `typing` module for Python < 3.9
-
-### Optional Dependencies
-- **Media Processing**: Pillow, pydub (media extras)
-- **Network Operations**: requests, qrcode (network extras)
-- **System Monitoring**: psutil (system extras)
+### Core Package
+- **Zero runtime dependencies** (base install)
+- **Optional**: `defusedxml` for hardened XML handling (`[xml]` / `[all]` extras)
 
 ### Development Dependencies
 - **Testing**: pytest, pytest-cov
 - **Linting**: ruff, mypy
 - **Security**: bandit
-- **Building**: build, twine
+
+### Standalone Scripts (outside `swiss_knife/`)
+The repository root contains standalone script trees (`automation/`, `convert/`, `file_management/`, `network_web/`, `system_utilities/`, `text_processing/`, `utilities/`, `development_tools/`) that are **not** part of the installable package. These may have their own `requirements.txt` files with heavier dependencies (e.g. Pillow, pydub, psutil, qrcode). They are not installed by `pip install swiss-knife-py`.
 
 ## Testing Strategy
 
@@ -157,7 +154,6 @@ Error Handling ← Validation ← Safety ← Exception ← I/O Operations
 - Test individual functions and methods
 - Mock external dependencies
 - Cover edge cases and error conditions
-- Achieve 95%+ coverage for core modules
 
 ### Integration Tests
 - Test module interactions
@@ -181,26 +177,3 @@ Error Handling ← Validation ← Safety ← Exception ← I/O Operations
 
 ### CLI Integration
 - Console script entry points
-- Shell completion support (future)
-- Man page generation (future)
-- Docker image (future)
-
-## Future Architecture Considerations
-
-### Scalability
-- Plugin architecture for third-party extensions
-- Configuration file support
-- Distributed processing capabilities
-- Web API interface
-
-### Monitoring
-- Metrics collection
-- Performance monitoring
-- Error tracking
-- Usage analytics (opt-in)
-
-### Compatibility
-- Backward compatibility guarantees
-- Migration tools for breaking changes
-- Version compatibility matrix
-- Deprecation policies
