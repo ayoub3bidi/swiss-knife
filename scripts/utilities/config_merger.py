@@ -275,7 +275,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Merge and manage configuration files",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -304,7 +303,6 @@ Strategies: override (default), merge (deep), append (lists)
         """,
     )
     add_version_argument(parser, "config_merger", include_long=True)
-
 
     parser.add_argument(
         "files", nargs="+", type=Path, help="Configuration files (first is base)"

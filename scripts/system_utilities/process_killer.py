@@ -304,7 +304,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Kill processes by resource usage with safety features",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -339,7 +338,6 @@ WARNING: Use with extreme caution! Killing processes can cause data loss.
         """,
     )
     add_version_argument(parser, "process_killer", include_long=True)
-
 
     parser.add_argument(
         "--memory-threshold",

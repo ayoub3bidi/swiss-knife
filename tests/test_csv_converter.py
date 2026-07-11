@@ -8,7 +8,6 @@ from swiss_knife.text_processing.csv_converter import CSVConverter, convert_csv
 
 
 class TestCSVConverter:
-
     def test_init(self):
         converter = CSVConverter(max_file_size_mb=50)
         assert converter.max_file_size_mb == 50

@@ -7,7 +7,6 @@ from swiss_knife.cli.rename_cli import main
 
 
 class TestRenameCLI:
-
     def test_rename_dry_run(self, tmp_path, capsys):
         # Create test files
         (tmp_path / "IMG_001.jpg").touch()

@@ -9,7 +9,6 @@ from swiss_knife.automation.password_generator import (
 
 
 class TestPasswordGenerator:
-
     def test_init(self):
         generator = PasswordGenerator()
         assert generator.lowercase == string.ascii_lowercase

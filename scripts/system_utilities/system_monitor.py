@@ -17,8 +17,6 @@ except ImportError:
     sys.exit(1)
 
 
-
-
 class AlertManager:
     def __init__(self, cooldown_seconds: int = 300):
         self.cooldown_seconds = cooldown_seconds
@@ -538,7 +536,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="System Resource Monitor with Alerts",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -564,7 +561,6 @@ Examples:
         """,
     )
     add_version_argument(parser, "system_monitor", include_long=True)
-
 
     parser.add_argument(
         "--cpu-threshold",

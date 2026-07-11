@@ -145,9 +145,7 @@ class TestCLIDuplicateFinder:
 
                     # Verify delete was called with yes=True
                     args, kwargs = mock_delete.call_args
-                    assert (
-                        kwargs.get("force", False) or args[2]
-                    )  # yes parameter
+                    assert kwargs.get("force", False) or args[2]  # yes parameter
 
     def test_main_keep_strategy(self, tmp_path):
         file1 = tmp_path / "file1.txt"

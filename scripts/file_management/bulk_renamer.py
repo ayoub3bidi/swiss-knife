@@ -119,7 +119,8 @@ class BulkRenamer:
                 continue
 
             new_name = self.regex.sub(
-                lambda m: self._expand_replacement(m, file_path), target  # noqa: B023
+                lambda m: self._expand_replacement(m, file_path),
+                target,  # noqa: B023
             )
 
             # Reconstruct full filename
@@ -300,7 +301,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Bulk file renamer with regex pattern matching",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -335,7 +335,6 @@ Special placeholders in replacement:
         """,
     )
     add_version_argument(parser, "bulk_renamer", include_long=True)
-
 
     parser.add_argument("pattern", help="Regex pattern to match")
     parser.add_argument(

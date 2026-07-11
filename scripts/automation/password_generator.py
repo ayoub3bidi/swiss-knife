@@ -12,7 +12,6 @@ from typing import List, Optional
 
 @dataclass
 class PasswordPolicy:
-
     length: int = 16
     min_uppercase: int = 1
     min_lowercase: int = 1
@@ -28,7 +27,6 @@ class PasswordPolicy:
 
 @dataclass
 class PasswordStrength:
-
     score: int  # 0-100
     level: str  # weak, fair, good, strong, excellent
     entropy: float
@@ -569,7 +567,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Generate secure passwords with policy enforcement",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -601,7 +598,6 @@ Examples:
         """,
     )
     add_version_argument(parser, "password_generator", include_long=True)
-
 
     # Generation options
     parser.add_argument(

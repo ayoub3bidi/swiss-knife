@@ -69,7 +69,9 @@ def main() -> None:
 
         # Export to JSON if requested
         if args.export_json:
-            export_data = {h: [str(f) for f in files] for h, files in duplicates.items()}
+            export_data = {
+                h: [str(f) for f in files] for h, files in duplicates.items()
+            }
             with open(args.export_json, "w") as f:
                 json.dump(export_data, f, indent=2)
             print(f"\nResults exported to {args.export_json}")

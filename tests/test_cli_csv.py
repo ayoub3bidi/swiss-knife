@@ -8,7 +8,6 @@ from swiss_knife.cli.csv_cli import main
 
 
 class TestCSVCLI:
-
     def test_csv_to_json_basic(self, tmp_path):
         # Create test CSV
         csv_file = tmp_path / "test.csv"

@@ -7,7 +7,6 @@ from swiss_knife.cli.password_cli import main
 
 
 class TestPasswordCLI:
-
     def test_generate_default_password(self, capsys):
         with patch.object(sys, "argv", ["sk-password"]):
             main()
@@ -26,7 +25,9 @@ class TestPasswordCLI:
         assert len(password) == 20
 
     def test_generate_multiple_passwords(self, capsys):
-        with patch.object(sys, "argv", ["sk-password", "--count", "3", "--length", "10"]):
+        with patch.object(
+            sys, "argv", ["sk-password", "--count", "3", "--length", "10"]
+        ):
             main()
 
         captured = capsys.readouterr()
@@ -37,7 +38,9 @@ class TestPasswordCLI:
         assert len(set(passwords)) == 3
 
     def test_generate_no_symbols(self, capsys):
-        with patch.object(sys, "argv", ["sk-password", "--length", "16", "--no-symbols"]):
+        with patch.object(
+            sys, "argv", ["sk-password", "--length", "16", "--no-symbols"]
+        ):
             main()
 
         captured = capsys.readouterr()

@@ -7,7 +7,7 @@ name = "swiss-knife-py"
 dynamic = ["version"]
 description = "A comprehensive collection of Python automation tools"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
     {name = "Ayoub Abidi", email = "contact@ayoub3bidi.me"}
 ]
@@ -62,7 +62,6 @@ sk-password = "swiss_knife.cli.password_cli:main"
 sk-rename = "swiss_knife.cli.rename_cli:main"
 
 [tool.setuptools]
-license-files = []
 
 [tool.setuptools.packages.find]
 include = ["swiss_knife*"]

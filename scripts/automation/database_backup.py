@@ -474,7 +474,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Automated database backup with compression and rotation",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -503,7 +502,6 @@ Examples:
         """,
     )
     add_version_argument(parser, "database_backup", include_long=True)
-
 
     parser.add_argument(
         "db_type",

@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 The following sections are used: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**, **Security**, and **Breaking** (for changes that are not backward-compatible).
 
+## [0.2.0] - 2026-07-11
+
+### Added
+
+- New `swiss_knife.utilities` module with 19 general-purpose helpers: `parse_bool`, `is_empty`, `is_not_empty`, `is_true`, `is_false`, `is_numeric`, `get_env_int`, `get_env_float`, `get_env_bool`, `has_value`, `get_or_default`, `delete_if_present`, `to_camel_case`, `convert_keys_to_camel_case`, `sanitize_metric_name`, `sanitize_header_name`, `decode_base64_text`, `is_uuid`, `is_http_status_code`
+- Top-level convenience re-exports in `swiss_knife`: `parse_bool`, `is_empty`, `is_not_empty`, `get_env_int`, `get_env_float`, `get_env_bool`, `convert_keys_to_camel_case`
+
+### Fixed
+
+- `bulk_rename()` and `BulkRenamer.execute()` now return file count in dry-run mode instead of always returning 0
+- Removed dead `convert_kwargs` code path in `sk-csv` CLI
+
+### Changed
+
+- Moved standalone scripts from root directories into `scripts/` to clarify package vs repository scope
+- Raised test coverage threshold to 85% (actual: 91%)
+- Modernized `pyproject.toml` license to SPDX string format (`license = "MIT"`)
+
+### Documentation
+
+- Updated README, API reference, and AGENTS.md to document the new `utilities` module
+- Updated `docs/api-reference.md` with `Utilities` section and import examples
+- Updated AGENTS.md with package layout and smoke-test instructions
+
 ## [0.1.3] - 2026-06-20
 
 ### Fixed

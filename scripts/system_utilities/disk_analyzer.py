@@ -392,7 +392,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Analyze disk space usage with visual reports",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -418,7 +417,6 @@ Examples:
         """,
     )
     add_version_argument(parser, "disk_analyzer", include_long=True)
-
 
     parser.add_argument("path", type=Path, help="Directory or file to analyze")
 

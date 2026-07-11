@@ -439,7 +439,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Detect dead code (unused functions, classes, imports) in Python projects",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -473,7 +472,6 @@ Confidence Levels:
         """,
     )
     add_version_argument(parser, "dead_code_detector", include_long=True)
-
 
     parser.add_argument("path", type=Path, help="Directory to analyze")
 

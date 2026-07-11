@@ -66,7 +66,9 @@ def main() -> None:
             return
 
         # Show what will be renamed
-        print(f"{'DRY RUN - ' if args.dry_run else ''}Found {len(operations)} file(s) to rename:")
+        print(
+            f"{'DRY RUN - ' if args.dry_run else ''}Found {len(operations)} file(s) to rename:"
+        )
         for old_path, new_path in operations:
             print(f"  {old_path.name} → {new_path.name}")
 

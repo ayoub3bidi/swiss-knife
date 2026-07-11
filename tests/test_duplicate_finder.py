@@ -7,7 +7,6 @@ from swiss_knife.file_management.duplicate_finder import (
 
 
 class TestDuplicateFinder:
-
     def test_init_valid_algorithm(self):
         finder = DuplicateFinder("sha256", min_size=100)
         assert finder.algorithm == "sha256"

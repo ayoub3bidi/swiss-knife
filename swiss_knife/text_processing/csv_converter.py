@@ -6,6 +6,7 @@ from typing import Any, Dict, List, Optional
 
 try:
     import defusedxml  # type: ignore[import]
+
     defusedxml.defuse_stdlib()
 except ImportError:
     pass  # defusedxml not available, continue with standard library
@@ -184,7 +185,10 @@ class CSVConverter:
 
 
 def convert_csv(
-    input_path: str, output_format: str, output_path: Optional[str] = None, **kwargs: Any
+    input_path: str,
+    output_format: str,
+    output_path: Optional[str] = None,
+    **kwargs: Any,
 ) -> str:
     """
 

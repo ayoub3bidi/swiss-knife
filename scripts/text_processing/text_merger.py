@@ -136,9 +136,7 @@ class TextMerger:
         except UnicodeDecodeError:
             if self.error_handling == "replace":
                 try:
-                    with open(
-                        filepath, encoding=self.encoding, errors="replace"
-                    ) as f:
+                    with open(filepath, encoding=self.encoding, errors="replace") as f:
                         lines = f.readlines()
                     return lines
                 except Exception as e:
@@ -326,7 +324,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Merge multiple text files with customizable delimiters",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -358,7 +355,6 @@ Sort options: name, size, date, extension
         """,
     )
     add_version_argument(parser, "text_merger", include_long=True)
-
 
     parser.add_argument(
         "files", nargs="+", help="Files, directories, or glob patterns to merge"

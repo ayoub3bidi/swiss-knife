@@ -334,7 +334,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Find and manage broken symbolic links",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -357,7 +356,6 @@ Examples:
         """,
     )
     add_version_argument(parser, "broken_symlinks", include_long=True)
-
 
     parser.add_argument(
         "paths", nargs="+", type=Path, help="Directories or symlinks to check"

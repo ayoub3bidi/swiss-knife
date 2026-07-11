@@ -359,7 +359,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Convert Markdown to HTML with syntax highlighting",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -390,7 +389,6 @@ Available themes: default, monokai, github, dracula, solarized-dark, solarized-l
         """,
     )
     add_version_argument(parser, "markdown_converter", include_long=True)
-
 
     parser.add_argument("input", type=Path, help="Input markdown file or directory")
     parser.add_argument(

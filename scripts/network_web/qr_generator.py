@@ -396,7 +396,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Generate QR codes for URLs, WiFi, contacts, and more",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -434,7 +433,6 @@ Examples:
 """,
     )
     add_version_argument(parser, "qr_generator", include_long=False)
-
 
     # Mode selection
     mode = parser.add_mutually_exclusive_group(required=True)

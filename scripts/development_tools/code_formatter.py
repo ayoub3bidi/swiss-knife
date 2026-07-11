@@ -363,7 +363,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Format code files using language-specific formatters",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -409,7 +408,6 @@ Examples:
 """,
     )
     add_version_argument(parser, "code_formatter", include_long=True)
-
 
     parser.add_argument(
         "paths", nargs="+", type=Path, help="Files or directories to format"

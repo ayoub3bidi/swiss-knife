@@ -400,7 +400,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Scan local network for devices and open ports",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -434,7 +433,6 @@ COMMON NETWORKS:
 """,
     )
     add_version_argument(parser, "network_scanner", include_long=True)
-
 
     # Scan target
     target = parser.add_mutually_exclusive_group(required=True)

@@ -68,7 +68,9 @@ class DuplicateFinder:
                     continue  # Skip files we can't read
 
         # Return only groups with duplicates
-        duplicates = {h: sorted(files) for h, files in file_hashes.items() if len(files) > 1}
+        duplicates = {
+            h: sorted(files) for h, files in file_hashes.items() if len(files) > 1
+        }
         return duplicates
 
     def delete_duplicates(

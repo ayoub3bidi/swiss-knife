@@ -421,7 +421,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Batch convert and resize images between different formats",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -435,7 +434,6 @@ Examples:
         """,
     )
     add_version_argument(parser, "batch_image_converter", include_long=True)
-
 
     parser.add_argument(
         "files", nargs="+", help="Image files, directories, or glob patterns to process"

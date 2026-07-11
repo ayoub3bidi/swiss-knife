@@ -508,7 +508,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Analyze word frequency in text files",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -540,7 +539,6 @@ Examples:
         """,
     )
     add_version_argument(parser, "word_frequency", include_long=True)
-
 
     parser.add_argument("input", type=Path, help="Input file or directory")
 

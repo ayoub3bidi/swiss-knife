@@ -248,7 +248,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Manage environment variables and .env files",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -289,7 +288,6 @@ Template format (JSON):
         """,
     )
     add_version_argument(parser, "env_manager", include_long=True)
-
 
     parser.add_argument("--validate", type=Path, help="Validate .env file")
     parser.add_argument("--template", type=Path, help="Template file (JSON)")

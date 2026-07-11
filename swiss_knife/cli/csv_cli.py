@@ -21,7 +21,9 @@ def main() -> None:
         help="Output format (default: json)",
     )
     parser.add_argument(
-        "--output", "-o", help="Output file path (default: input file with new extension)"
+        "--output",
+        "-o",
+        help="Output file path (default: input file with new extension)",
     )
     parser.add_argument(
         "--delimiter",
@@ -89,7 +91,9 @@ def main() -> None:
             result = converter.to_json(data, pretty=not args.no_pretty)
             extension = ".json"
         elif args.format == "xml":
-            result = converter.to_xml(data, root_tag=args.root_tag, row_tag=args.row_tag)
+            result = converter.to_xml(
+                data, root_tag=args.root_tag, row_tag=args.row_tag
+            )
             extension = ".xml"
 
         # Determine output file

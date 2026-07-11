@@ -287,7 +287,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Generate formatted Excel reports from data",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -326,7 +325,6 @@ Config file format (JSON):
         """,
     )
     add_version_argument(parser, "excel_report_generator", include_long=True)
-
 
     parser.add_argument(
         "input", nargs="?", type=Path, help="Input data file (CSV or JSON)"

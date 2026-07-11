@@ -599,7 +599,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Inject, update, or remove license headers in source code files",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -630,7 +629,6 @@ Available licenses: mit, apache, gpl3, bsd3, isc, unlicense, custom
         """,
     )
     add_version_argument(parser, "licence_header_injector", include_long=True)
-
 
     parser.add_argument(
         "paths", nargs="+", type=Path, help="Files or directories to process"

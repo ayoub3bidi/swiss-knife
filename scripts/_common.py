@@ -29,7 +29,11 @@ def read_repo_version() -> str:
 
     pyproject = repo_root / "pyproject.toml"
     if pyproject.is_file():
-        match = re.search(r'^version\s*=\s*"([^"]+)"', pyproject.read_text(encoding="utf-8"), re.MULTILINE)
+        match = re.search(
+            r'^version\s*=\s*"([^"]+)"',
+            pyproject.read_text(encoding="utf-8"),
+            re.MULTILINE,
+        )
         if match:
             return match.group(1)
 

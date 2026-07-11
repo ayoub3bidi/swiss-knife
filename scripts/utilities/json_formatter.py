@@ -92,7 +92,6 @@ class JSONFormatter:
         indent: int = 2,
         backup: bool = False,
     ) -> bool:
-
         # Read input
         data, error = self.read_json(input_path)
         if error:
@@ -140,7 +139,6 @@ class JSONFormatter:
         recursive: bool = False,
         backup: bool = False,
     ) -> None:
-
         pattern = "**/*.json" if recursive else "*.json"
         json_files = list(directory.glob(pattern))
 
@@ -170,7 +168,6 @@ class JSONFormatter:
     def convert_format(
         self, input_path: Path, output_path: Path, input_format: str, output_format: str
     ) -> bool:
-
         # Read data based on input format
         if input_format == "json":
             data, error = self.read_json(input_path)
@@ -202,7 +199,6 @@ class JSONFormatter:
     def merge_files(
         self, input_files: List[Path], output_path: Path, as_array: bool = True
     ) -> bool:
-
         merged_data = [] if as_array else {}
 
         print(f"Merging {len(input_files)} file(s)...")
@@ -255,7 +251,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Format, validate, and manipulate JSON files",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -290,7 +285,6 @@ Examples:
         """,
     )
     add_version_argument(parser, "json_formatter", include_long=True)
-
 
     parser.add_argument(
         "input", nargs="+", type=Path, help="Input JSON file(s) or directory"

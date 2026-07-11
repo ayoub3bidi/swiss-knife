@@ -13,7 +13,6 @@ from swiss_knife.core import (
 
 
 class TestCoreUtilities:
-
     def test_validate_path_existing_file(self, tmp_path):
         test_file = tmp_path / "test.txt"
         test_file.write_text("content")

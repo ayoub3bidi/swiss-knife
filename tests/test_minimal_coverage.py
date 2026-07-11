@@ -8,7 +8,6 @@ from swiss_knife.text_processing.csv_converter import CSVConverter
 
 
 class TestMinimalCoverage:
-
     def setup_method(self):
         self.temp_dir = Path(tempfile.mkdtemp())
 

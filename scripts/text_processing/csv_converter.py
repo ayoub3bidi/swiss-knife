@@ -263,7 +263,6 @@ def main():
         sys.path.insert(0, str(repo_root))
     from scripts._common import add_version_argument
 
-
     parser = argparse.ArgumentParser(
         description="Convert CSV files to JSON or XML format",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -292,7 +291,6 @@ Examples:
         """,
     )
     add_version_argument(parser, "csv_converter", include_long=True)
-
 
     parser.add_argument("input", type=Path, help="Input CSV file")
     parser.add_argument(

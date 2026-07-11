@@ -9,7 +9,6 @@ from swiss_knife.file_management.bulk_renamer import BulkRenamer, bulk_rename
 
 
 class TestBulkRenamer:
-
     def setup_method(self):
         self.temp_dir = Path(tempfile.mkdtemp())
         self.renamer = BulkRenamer(dry_run=False)
@@ -120,7 +119,6 @@ class TestBulkRenamer:
 
 
 class TestBulkRenameFunction:
-
     def setup_method(self):
         self.temp_dir = Path(tempfile.mkdtemp())
 
