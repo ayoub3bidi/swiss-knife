@@ -119,7 +119,8 @@ def get_or_default(
 ) -> Any:
     if not has_value(mapping, key):
         return default
-    assert mapping is not None
+    if mapping is None:
+        return default
     return mapping[key]
 
 

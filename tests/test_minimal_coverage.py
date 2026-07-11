@@ -1,6 +1,5 @@
 import tempfile
 from pathlib import Path
-from unittest.mock import patch
 
 from swiss_knife.automation.password_generator import PasswordGenerator
 from swiss_knife.file_management.bulk_renamer import BulkRenamer
@@ -76,11 +75,10 @@ class TestMinimalCoverage:
 
         renamer.add_pattern(r"IMG_(\d+)", r"photo_\1", self.temp_dir, False)
 
-        with patch("builtins.print") as mock_print:
-            result = renamer.execute()
+        result = renamer.execute()
 
         assert result == 0
-        mock_print.assert_called()
+        assert test_file.exists()
 
     def test_duplicate_finder_algorithms(self):
         for algorithm in ["md5", "sha1", "sha256"]:

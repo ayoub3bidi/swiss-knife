@@ -79,14 +79,6 @@ def main() -> None:
             "infer_types": not args.no_infer_types,
         }
 
-        # Prepare kwargs for conversion
-        convert_kwargs = {}
-        if args.format == "json":
-            convert_kwargs["pretty"] = not args.no_pretty
-        elif args.format == "xml":
-            convert_kwargs["root_tag"] = args.root_tag
-            convert_kwargs["row_tag"] = args.row_tag
-
         # Read CSV
         data = converter.read_csv(Path(args.input), **read_kwargs)
 
@@ -94,13 +86,10 @@ def main() -> None:
         result = ""
         extension = ""
         if args.format == "json":
-            pretty = not args.no_pretty
-            result = converter.to_json(data, pretty=pretty)
+            result = converter.to_json(data, pretty=not args.no_pretty)
             extension = ".json"
         elif args.format == "xml":
-            root_tag = str(convert_kwargs.get("root_tag", "data"))
-            row_tag = str(convert_kwargs.get("row_tag", "row"))
-            result = converter.to_xml(data, root_tag=root_tag, row_tag=row_tag)
+            result = converter.to_xml(data, root_tag=args.root_tag, row_tag=args.row_tag)
             extension = ".xml"
 
         # Determine output file

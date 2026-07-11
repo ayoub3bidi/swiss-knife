@@ -93,9 +93,6 @@ class BulkRenamer:
             return 0
 
         if self.dry_run:
-            print("DRY RUN - No files will be renamed:")
-            for old_path, new_path in self.operations:
-                print(f"  {old_path.name} -> {new_path.name}")
             return 0
 
         if not confirm_destructive_action(

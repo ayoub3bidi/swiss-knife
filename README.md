@@ -51,7 +51,7 @@ pip install swiss-knife-py[dev]
 
 ```bash
 # Find duplicate files
-sk-duplicates ~/Documents --algorithm sha256 --min-size 1MB
+sk-duplicates ~/Documents --algorithm sha256 --min-size 1048576
 
 # Convert CSV to JSON
 sk-csv data.csv --format json --output data.json --pretty

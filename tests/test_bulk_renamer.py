@@ -104,11 +104,10 @@ class TestBulkRenamer:
         renamer = BulkRenamer(dry_run=True)
         renamer.add_pattern(r"IMG_(\d+)", r"photo_\1", self.temp_dir, False)
 
-        with patch("builtins.print") as mock_print:
-            result = renamer.execute()
+        result = renamer.execute()
 
         assert result == 0
-        mock_print.assert_called()
+        assert (self.temp_dir / "IMG_001.jpg").exists()
 
     def test_execute_force(self):
         self.create_test_files(["IMG_001.jpg"])

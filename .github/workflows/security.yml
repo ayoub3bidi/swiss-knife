@@ -41,7 +41,7 @@ jobs:
       continue-on-error: true
 
     - name: Upload Bandit Results
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       if: always()
       with:
         name: bandit-results
@@ -70,7 +70,7 @@ jobs:
         safety check --json --output safety-report.json || true
 
     - name: Upload Safety Results
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       if: always()
       with:
         name: safety-results
@@ -170,7 +170,7 @@ jobs:
 
     steps:
     - name: Download all artifacts
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v8
 
     - name: Security Summary
       run: |
