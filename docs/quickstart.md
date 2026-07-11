@@ -14,6 +14,8 @@ Check the installed version:
 sk --version
 ```
 
+> **Note on the `sk` command:** The `sk` name may conflict with other tools (e.g. Sketch on macOS). See the [Installation Guide](installation.md#basic-installation) for details.
+
 ## Command Line Usage
 
 ### Find Duplicate Files

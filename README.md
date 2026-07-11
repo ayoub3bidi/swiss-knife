@@ -30,7 +30,20 @@
 
 ## Standalone Scripts
 
-This repository also contains standalone scripts in `automation/`, `convert/`, `file_management/`, `network_web/`, `system_utilities/`, `text_processing/`, `utilities/`, and `development_tools/`. These scripts are not installed by `pip install swiss-knife-py`; use the separate requirements files in those directories when running them directly from the repository.
+The `scripts/` directory contains standalone scripts that are **not** part of the installable package. They are not installed by `pip install swiss-knife-py` and may have their own `requirements.txt` files with heavier dependencies (e.g. Pillow, pydub, psutil, qrcode). These scripts predate the packaged modules, have **not been audited for divergence**, and overlap with functionality now provided by `swiss_knife.*`. Use the installable package for the supported API and CLI tools listed above.
+
+| Directory | Contents |
+|---|---|
+| `scripts/automation/` | Standalone automation scripts |
+| `scripts/convert/` | File format conversion utilities |
+| `scripts/development_tools/` | Developer workflow helpers |
+| `scripts/file_management/` | File operations (predates the packaged `file_management` module) |
+| `scripts/network_web/` | Networking and web utilities |
+| `scripts/system_utilities/` | System administration scripts |
+| `scripts/text_processing/` | Text transformation scripts (predates the packaged `text_processing` module) |
+| `scripts/utilities/` | General-purpose helpers (predates the packaged `utilities` module) |
+
+Each subdirectory has its own README. These scripts are retained for reference and standalone use; the packaged modules under `swiss_knife/` are the maintained, tested, and recommended APIs.
 
 ## Quick Start
 
@@ -46,6 +59,8 @@ pip install swiss-knife-py[xml]
 # With development tools
 pip install swiss-knife-py[dev]
 ```
+
+> **Note on the `sk` command:** The `sk` name may conflict with other tools (e.g. Sketch on macOS). See the [Installation Guide](docs/installation.md#basic-installation) for details.
 
 ### Command Line Usage
 

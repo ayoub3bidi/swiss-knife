@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+The following sections are used: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**, **Security**, and **Breaking** (for changes that are not backward-compatible).
+
 ## [0.1.3] - 2026-06-20
 
 ### Fixed
@@ -117,7 +119,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Testing
 - Comprehensive test suite with pytest
-- Code coverage tracking (68%+ overall)
+- Code coverage tracking (68%+ at launch; threshold since raised to 85%)
 - Tests for all core modules and CLI tools
 - Mock-based testing for external I/O
 

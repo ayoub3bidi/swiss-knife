@@ -102,8 +102,8 @@ Error Handling ← Validation ← Safety ← Exception ← I/O Operations
 ### Safe Operations
 1. **Confirmation Prompts**: All destructive operations require confirmation
 2. **Dry Run Mode**: Preview operations before execution
-3. **Atomic Operations**: Operations are atomic where possible
-4. **Rollback Capability**: Failed operations don't leave partial state
+3. **Atomic Operations**: Operations are atomic where possible (best-effort; not all I/O can be made atomic on every filesystem)
+4. **Failure Isolation**: Operations are designed to fail cleanly — partial results are not silently committed, and error paths avoid leaving orphaned state where feasible
 
 ### Error Handling
 1. **Structured Exceptions**: Custom exception hierarchy
@@ -145,8 +145,10 @@ Error Handling ← Validation ← Safety ← Exception ← I/O Operations
 - **Linting**: ruff, mypy
 - **Security**: bandit
 
-### Standalone Scripts (outside `swiss_knife/`)
-The repository root contains standalone script trees (`automation/`, `convert/`, `file_management/`, `network_web/`, `system_utilities/`, `text_processing/`, `utilities/`, `development_tools/`) that are **not** part of the installable package. These may have their own `requirements.txt` files with heavier dependencies (e.g. Pillow, pydub, psutil, qrcode). They are not installed by `pip install swiss-knife-py`.
+### Standalone Scripts (`scripts/`)
+The `scripts/` directory contains standalone script trees (`scripts/automation/`, `scripts/convert/`, `scripts/file_management/`, `scripts/network_web/`, `scripts/system_utilities/`, `scripts/text_processing/`, `scripts/utilities/`, `scripts/development_tools/`) that are **not** part of the installable package. These may have their own `requirements.txt` files with heavier dependencies (e.g. Pillow, pydub, psutil, qrcode). They are not installed by `pip install swiss-knife-py`.
+
+These scripts predate the packaged modules and have **not been audited for divergence**. Some (e.g. `scripts/file_management/`, `scripts/text_processing/`, `scripts/utilities/`) overlap with or duplicate functionality now provided by `swiss_knife.*`. They are retained for reference and standalone use; the packaged modules are the maintained, tested, and recommended APIs. CI does not enforce that standalone scripts avoid importing `swiss_knife` internals — treat them as independent artifacts.
 
 ## Testing Strategy
 

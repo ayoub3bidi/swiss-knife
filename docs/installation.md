@@ -13,7 +13,7 @@ Install Swiss Knife using pip:
 pip install swiss-knife-py
 ```
 
-> **Note:** The `sk` command is a short name that may conflict with other tools (e.g. Sketch). If `which sk` does not point to Swiss Knife, use the full tool names (`sk-duplicates`, `sk-password`, etc.) or check the version with `sk-duplicates --version`.
+> **Note:** The `sk` command is a short name that may conflict with other tools (e.g. Sketch on macOS). If `which sk` does not point to Swiss Knife, use the individual tool names (`sk-duplicates`, `sk-csv`, `sk-password`, `sk-rename`) instead. Verify with `sk-duplicates --version`.
 
 ## Installation with Optional Dependencies
 

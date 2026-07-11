@@ -6,8 +6,8 @@ Repository guidance for agents working in this workspace.
 
 - The installable package is `swiss_knife/` (PyPI name: `swiss-knife-py`, import: `swiss_knife`).
 - Current release: **0.1.3** on PyPI. Base install has **zero runtime dependencies**.
-- Standalone script trees live at the repo root and are **not** installed by `pip install swiss-knife-py`:
-  `automation/`, `convert/`, `file_management/`, `network_web/`, `system_utilities/`, `text_processing/`, `utilities/`, `development_tools/`.
+- Standalone script trees live under `scripts/` and are **not** installed by `pip install swiss-knife-py`:
+  `scripts/automation/`, `scripts/convert/`, `scripts/file_management/`, `scripts/network_web/`, `scripts/system_utilities/`, `scripts/text_processing/`, `scripts/utilities/`, `scripts/development_tools/`.
 - Do not treat standalone scripts as package APIs. Many mirror or predate the packaged modules under `swiss_knife/`.
 
 ## Package Layout
@@ -70,7 +70,7 @@ The full set of `swiss_knife.utilities` helpers (19 total) includes `decode_base
 
 - **Canonical version string:** `swiss_knife/__init__.py` → `__version__`
 - **Build metadata:** `pyproject.toml` uses `dynamic = ["version"]` with `version = {attr = "swiss_knife.__version__"}`
-- **Standalone scripts:** `scripts/_common.py` reads the same version from installed metadata or `__init__.py`
+- **Standalone scripts:** `scripts/_common.py` reads the same version from installed metadata or `swiss_knife/__init__.py`
 - Bump only `__version__` in `__init__.py` when releasing; never duplicate a static version in `pyproject.toml`
 
 ## Optional Dependencies
@@ -139,7 +139,7 @@ Install the built wheel into a fresh venv before end-to-end CLI checks when vali
 - Prefer real CLI invocations through installed console scripts.
 - Validate both success paths and error handling (missing paths, invalid input).
 - Keep API checks aligned with what the installable package actually exports.
-- Test suite lives in `tests/`; coverage threshold is 75% (`pyproject.toml`).
+- Test suite lives in `tests/`; coverage threshold is 85% (`pyproject.toml`).
 
 ## Documentation Rules
 

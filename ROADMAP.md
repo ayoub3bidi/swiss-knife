@@ -6,7 +6,7 @@ Future ideas and planned improvements for Swiss Knife. Items here are not commit
 
 - Shell completion support (bash, zsh, fish)
 - Man page generation
-- Subcommand-based `sk` interface (e.g. `sk duplicates`, `sk csv`)
+- **Breaking change candidate:** Subcommand-based `sk` interface (e.g. `sk duplicates`, `sk csv`) — would replace the current flat multi-binary design (`sk-duplicates`, `sk-csv`, etc.), requiring changes to all CLI scripts, automation, and documented examples. Requires a major version bump and deprecation period if pursued. The current `sk` entry point only exposes `--version` and `--help`; a subcommand model would give it real dispatching value.
 
 ## Packaging
 
